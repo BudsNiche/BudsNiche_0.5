@@ -1,0 +1,246 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>BudsNiche — Daily Check-In</title>
+  <meta name="description" content="BudsNiche: your daily check-in for weather, motivation, hot takes, niche knowledge, and the daily game." />
+  <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="brand-wrap">
+      <a class="brand" href="#top" aria-label="BudsNiche home">
+        <span class="brand-mark">BN</span>
+        <span>BudsNiche</span>
+      </a>
+      <span class="tagline">Your 5-minute daily check-in.</span>
+    </div>
+    <nav>
+      <a href="#check-in">Check-In</a>
+      <a href="#poll">Hot Take</a>
+      <a href="#question">Discussion</a>
+      <a href="#game">Play</a>
+    </nav>
+  </header>
+
+  <main id="top">
+    <section class="hero">
+      <div>
+        <p class="eyebrow" id="todayLabel">Today</p>
+        <h1>Wake up. Check in. Get a little smarter.</h1>
+        <p class="hero-copy">
+          Weather, a verse, motivation, a quick hot take, something worth knowing,
+          and today’s BudsNiche game.
+        </p>
+        <div class="hero-actions">
+          <a class="button primary" href="#game">Play Today's BudsNiche</a>
+          <a class="button secondary" href="#check-in">Start Daily Check-In</a>
+        </div>
+      </div>
+      <div class="streak-card">
+        <span class="streak-icon">☀️</span>
+        <div>
+          <small>Daily Check-In Streak</small>
+          <strong><span id="checkinStreak">1</span> days</strong>
+        </div>
+      </div>
+    </section>
+
+    <section id="check-in" class="section">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">Daily Check-In</p>
+          <h2>Good morning.</h2>
+        </div>
+        <span class="pill" id="dataStatus">Connecting...</span>
+      </div>
+
+      <div class="check-grid">
+        <article class="card weather-card">
+          <div class="card-topline">
+            <span>Weather</span>
+            <span class="muted">Ames, IA • demo</span>
+          </div>
+          <div class="weather-main">
+            <span class="weather-temp">72°</span>
+            <div>
+              <strong>Partly cloudy</strong>
+              <p>High 78° • Low 59°</p>
+            </div>
+          </div>
+          <p class="muted small">Live local weather will be connected later.</p>
+        </article>
+
+        <article class="card">
+          <div class="card-topline"><span>Verse of the Day</span><span>📖</span></div>
+          <blockquote id="bibleVerse">Loading today’s verse...</blockquote>
+          <p class="verse-ref" id="bibleReference"></p>
+        </article>
+
+        <article class="card">
+          <div class="card-topline"><span>Daily Motivation</span><span>⚡</span></div>
+          <p class="quote" id="motivationText">Loading today’s motivation...</p>
+          <p class="muted small">BudsNiche Daily</p>
+        </article>
+
+        <article class="card">
+          <div class="card-topline"><span>Fact of the Day</span><span>🧠</span></div>
+          <p class="quote" id="factText">Loading today’s fact...</p>
+          <p class="muted small">One little thing to know before your day starts.</p>
+        </article>
+      </div>
+    </section>
+
+    <section id="poll" class="section">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">Makai's Hot Take</p>
+          <h2>Vote before you see the crowd.</h2>
+        </div>
+      </div>
+
+      <article class="poll-card">
+        <p class="poll-question" id="hotTakeText">Loading today’s hot take...</p>
+        <div class="poll-actions" id="pollActions">
+          <button class="button primary vote-btn" data-vote="agree">Agree</button>
+          <button class="button secondary vote-btn" data-vote="disagree">Disagree</button>
+        </div>
+        <div class="poll-results hidden" id="pollResults" aria-live="polite">
+          <div class="poll-row">
+            <div class="poll-label"><span>Agree</span><strong id="agreePercent">68%</strong></div>
+            <div class="bar"><span id="agreeBar" style="width:68%"></span></div>
+          </div>
+          <div class="poll-row">
+            <div class="poll-label"><span>Disagree</span><strong id="disagreePercent">32%</strong></div>
+            <div class="bar"><span id="disagreeBar" style="width:32%"></span></div>
+          </div>
+          <p class="muted small" id="pollMeta">Prototype totals shown locally. Real shared voting comes next.</p>
+        </div>
+      </article>
+    </section>
+
+    <section id="question" class="section">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">Today's Discussion</p>
+          <h2>What do the Buds think?</h2>
+        </div>
+        <span class="pill" id="discussionCount">0 posts</span>
+      </div>
+
+      <article class="discussion-card">
+        <p class="poll-question" id="questionText">Loading today’s question...</p>
+
+        <form id="discussionForm" class="discussion-form">
+          <div class="discussion-fields">
+            <label>
+              Your name
+              <input id="discussionName" maxlength="30" autocomplete="nickname" placeholder="Your name" required />
+            </label>
+
+            <label class="discussion-response-field">
+              Your answer
+              <textarea id="discussionResponse" maxlength="500" placeholder="What do you think?" required></textarea>
+            </label>
+          </div>
+
+          <div class="discussion-submit-row">
+            <button class="button primary" id="discussionSubmit" type="submit">Post Answer</button>
+            <span class="muted small" id="discussionStatus">Your answer will be visible to everyone.</span>
+          </div>
+        </form>
+
+        <div class="discussion-divider"></div>
+
+        <div id="discussionFeed" class="discussion-feed" aria-live="polite">
+          <p class="muted">Loading today’s discussion...</p>
+        </div>
+      </article>
+    </section>
+
+    <section class="section">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">What You Should Know Today</p>
+          <h2>Quick, not overwhelming.</h2>
+        </div>
+      </div>
+      <div class="news-grid">
+        <article class="mini-card">
+          <span class="news-tag">World</span>
+          <h3>Live headline feed goes here.</h3>
+          <p>Later, BudsNiche can pull a few short verified headlines automatically.</p>
+        </article>
+        <article class="mini-card">
+          <span class="news-tag">Sports</span>
+          <h3>One thing worth knowing.</h3>
+          <p>No endless feed — just a few useful updates before you play.</p>
+        </article>
+        <article class="mini-card">
+          <span class="news-tag">Science / Culture</span>
+          <h3>Something interesting.</h3>
+          <p>This section can rotate based on what matters that morning.</p>
+        </article>
+      </div>
+    </section>
+
+    <section id="game" class="section game-section">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">Today's BudsNiche</p>
+          <h2>How niche is your knowledge?</h2>
+          <p class="muted">4 answers. 45 seconds. Obvious answers score low. Deep knowledge scores big.</p>
+        </div>
+        <div class="game-score">
+          <small>Total</small>
+          <strong><span id="totalScore">0</span> / 1200</strong>
+        </div>
+      </div>
+
+      <article class="game-card">
+        <div class="game-status">
+          <div>
+            <span class="category" id="categoryLabel">World / Food</span>
+            <h3 id="topicLabel">Chick-fil-A</h3>
+          </div>
+          <div class="timer-wrap">
+            <span>Time</span>
+            <strong id="timer">45</strong>
+          </div>
+        </div>
+
+        <form id="answerForm">
+          <div class="answer-grid">
+            <label>Answer 1<input autocomplete="off" maxlength="60" name="answer1" placeholder="Type something niche..." /></label>
+            <label>Answer 2<input autocomplete="off" maxlength="60" name="answer2" placeholder="Type something niche..." /></label>
+            <label>Answer 3<input autocomplete="off" maxlength="60" name="answer3" placeholder="Type something niche..." /></label>
+            <label>Answer 4<input autocomplete="off" maxlength="60" name="answer4" placeholder="Type something niche..." /></label>
+          </div>
+          <div class="game-actions">
+            <button class="button primary" type="submit" id="submitAnswers">Submit 4 Answers</button>
+            <button class="button secondary" type="button" id="startRound">Start / Restart Timer</button>
+          </div>
+        </form>
+
+        <div id="roundResults" class="round-results hidden" aria-live="polite"></div>
+      </article>
+
+      <div class="game-footer">
+        <p class="muted small">
+          Game scoring is still the prototype version. The real BudsNiche Judge will be connected after the database connection is proven.
+        </p>
+        <button class="button secondary hidden" id="nextRound" type="button">Next Category</button>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <strong>BudsNiche</strong>
+    <span>Daily check-in • Daily game • Daily niche</span>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
