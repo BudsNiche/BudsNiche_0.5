@@ -1,0 +1,474 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>BudsNiche — Daily Check-In</title>
+  <meta name="description" content="BudsNiche is your daily check-in for weather, verse, goal, news, polls, discussion, and the daily niche game." />
+  <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-inner">
+    <a class="brand" href="#top">
+      <span class="brand-mark">BN</span>
+      <span>BudsNiche</span>
+    </a>
+
+    <div class="search">Search BudsNiche someday...</div>
+
+    <div class="header-actions">
+      <button class="header-button" type="button" data-modal="whyModal">About</button>
+      <button class="header-button" type="button" data-modal="feedbackModal">Feedback</button>
+      <button class="header-button primary" id="topGameButton" type="button">Play</button>
+    </div>
+  </div>
+</header>
+
+<div class="shell" id="top">
+
+  <aside class="left-rail">
+    <section class="widget">
+      <div class="widget-title">Daily Progress</div>
+      <strong class="big-widget-number" id="dailyProgressNumber">1 / 8</strong>
+      <p>Keep moving down today’s path.</p>
+      <div class="progress-line"><span id="dailyProgressBar"></span></div>
+      <p class="widget-small" id="dailyProgressLabel">currently: CHECK IN</p>
+    </section>
+
+    <section class="widget">
+      <div class="widget-title">Your Streak</div>
+      <strong class="big-widget-number" id="checkinStreak">1</strong>
+      <p>consecutive BudsNiche check-ins</p>
+    </section>
+
+    <section class="widget">
+      <div class="widget-title">Quick Links</div>
+      <div class="widget-links">
+        <a class="widget-link" href="#today">Today</a>
+        <a class="widget-link" href="#vote">My Hot Take</a>
+        <a class="widget-link" href="#discussion">Discussion</a>
+        <a class="widget-link" href="#game-launch">Daily Game</a>
+      </div>
+    </section>
+
+    <section class="widget custom-slot">
+      <div class="widget-title">Custom Slot 01</div>
+      <div class="slot">Song, photo, sponsor, link, joke, announcement — whatever you want that day.</div>
+    </section>
+  </aside>
+
+  <main class="center-feed">
+    <div class="mobile-widget-row">
+      <div class="mobile-mini"><small>streak</small><strong><span class="mobile-streak">daily</span></strong></div>
+      <div class="mobile-mini"><small>weather</small><strong>72°</strong></div>
+      <div class="mobile-mini"><small>status</small><strong>live</strong></div>
+    </div>
+
+    <section class="path-intro">
+      <p class="eyebrow">Your daily check-in</p>
+      <h1>BudsNiche</h1>
+      <p>Check the day, get something useful, see what people think, talk about something, then decide if you want to play.</p>
+      <div class="intro-meta">
+        <span class="meta-chip" id="issueDate">TODAY</span>
+        <span class="meta-chip">AMES, IA</span>
+        <span class="meta-chip" id="dataStatus">connecting...</span>
+      </div>
+    </section>
+
+    <div class="path-area">
+      <div class="path-track"></div>
+      <div class="path-fill" id="pathFill"></div>
+
+      <section class="path-step" data-step data-label="CHECK IN">
+        <span class="path-dot"></span>
+        <article class="feed-card">
+          <div class="card-topline">
+            <strong>Check In</strong>
+            <span>CHECK_IN.LOG</span>
+          </div>
+          <div class="card-body">
+            <div class="stat-row">
+              <div>
+                <div class="stat-main"><span class="streak-mirror">daily</span></div>
+                <p>day streak</p>
+              </div>
+              <div>
+                <h3>Good morning.</h3>
+                <p>You showed up again. Keep the streak alive.</p>
+              </div>
+            </div>
+          </div>
+        </article>
+      </section>
+
+      <section class="path-step" data-step data-label="TODAY" id="today">
+        <span class="path-dot"></span>
+        <article class="feed-card">
+          <div class="card-topline">
+            <strong>Today</strong>
+            <span>TODAY.DAT</span>
+          </div>
+          <div class="card-body">
+            <h2 id="todayLabel">Today</h2>
+            <div class="weather-row">
+              <span class="weather-big">72°</span>
+              <div>
+                <h3>Partly cloudy</h3>
+                <p>Ames, Iowa · High 78° · Low 59°</p>
+                <p class="tiny-note">live weather hookup comes later</p>
+              </div>
+            </div>
+          </div>
+        </article>
+      </section>
+
+      <section class="path-step" data-step data-label="VERSE">
+        <span class="path-dot"></span>
+        <article class="feed-card">
+          <div class="card-topline">
+            <strong>Verse of the Day</strong>
+            <span>VERSE.TXT</span>
+          </div>
+          <div class="card-body">
+            <p class="verse" id="bibleVerse">Loading today’s verse...</p>
+            <p class="reference" id="bibleReference"></p>
+          </div>
+        </article>
+      </section>
+
+      <section class="path-step" data-step data-label="GOAL">
+        <span class="path-dot"></span>
+        <article class="feed-card">
+          <div class="card-topline">
+            <strong>Goal of the Day</strong>
+            <span>TODAY_TASK.TXT</span>
+          </div>
+          <div class="card-body">
+            <p class="goal-text" id="goalText">Loading today’s goal...</p>
+            <button class="complete-btn" id="completeGoal" type="button">Mark Complete</button>
+          </div>
+        </article>
+      </section>
+
+      <section class="path-step" data-step data-label="KNOW TODAY">
+        <span class="path-dot"></span>
+        <article class="feed-card">
+          <div class="card-topline">
+            <strong>What You Should Know Today</strong>
+            <span>3 updates</span>
+          </div>
+          <div class="card-body">
+            <div class="news-list">
+              <div class="news-row">
+                <div class="news-label">World</div>
+                <div>
+                  <h3>Today’s world headline goes here.</h3>
+                  <p>Short daily world update will live here.</p>
+                </div>
+              </div>
+              <div class="news-row">
+                <div class="news-label">Sports</div>
+                <div>
+                  <h3>One sports story worth knowing.</h3>
+                  <p>Quick sports update without opening another feed.</p>
+                </div>
+              </div>
+              <div class="news-row">
+                <div class="news-label">Science</div>
+                <div>
+                  <h3>Something that makes you a little smarter.</h3>
+                  <p>A discovery, fact, or idea worth remembering.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </article>
+      </section>
+
+      <section class="path-step" data-step data-label="VOTE" id="vote">
+        <span class="path-dot"></span>
+        <article class="feed-card">
+          <div class="card-topline">
+            <strong>My Hot Take</strong>
+            <span>INPUT_REQUIRED.EXE</span>
+          </div>
+          <div class="card-body">
+            <p class="poll-question" id="hotTakeText">Loading today’s hot take...</p>
+
+            <div class="poll-actions" id="pollActions">
+              <button class="poll-btn primary vote-btn" type="button" data-vote="agree">Agree</button>
+              <button class="poll-btn orange vote-btn" type="button" data-vote="disagree">Disagree</button>
+            </div>
+
+            <div class="poll-results hidden shared-results" id="pollResults">
+              <div class="result-line">
+                <span>Agree</span>
+                <strong id="agreePercent">0%</strong>
+              </div>
+              <div class="result-meter"><span id="agreeBar"></span></div>
+
+              <div class="result-line">
+                <span>Disagree</span>
+                <strong id="disagreePercent">0%</strong>
+              </div>
+              <div class="result-meter orange-meter"><span id="disagreeBar"></span></div>
+
+              <p class="poll-result" id="pollMeta"></p>
+            </div>
+          </div>
+        </article>
+      </section>
+
+      <section class="path-step" data-step data-label="THIS OR THAT">
+        <span class="path-dot"></span>
+        <article class="feed-card">
+          <div class="card-topline">
+            <strong>This or That</strong>
+            <span>QUICK_CHOICE.EXE</span>
+          </div>
+          <div class="card-body">
+            <div class="thisthat" id="thisOrThatActions">
+              <button class="this-or-that-btn" type="button" data-choice="a" id="thisOrThatAText">Loading...</button>
+              <span class="or">OR</span>
+              <button class="this-or-that-btn" type="button" data-choice="b" id="thisOrThatBText">Loading...</button>
+            </div>
+
+            <div class="choice-results hidden shared-results" id="thisOrThatResults">
+              <div class="result-line">
+                <span id="thisOrThatAResultLabel">Choice A</span>
+                <strong id="thisOrThatAPercent">0%</strong>
+              </div>
+              <div class="result-meter"><span id="thisOrThatABar"></span></div>
+
+              <div class="result-line">
+                <span id="thisOrThatBResultLabel">Choice B</span>
+                <strong id="thisOrThatBPercent">0%</strong>
+              </div>
+              <div class="result-meter orange-meter"><span id="thisOrThatBBar"></span></div>
+
+              <p class="poll-result" id="thisOrThatMeta"></p>
+            </div>
+          </div>
+        </article>
+      </section>
+
+      <section class="path-step" data-step data-label="DISCUSSION" id="discussion">
+        <span class="path-dot"></span>
+        <article class="feed-card">
+          <div class="card-topline">
+            <strong>Today's Discussion</strong>
+            <span>DISCUSSION.BBS · <span id="discussionCount">0 posts</span></span>
+          </div>
+          <div class="card-body">
+            <h2 id="questionText">Loading today’s question...</h2>
+
+            <form class="discussion-form" id="discussionForm">
+              <label>
+                <span>display name</span>
+                <input id="discussionName" maxlength="30" autocomplete="nickname" placeholder="your name" required />
+              </label>
+              <label>
+                <span>your answer</span>
+                <textarea id="discussionResponse" maxlength="500" placeholder="what do you think?" required></textarea>
+              </label>
+
+              <div class="discussion-submit-row">
+                <button class="post-btn" id="discussionSubmit" type="submit">Post Answer</button>
+                <span class="poll-result" id="discussionStatus">Post first. Then enter the thread.</span>
+              </div>
+            </form>
+
+            <button class="enter-discussion hidden" id="enterDiscussionBtn" type="button">
+              &gt; Enter Today's Discussion
+            </button>
+          </div>
+        </article>
+      </section>
+
+      <section class="game-launch" id="game-launch">
+        <div class="game-launch-top">
+          <p class="eyebrow">Daily check-in complete</p>
+          <h2>The path ends here.<br>The game is its own thing.</h2>
+          <p>You can finish your daily check-in and leave, or launch the separate BudsNiche challenge.</p>
+
+          <div class="launch-actions">
+            <button class="launch-button" id="launchGame" type="button">Enter BudsNiche →</button>
+            <a class="launch-button secondary done-link" href="#top">I'm done for today</a>
+          </div>
+        </div>
+
+        <div class="complete-summary">
+          <div><span>streak</span><strong>active</strong></div>
+          <div><span>today</span><strong>checked</strong></div>
+          <div><span>daily path</span><strong>complete</strong></div>
+          <div><span>game</span><strong>optional</strong></div>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <aside class="right-rail">
+    <section class="widget weather-widget">
+      <div class="widget-title">Weather</div>
+      <span class="weather-big">72°</span>
+      <h3>Partly cloudy</h3>
+      <p>Ames, IA · H 78° · L 59°</p>
+      <div class="small-pills">
+        <span class="small-pill">wind 8 mph</span>
+        <span class="small-pill">sunset 7:19</span>
+      </div>
+    </section>
+
+    <section class="widget">
+      <div class="widget-title">Buds Bulletin</div>
+      <div class="bulletin-item">
+        <strong>Ames thing of the day</strong>
+        <span>A local event, restaurant special, campus thing, or something random.</span>
+      </div>
+      <div class="bulletin-item">
+        <strong>Link someone sent in</strong>
+        <span>A random internet find can live here.</span>
+      </div>
+      <div class="bulletin-item">
+        <strong>My Message</strong>
+        <span>Put literally whatever I want here today.</span>
+      </div>
+    </section>
+
+    <section class="widget">
+      <div class="widget-title">Random Niche</div>
+      <h3>Orcas are dolphins.</h3>
+      <p>They are the largest members of the dolphin family.</p>
+    </section>
+
+    <section class="widget custom-slot">
+      <div class="widget-title">Custom Slot 02</div>
+      <div class="slot">Photo, song of the day, ad, quote, ranking, announcement — anything.</div>
+    </section>
+
+    <section class="widget">
+      <div class="widget-title">Today.dat</div>
+      <p><strong>Date</strong><br><span id="sidebarDate">today</span></p>
+      <p class="spaced"><strong>Location</strong><br>Ames, Iowa</p>
+      <p class="spaced"><strong>Status</strong><br>daily issue live</p>
+    </section>
+  </aside>
+</div>
+
+<section class="game-zone hidden" id="gameZone">
+  <div class="game-header">
+    <strong>BUDSNICHE // DAILY GAME</strong>
+    <button class="close-game" id="closeGame" type="button">Back to Daily</button>
+  </div>
+
+  <div class="game-body">
+    <h2>BudsNiche</h2>
+    <p class="game-sub">The daily path is finished. This is the challenge.</p>
+
+    <div class="game-meta">
+      <span>ROUND <b id="roundCounter">1 / 3</b></span>
+      <span>TIME <b id="timer">45</b></span>
+      <span>TOTAL <b><span id="totalScore">0</span> / <span id="totalPossible">1200</span></b></span>
+    </div>
+
+    <article class="game-stage" id="gameStage">
+      <div class="topic-label" id="categoryLabel">Loading</div>
+      <div class="game-topic" id="topicLabel">Loading today's game...</div>
+      <p class="game-sub" id="answerProgress">Answer 1 of 4</p>
+
+      <div class="submitted-stack" id="submittedAnswers"></div>
+
+      <form class="single-answer-form" id="answerForm">
+        <span class="game-prompt">&gt;</span>
+        <input id="singleAnswerInput" autocomplete="off" maxlength="60" placeholder="type one answer..." />
+        <button class="game-enter" type="submit">ENTER</button>
+      </form>
+
+      <div id="roundResults" class="round-results hidden"></div>
+      <button class="game-enter next-round hidden" id="nextRound" type="button">NEXT CATEGORY →</button>
+    </article>
+
+    <section class="final-score-panel hidden" id="finalScorePanel">
+      <p class="eyebrow game-eyebrow">Today's result</p>
+      <h3><span id="finalScore">0</span> points</h3>
+      <div class="average-row"><span>daily average</span><strong id="dailyAverage">coming soon</strong></div>
+      <div class="average-row"><span>your place</span><strong id="dailyPercentile">score saving next</strong></div>
+    </section>
+  </div>
+</section>
+
+<section class="discussion-overlay hidden allow-native-scroll" id="discussionPanel">
+  <div class="thread-shell">
+    <div class="thread-top">
+      <div>
+        <span class="thread-kicker">DISCUSSION.BBS // LIVE THREAD</span>
+        <h2>today's discussion</h2>
+      </div>
+      <button class="close-thread" id="closeDiscussionBtn" type="button">Close</button>
+    </div>
+    <div id="discussionFeed" class="discussion-feed">
+      <p class="poll-result">Loading today’s discussion...</p>
+    </div>
+  </div>
+</section>
+
+<div class="modal-backdrop hidden" id="modalBackdrop">
+  <section class="retro-modal hidden" id="whyModal" role="dialog" aria-modal="true">
+    <div class="modal-titlebar">
+      <span>ABOUT.TXT</span>
+      <button type="button" data-close-modal>x</button>
+    </div>
+    <div class="modal-body">
+      <p>I wanted one place I could check every day instead of opening five different apps.</p>
+      <p>BudsNiche is a daily check-in: know the date and weather, read a verse, get a goal, see what happened, vote on something, talk with people, then choose whether you want to play.</p>
+    </div>
+  </section>
+
+  <section class="retro-modal hidden" id="howModal" role="dialog" aria-modal="true">
+    <div class="modal-titlebar">
+      <span>GAME.TXT</span>
+      <button type="button" data-close-modal>x</button>
+    </div>
+    <div class="modal-body">
+      <p>Each category gives you 45 seconds and four answers. Type them one at a time.</p>
+      <p>Obvious correct answers still count, but they score low. Specific facts and niche knowledge score higher.</p>
+    </div>
+  </section>
+
+  <section class="retro-modal hidden" id="feedbackModal" role="dialog" aria-modal="true">
+    <div class="modal-titlebar">
+      <span>FEEDBACK.TXT</span>
+      <button type="button" data-close-modal>x</button>
+    </div>
+    <form class="modal-body" id="feedbackForm">
+      <label>
+        <span>message</span>
+        <textarea id="feedbackText" maxlength="800" placeholder="what should change?"></textarea>
+      </label>
+      <button class="post-btn" type="submit">Save</button>
+      <p class="poll-result" id="feedbackStatus">Saved locally for now.</p>
+    </form>
+  </section>
+</div>
+
+<script src="script.js"></script>
+<script>
+  // Mirrors the live streak into the visual center card/mobile tile without changing the database logic.
+  (function(){
+    const streak = document.getElementById("checkinStreak");
+    const mirrors = document.querySelectorAll(".streak-mirror");
+    const mobile = document.querySelector(".mobile-streak");
+    if (!streak) return;
+    const sync = () => {
+      mirrors.forEach(el => el.textContent = streak.textContent);
+      if (mobile) mobile.textContent = streak.textContent + " days";
+    };
+    sync();
+    new MutationObserver(sync).observe(streak, {childList:true,subtree:true});
+  })();
+</script>
+</body>
+</html>
