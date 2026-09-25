@@ -1,5 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
-  <circle cx="32" cy="32" r="27" fill="#c51b32"/>
-  <circle cx="32" cy="32" r="24" fill="none" stroke="#f2c14e" stroke-width="3"/>
-  <text x="32" y="38" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="21" font-weight="900" fill="#f2c14e" letter-spacing="-1">BN</text>
-</svg>
