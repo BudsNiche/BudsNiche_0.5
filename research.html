@@ -1,0 +1,1099 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BudsNiche Research Lab</title>
+  <style>
+    :root{
+      --bg:#f3f6f3;
+      --panel:#ffffff;
+      --panel-2:#eef4ee;
+      --ink:#172019;
+      --muted:#657067;
+      --line:#d6dfd7;
+      --green:#2f6a45;
+      --green-dark:#1f4f33;
+      --green-soft:#dfeee3;
+      --orange:#d98532;
+      --orange-soft:#fff0df;
+      --red:#b84c4c;
+      --blue:#4775a6;
+      --shadow:0 10px 30px rgba(27, 46, 32, .08);
+      --radius:16px;
+    }
+
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;
+      font-family:Arial, Helvetica, sans-serif;
+      background:var(--bg);
+      color:var(--ink);
+    }
+    button,input,textarea,select{font:inherit}
+    button{cursor:pointer}
+    .hidden{display:none!important}
+
+    .topbar{
+      position:sticky;
+      top:0;
+      z-index:50;
+      background:rgba(255,255,255,.95);
+      backdrop-filter:blur(10px);
+      border-bottom:1px solid var(--line);
+    }
+    .topbar-inner{
+      max-width:1440px;
+      margin:0 auto;
+      min-height:64px;
+      padding:10px 18px;
+      display:flex;
+      align-items:center;
+      gap:16px;
+    }
+    .brand-mark{
+      width:40px;height:40px;border-radius:50%;
+      background:var(--green);
+      color:white;
+      display:grid;
+      place-items:center;
+      font-weight:900;
+      letter-spacing:-1px;
+      border:2px solid var(--green-dark);
+      flex:none;
+    }
+    .brand-copy{min-width:0}
+    .brand-copy strong{display:block;font-size:16px}
+    .brand-copy span{display:block;font-size:12px;color:var(--muted);margin-top:2px}
+    .top-spacer{flex:1}
+    .status-pill{
+      border:1px solid var(--line);
+      background:#fff;
+      border-radius:999px;
+      padding:8px 11px;
+      font-size:12px;
+      font-weight:700;
+      color:var(--muted);
+      white-space:nowrap;
+    }
+
+    .page{
+      max-width:1440px;
+      margin:0 auto;
+      padding:26px 18px 60px;
+    }
+    .card{
+      background:var(--panel);
+      border:1px solid var(--line);
+      border-radius:var(--radius);
+      box-shadow:var(--shadow);
+    }
+
+    /* START */
+    .start-shell{
+      max-width:900px;
+      margin:28px auto 0;
+      overflow:hidden;
+    }
+    .start-hero{
+      padding:38px;
+      background:linear-gradient(135deg,#f8fbf8 0%,#e3eee5 100%);
+      border-bottom:1px solid var(--line);
+    }
+    .eyebrow{
+      color:var(--green);
+      text-transform:uppercase;
+      letter-spacing:.13em;
+      font-size:12px;
+      font-weight:900;
+      margin-bottom:10px;
+    }
+    h1{
+      margin:0;
+      font-size:42px;
+      line-height:1.02;
+      letter-spacing:-1.6px;
+    }
+    .lead{
+      margin:16px 0 0;
+      color:var(--muted);
+      font-size:17px;
+      line-height:1.55;
+      max-width:720px;
+    }
+    .start-body{padding:28px 38px 36px}
+    .field-grid{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:14px;
+    }
+    label{
+      font-size:12px;
+      color:var(--muted);
+      font-weight:800;
+      display:block;
+      margin-bottom:7px;
+    }
+    input,select,textarea{
+      width:100%;
+      border:1px solid #cbd5cc;
+      border-radius:10px;
+      background:white;
+      color:var(--ink);
+      padding:11px 12px;
+      outline:none;
+    }
+    textarea{
+      min-height:120px;
+      resize:vertical;
+      line-height:1.5;
+    }
+    input:focus,select:focus,textarea:focus{
+      border-color:var(--green);
+      box-shadow:0 0 0 3px rgba(47,106,69,.10);
+    }
+    .info-strip{
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:10px;
+      margin:20px 0;
+    }
+    .mini-info{
+      border:1px solid var(--line);
+      background:#fafcf9;
+      border-radius:12px;
+      padding:13px;
+    }
+    .mini-info strong{display:block;font-size:13px}
+    .mini-info span{display:block;margin-top:4px;font-size:12px;color:var(--muted);line-height:1.4}
+    .primary{
+      border:0;
+      border-radius:10px;
+      background:var(--green);
+      color:white;
+      font-weight:900;
+      padding:13px 18px;
+    }
+    .primary:hover{background:var(--green-dark)}
+    .secondary{
+      border:1px solid var(--line);
+      border-radius:10px;
+      background:white;
+      color:var(--ink);
+      font-weight:800;
+      padding:11px 14px;
+    }
+    .secondary:hover{background:#f6f8f6}
+    .danger{
+      border:1px solid #e1bcbc;
+      border-radius:10px;
+      background:#fff7f7;
+      color:#8e3636;
+      font-weight:800;
+      padding:11px 14px;
+    }
+
+    /* STUDY */
+    .study-shell{display:grid;gap:18px}
+    .progress-card{
+      padding:18px;
+      position:sticky;
+      top:76px;
+      z-index:35;
+    }
+    .progress-top{
+      display:flex;
+      align-items:center;
+      gap:14px;
+      margin-bottom:12px;
+    }
+    .progress-title{min-width:0}
+    .progress-title strong{display:block;font-size:15px}
+    .progress-title span{display:block;color:var(--muted);font-size:12px;margin-top:3px}
+    .timer-box{
+      margin-left:auto;
+      min-width:150px;
+      text-align:center;
+      border-radius:11px;
+      border:1px solid var(--line);
+      padding:9px 12px;
+      background:#f8faf8;
+    }
+    .timer-box.final{
+      background:var(--orange-soft);
+      border-color:#efc28f;
+    }
+    .timer-label{
+      font-size:10px;
+      font-weight:900;
+      letter-spacing:.12em;
+      text-transform:uppercase;
+      color:var(--muted);
+    }
+    .timer{
+      font-size:27px;
+      font-weight:900;
+      margin-top:2px;
+      font-variant-numeric:tabular-nums;
+    }
+    .steps{
+      display:grid;
+      grid-template-columns:repeat(4,1fr);
+      gap:7px;
+    }
+    .step{
+      min-width:0;
+      border-radius:8px;
+      background:#edf1ed;
+      padding:8px 10px;
+      color:#788078;
+      font-size:11px;
+      font-weight:900;
+      text-align:center;
+      border:1px solid #e2e8e2;
+    }
+    .step.active{
+      color:white;
+      background:var(--green);
+      border-color:var(--green);
+    }
+    .step.done{
+      color:var(--green-dark);
+      background:var(--green-soft);
+      border-color:#c3dcc9;
+    }
+
+    .workspace{
+      display:grid;
+      grid-template-columns:minmax(0,1fr) 360px;
+      gap:18px;
+      align-items:start;
+    }
+    .main-column{display:grid;gap:16px;min-width:0}
+    .side-column{
+      display:grid;
+      gap:16px;
+      position:sticky;
+      top:206px;
+    }
+
+    .section-card{overflow:hidden}
+    .section-head{
+      padding:16px 18px;
+      border-bottom:1px solid var(--line);
+      background:#fafcfa;
+      display:flex;
+      gap:12px;
+      align-items:flex-start;
+    }
+    .section-head strong{font-size:15px}
+    .section-head p{margin:4px 0 0;color:var(--muted);font-size:12px;line-height:1.45}
+    .section-body{padding:18px}
+    .prompt-block{
+      border-left:4px solid var(--green);
+      background:#f7faf7;
+      padding:13px 14px;
+      border-radius:0 10px 10px 0;
+      margin-bottom:15px;
+    }
+    .prompt-block strong{font-size:13px}
+    .prompt-block p{margin:6px 0 0;font-size:13px;line-height:1.5;color:#4d5850}
+    .split{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:13px;
+    }
+    .field{margin-bottom:14px}
+    .field:last-child{margin-bottom:0}
+    .small-help{font-size:11px;color:var(--muted);margin-top:6px;line-height:1.4}
+
+    .video-card{overflow:hidden}
+    .video-head{
+      padding:14px 15px;
+      border-bottom:1px solid var(--line);
+      display:flex;
+      align-items:center;
+      gap:10px;
+      background:#f8faf8;
+    }
+    .video-head strong{font-size:13px}
+    .video-head span{font-size:11px;color:var(--muted)}
+    .video-placeholder{
+      aspect-ratio:16/9;
+      display:grid;
+      place-items:center;
+      padding:24px;
+      background:#202723;
+      color:white;
+      text-align:center;
+    }
+    .play-circle{
+      width:56px;height:56px;border-radius:50%;
+      display:grid;place-items:center;
+      background:white;color:var(--green-dark);
+      margin:0 auto 12px;
+      font-size:22px;font-weight:900;
+    }
+    .video-placeholder p{margin:0;color:#cbd4cd;font-size:12px;line-height:1.45}
+    .video-actions{
+      display:flex;
+      gap:8px;
+      padding:11px 13px;
+      background:white;
+    }
+    .video-actions button{flex:1;font-size:12px;padding:9px}
+
+    .resources-card{overflow:hidden}
+    .resource-list{padding:10px}
+    .resource{
+      display:flex;
+      gap:10px;
+      align-items:center;
+      border:1px solid var(--line);
+      border-radius:9px;
+      padding:10px;
+      margin-bottom:8px;
+      background:#fbfcfb;
+    }
+    .resource:last-child{margin-bottom:0}
+    .resource-icon{
+      width:34px;height:34px;border-radius:8px;
+      background:var(--green-soft);
+      color:var(--green-dark);
+      display:grid;place-items:center;
+      font-weight:900;font-size:11px;flex:none;
+    }
+    .resource-copy{min-width:0}
+    .resource-copy strong{font-size:12px;display:block}
+    .resource-copy span{font-size:10px;color:var(--muted);display:block;margin-top:3px}
+    .resource button{
+      margin-left:auto;
+      border:0;
+      background:none;
+      color:var(--green);
+      font-weight:900;
+      font-size:11px;
+      padding:7px;
+    }
+
+    .ai-card{padding:15px}
+    .ai-card h3{font-size:14px;margin:0 0 5px}
+    .ai-card p{font-size:11px;color:var(--muted);line-height:1.45;margin:0 0 12px}
+    .ai-open{width:100%}
+    .condition-tag{
+      display:inline-block;
+      background:#eef3ee;
+      color:var(--green-dark);
+      border:1px solid #d7e0d8;
+      border-radius:999px;
+      padding:5px 8px;
+      font-size:10px;
+      font-weight:900;
+      margin-bottom:10px;
+    }
+
+    .work-status{
+      display:flex;
+      align-items:center;
+      gap:8px;
+      font-size:11px;
+      color:var(--muted);
+      padding:0 3px;
+    }
+    .save-dot{
+      width:8px;height:8px;border-radius:50%;
+      background:#7baa89;
+    }
+
+    .notice{
+      border:1px solid #efc28f;
+      background:var(--orange-soft);
+      color:#6f461d;
+      border-radius:12px;
+      padding:13px 15px;
+      font-size:12px;
+      line-height:1.45;
+      font-weight:700;
+    }
+
+    /* INTRO VIDEO */
+    .instruction-stage{
+      max-width:1040px;
+      margin:0 auto;
+    }
+    .instruction-card{overflow:hidden}
+    .instruction-copy{padding:24px}
+    .instruction-copy h2{margin:0;font-size:26px}
+    .instruction-copy p{margin:9px 0 0;color:var(--muted);line-height:1.55;font-size:14px}
+    .instruction-video{
+      aspect-ratio:16/9;
+      background:#202723;
+      display:grid;
+      place-items:center;
+      color:white;
+      padding:30px;
+      text-align:center;
+    }
+    .instruction-actions{
+      display:flex;
+      align-items:center;
+      gap:12px;
+      padding:18px 24px 24px;
+    }
+    .instruction-actions .secondary{margin-left:auto}
+
+    /* COMPLETE */
+    .complete-card{
+      max-width:820px;
+      margin:30px auto;
+      padding:42px;
+      text-align:center;
+    }
+    .complete-icon{
+      width:72px;height:72px;border-radius:50%;
+      background:var(--green-soft);
+      color:var(--green);
+      display:grid;place-items:center;
+      font-size:32px;
+      font-weight:900;
+      margin:0 auto 18px;
+    }
+    .complete-card h2{margin:0;font-size:30px}
+    .complete-card p{color:var(--muted);line-height:1.55}
+    .summary-grid{
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:10px;
+      margin:24px 0;
+      text-align:left;
+    }
+    .summary-box{
+      background:#f8faf8;
+      border:1px solid var(--line);
+      border-radius:10px;
+      padding:13px;
+    }
+    .summary-box strong{display:block;font-size:13px}
+    .summary-box span{display:block;font-size:11px;color:var(--muted);margin-top:4px}
+
+    @media(max-width:1000px){
+      .workspace{grid-template-columns:1fr}
+      .side-column{position:static;grid-template-columns:1fr 1fr}
+    }
+    @media(max-width:700px){
+      .page{padding:16px 12px 40px}
+      h1{font-size:34px}
+      .start-hero,.start-body{padding:24px}
+      .field-grid,.split,.info-strip,.summary-grid{grid-template-columns:1fr}
+      .steps{grid-template-columns:1fr 1fr}
+      .progress-card{position:static}
+      .progress-top{align-items:flex-start;flex-wrap:wrap}
+      .timer-box{margin-left:0}
+      .side-column{grid-template-columns:1fr}
+      .topbar-inner{padding-inline:12px}
+      .status-pill{display:none}
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="topbar-inner">
+      <div class="brand-mark">BN</div>
+      <div class="brand-copy">
+        <strong>BudsNiche Research Lab</strong>
+        <span>Human–AI Collaboration Study Prototype</span>
+      </div>
+      <div class="top-spacer"></div>
+      <div class="status-pill" id="topStatus">Prototype // Local Save</div>
+    </div>
+  </header>
+
+  <main class="page">
+    <!-- START SCREEN -->
+    <section id="startScreen" class="start-shell card">
+      <div class="start-hero">
+        <div class="eyebrow">Study Workspace</div>
+        <h1>Human–AI Collaboration Study</h1>
+        <p class="lead">
+          A guided workspace for completing four timed deliverables while collaborating with an AI partner.
+          Instructions, resources, progress, and study work stay organized in one place.
+        </p>
+      </div>
+      <div class="start-body" id="startBodyMarker">
+        <div class="field-grid">
+          <div>
+            <label for="participantId">Participant ID</label>
+            <input id="participantId" placeholder="Example: P-014" />
+          </div>
+          <div>
+            <label for="studyCondition">Study Condition</label>
+            <select id="studyCondition">
+              <option value="regular">Condition A — Regular GPT</option>
+              <option value="trained">Condition B — Collaborative / Trained AI</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="info-strip">
+          <div class="mini-info">
+            <strong>4 Deliverables</strong>
+            <span>Each section builds toward the final proposed solution.</span>
+          </div>
+          <div class="mini-info">
+            <strong>20 + 2 Minutes</strong>
+            <span>20-minute work period plus 2 minutes for final touches.</span>
+          </div>
+          <div class="mini-info">
+            <strong>Resources Stay Open</strong>
+            <span>Instruction video and study resources remain accessible while you work.</span>
+          </div>
+        </div>
+
+        <div class="notice" style="margin-bottom:18px">
+          Prototype note: final videos, resource files, prompts, AI links, and study wording will be replaced with the materials approved by the research team.
+        </div>
+
+        <button class="primary" id="beginStudyBtn">Begin Study</button>
+      </div>
+    </section>
+
+    <!-- INSTRUCTION SCREEN -->
+    <section id="instructionScreen" class="instruction-stage hidden">
+      <div class="instruction-card card">
+        <div class="instruction-copy">
+          <div class="eyebrow" id="instructionEyebrow">Deliverable 1 of 4</div>
+          <h2 id="instructionTitle">Roles & Initial Approach</h2>
+          <p id="instructionDescription">
+            Watch the instructions before starting the timed work period. This video will remain available during the deliverable.
+          </p>
+        </div>
+        <div class="instruction-video">
+          <div>
+            <div class="play-circle">▶</div>
+            <strong id="instructionVideoLabel">Instruction Video 1</strong>
+            <p style="margin-top:8px">Placeholder video area — Yvonne's study video will be embedded here.</p>
+          </div>
+        </div>
+        <div class="instruction-actions">
+          <button class="primary" id="startDeliverableBtn">Start 20-Minute Deliverable</button>
+          <button class="secondary" id="saveExitBtn">Save Prototype Progress</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- WORKSPACE -->
+    <section id="studyScreen" class="study-shell hidden">
+      <div class="progress-card card">
+        <div class="progress-top">
+          <div class="progress-title">
+            <strong id="progressHeading">Deliverable 1 — Roles & Initial Approach</strong>
+            <span id="progressSubheading">Work period in progress. Your responses save automatically.</span>
+          </div>
+          <div class="timer-box" id="timerBox">
+            <div class="timer-label" id="timerLabel">Work Period</div>
+            <div class="timer" id="timer">20:00</div>
+          </div>
+        </div>
+        <div class="steps" id="steps"></div>
+      </div>
+
+      <div id="finalTouchesNotice" class="notice hidden">
+        Main work period complete. You now have <strong>2 minutes for final touches</strong>. Your work will save automatically and the next instruction video will open when time expires.
+      </div>
+
+      <div class="workspace">
+        <div class="main-column">
+          <div class="section-card card">
+            <div class="section-head">
+              <div>
+                <strong id="taskTitle">Current Task</strong>
+                <p id="taskDescription"></p>
+              </div>
+            </div>
+            <div class="section-body">
+              <div class="prompt-block">
+                <strong id="taskPromptTitle">Deliverable Goal</strong>
+                <p id="taskPrompt"></p>
+              </div>
+
+              <div id="deliverableFields"></div>
+            </div>
+          </div>
+
+          <div class="work-status">
+            <span class="save-dot"></span>
+            <span id="saveStatus">Changes save automatically on this device.</span>
+          </div>
+        </div>
+
+        <aside class="side-column">
+          <!-- VIDEO PERSISTS DURING FULL DELIVERABLE -->
+          <div class="video-card card">
+            <div class="video-head">
+              <div>
+                <strong id="sideVideoTitle">Instruction Video 1</strong>
+                <span>Available throughout this deliverable</span>
+              </div>
+            </div>
+            <div class="video-placeholder" id="sideVideoPlaceholder">
+              <div>
+                <div class="play-circle">▶</div>
+                <strong>Replay Instructions</strong>
+                <p style="margin-top:8px">The actual study video will remain embedded here during all 22 minutes.</p>
+              </div>
+            </div>
+            <div class="video-actions">
+              <button class="secondary" id="replayVideoBtn">Replay / Reference</button>
+              <button class="secondary" id="collapseVideoBtn">Hide Video</button>
+            </div>
+          </div>
+
+          <div class="resources-card card">
+            <div class="video-head">
+              <div>
+                <strong>Study Resources</strong>
+                <span>Accessible during every deliverable</span>
+              </div>
+            </div>
+            <div class="resource-list">
+              <div class="resource">
+                <div class="resource-icon">R1</div>
+                <div class="resource-copy">
+                  <strong>Loneliness Resource</strong>
+                  <span>Placeholder study file</span>
+                </div>
+                <button onclick="openResource(1)">OPEN</button>
+              </div>
+              <div class="resource">
+                <div class="resource-icon">R2</div>
+                <div class="resource-copy">
+                  <strong>Well-Being Resource</strong>
+                  <span>Placeholder study file</span>
+                </div>
+                <button onclick="openResource(2)">OPEN</button>
+              </div>
+              <div class="resource">
+                <div class="resource-icon">R3</div>
+                <div class="resource-copy">
+                  <strong>Ames Adult Resource</strong>
+                  <span>Placeholder study file</span>
+                </div>
+                <button onclick="openResource(3)">OPEN</button>
+              </div>
+              <div class="resource">
+                <div class="resource-icon">R4</div>
+                <div class="resource-copy">
+                  <strong>Community Resource</strong>
+                  <span>Placeholder study file</span>
+                </div>
+                <button onclick="openResource(4)">OPEN</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="ai-card card">
+            <div class="condition-tag" id="conditionTag">Condition A — Regular GPT</div>
+            <h3>AI Collaborator</h3>
+            <p>
+              Keep the AI on the second monitor while this study workspace stays open here.
+              The final study will use the condition-specific AI link assigned by the research team.
+            </p>
+            <button class="primary ai-open" id="openAiBtn">Open AI Workspace ↗</button>
+          </div>
+
+          <button class="secondary" id="manualSaveBtn">Save Progress Now</button>
+        </aside>
+      </div>
+    </section>
+
+    <!-- COMPLETE -->
+    <section id="completeScreen" class="complete-card card hidden">
+      <div class="complete-icon">✓</div>
+      <div class="eyebrow">Study Complete</div>
+      <h2>All four deliverables are saved.</h2>
+      <p>
+        This prototype has preserved the participant's progress locally. In the research version,
+        this point would submit the study record to the research database and display the approved closing instructions.
+      </p>
+      <div class="summary-grid">
+        <div class="summary-box">
+          <strong id="summaryParticipant">Participant —</strong>
+          <span>Study identifier</span>
+        </div>
+        <div class="summary-box">
+          <strong id="summaryCondition">Condition —</strong>
+          <span>Assigned AI condition</span>
+        </div>
+        <div class="summary-box">
+          <strong>4 / 4 Complete</strong>
+          <span>Deliverables saved</span>
+        </div>
+      </div>
+      <button class="secondary" id="exportBtn">Export Prototype Data</button>
+      <button class="danger" id="resetBtn" style="margin-left:8px">Reset Demo</button>
+    </section>
+  </main>
+
+  <script>
+    const DEMO_MODE = new URLSearchParams(location.search).get("demo") === "1";
+    const WORK_SECONDS = DEMO_MODE ? 45 : 20 * 60;
+    const FINAL_SECONDS = DEMO_MODE ? 15 : 2 * 60;
+
+    const DELIVERABLES = [
+      {
+        title: "Roles & Initial Approach",
+        short: "Roles",
+        desc: "Define how the human and AI will work together and establish the initial direction for the task.",
+        prompt: "Use the provided Ames adult loneliness and well-being resources, plus your AI collaborator, to establish an initial approach. Record how work will be divided and what the team should focus on first.",
+        fields: [
+          ["humanRole", "Human Role", "What should the human be responsible for during this stage?", "textarea"],
+          ["aiRole", "AI Role", "What should the AI be responsible for during this stage?", "textarea"],
+          ["sharedRole", "Shared Responsibilities", "What should be done collaboratively?", "textarea"],
+          ["initialApproach", "Initial Approach", "What is the team's current plan for approaching the problem?", "textarea"],
+          ["d1Update", "Collaboration Update", "How are you currently dividing work, checking one another, or combining ideas?", "textarea"]
+        ]
+      },
+      {
+        title: "Evidence & Direction",
+        short: "Evidence",
+        desc: "Review evidence, update task allocation, and narrow the direction of the proposed solution.",
+        prompt: "Identify the most important evidence from the provided resources and any outside research. Record how that evidence changes the team's direction and whether the human–AI task allocation should change.",
+        fields: [
+          ["keyEvidence", "Key Evidence", "What evidence is driving the current direction?", "textarea"],
+          ["outsideResearch", "Outside Research Used", "What additional information or internet research mattered?", "textarea"],
+          ["resourceUse", "Provided Resources Used", "Which provided resources affected the team's thinking, and how?", "textarea"],
+          ["direction", "Current Direction", "What direction is the proposed solution taking now?", "textarea"],
+          ["d2Update", "Collaboration / Task Allocation Update", "What changed about the human and AI roles since Deliverable 1?", "textarea"]
+        ]
+      },
+      {
+        title: "Solution Development",
+        short: "Develop",
+        desc: "Develop and challenge the proposed solution, including tradeoffs and alternative options.",
+        prompt: "Turn the evidence into a more concrete proposed solution. Use the AI collaborator to challenge assumptions, compare alternatives, and identify weaknesses before the final deliverable.",
+        fields: [
+          ["solutionDraft", "Current Solution Draft", "Describe the current proposed intervention or plan.", "textarea"],
+          ["alternatives", "Alternatives Considered", "What other approaches did the team consider?", "textarea"],
+          ["tradeoffs", "Tradeoffs / Weaknesses", "What are the biggest tradeoffs or unresolved problems?", "textarea"],
+          ["challenge", "Human–AI Challenge / Disagreement", "Where did the human and AI disagree, question, verify, or change direction?", "textarea"],
+          ["d3Update", "Collaboration / Task Allocation Update", "How has the collaboration changed at this stage?", "textarea"]
+        ]
+      },
+      {
+        title: "Final Proposed Solution",
+        short: "Final",
+        desc: "Finalize the proposal and document how the human–AI collaboration contributed to the result.",
+        prompt: "Produce the team's final proposed solution for addressing loneliness and well-being among adults in Ames. Clearly connect the recommendation to evidence and record the final human–AI division of work.",
+        fields: [
+          ["finalSolution", "Final Proposed Solution", "Write the final recommendation or plan.", "textarea"],
+          ["finalEvidence", "Evidence Supporting the Final Solution", "What evidence most strongly supports the final proposal?", "textarea"],
+          ["implementation", "Implementation / Next Steps", "How could this solution realistically be carried out?", "textarea"],
+          ["finalRoles", "Final Human–AI Roles", "What did the human contribute? What did the AI contribute? What was genuinely collaborative?", "textarea"],
+          ["finalReflection", "Final Collaboration Update", "How did the collaboration change from the beginning of the study to the end?", "textarea"]
+        ]
+      }
+    ];
+
+    const state = {
+      participantId: "",
+      condition: "regular",
+      current: 0,
+      phase: "start", // start, instructions, work, final, complete
+      seconds: WORK_SECONDS,
+      answers: [{},{},{},{}],
+      startedAt: null,
+      deliverableStartedAt: [null,null,null,null],
+      deliverableCompletedAt: [null,null,null,null]
+    };
+
+    let interval = null;
+
+    const $ = (id) => document.getElementById(id);
+
+    function saveState() {
+      localStorage.setItem("budsnicheResearchPrototype", JSON.stringify(state));
+      if ($("saveStatus")) {
+        $("saveStatus").textContent = "Saved " + new Date().toLocaleTimeString([], {hour:"numeric",minute:"2-digit",second:"2-digit"});
+      }
+    }
+
+    function loadState() {
+      try {
+        const saved = JSON.parse(localStorage.getItem("budsnicheResearchPrototype"));
+        if (!saved) return false;
+        Object.assign(state, saved);
+        return true;
+      } catch {
+        return false;
+      }
+    }
+
+    function showOnly(id) {
+      ["startScreen","instructionScreen","studyScreen","completeScreen"].forEach(x => $(x).classList.add("hidden"));
+      $(id).classList.remove("hidden");
+    }
+
+    function beginStudy() {
+      const participant = $("participantId").value.trim();
+      if (!participant) {
+        alert("Enter a participant ID to begin the prototype.");
+        return;
+      }
+      state.participantId = participant;
+      state.condition = $("studyCondition").value;
+      state.current = 0;
+      state.phase = "instructions";
+      state.seconds = WORK_SECONDS;
+      state.startedAt = new Date().toISOString();
+      saveState();
+      renderInstruction();
+    }
+
+    function renderInstruction() {
+      clearInterval(interval);
+      state.phase = "instructions";
+      const d = DELIVERABLES[state.current];
+      $("instructionEyebrow").textContent = `Deliverable ${state.current + 1} of 4`;
+      $("instructionTitle").textContent = d.title;
+      $("instructionDescription").textContent =
+        "Watch the instructions before starting the timed work period. This video will remain available during the entire 20-minute work period and the 2-minute final-touches period.";
+      $("instructionVideoLabel").textContent = `Instruction Video ${state.current + 1} — ${d.title}`;
+      $("startDeliverableBtn").textContent = DEMO_MODE
+        ? `Start Demo Deliverable ${state.current + 1}`
+        : `Start 20-Minute Deliverable ${state.current + 1}`;
+      showOnly("instructionScreen");
+      saveState();
+    }
+
+    function startDeliverable() {
+      state.phase = "work";
+      state.seconds = WORK_SECONDS;
+      state.deliverableStartedAt[state.current] = state.deliverableStartedAt[state.current] || new Date().toISOString();
+      renderWorkspace();
+      startTimer();
+      saveState();
+    }
+
+    function renderWorkspace() {
+      const d = DELIVERABLES[state.current];
+      $("progressHeading").textContent = `Deliverable ${state.current + 1} — ${d.title}`;
+      $("progressSubheading").textContent =
+        state.phase === "final"
+          ? "Final touches period. Work will auto-save and advance when time expires."
+          : "Work period in progress. Your responses save automatically.";
+      $("taskDescription").textContent = d.desc;
+      $("taskPrompt").textContent = d.prompt;
+      $("sideVideoTitle").textContent = `Instruction Video ${state.current + 1}`;
+      $("conditionTag").textContent = state.condition === "trained"
+        ? "Condition B — Collaborative / Trained AI"
+        : "Condition A — Regular GPT";
+
+      const steps = DELIVERABLES.map((item, idx) => {
+        const cls = idx < state.current ? "step done" : idx === state.current ? "step active" : "step";
+        return `<div class="${cls}">${idx + 1}. ${item.short}</div>`;
+      }).join("");
+      $("steps").innerHTML = steps;
+
+      const values = state.answers[state.current] || {};
+      $("deliverableFields").innerHTML = d.fields.map(([key,label,help,type]) => `
+        <div class="field">
+          <label for="${key}">${label}</label>
+          <textarea id="${key}" data-answer-key="${key}" placeholder="${help}">${escapeHtml(values[key] || "")}</textarea>
+          <div class="small-help">${help}</div>
+        </div>
+      `).join("");
+
+      document.querySelectorAll("[data-answer-key]").forEach(el => {
+        el.addEventListener("input", () => {
+          state.answers[state.current][el.dataset.answerKey] = el.value;
+          debounceSave();
+        });
+      });
+
+      updateTimerUI();
+      showOnly("studyScreen");
+    }
+
+    let saveTimeout = null;
+    function debounceSave() {
+      clearTimeout(saveTimeout);
+      saveTimeout = setTimeout(saveState, 350);
+    }
+
+    function startTimer() {
+      clearInterval(interval);
+      updateTimerUI();
+      interval = setInterval(() => {
+        state.seconds -= 1;
+
+        if (state.seconds <= 0) {
+          if (state.phase === "work") {
+            state.phase = "final";
+            state.seconds = FINAL_SECONDS;
+            $("finalTouchesNotice").classList.remove("hidden");
+            $("timerBox").classList.add("final");
+            $("timerLabel").textContent = "Final Touches";
+            $("progressSubheading").textContent = "Final touches period. Work will auto-save and advance when time expires.";
+            saveState();
+          } else if (state.phase === "final") {
+            finishDeliverable();
+            return;
+          }
+        }
+        updateTimerUI();
+        if (state.seconds % 10 === 0) saveState();
+      }, 1000);
+    }
+
+    function updateTimerUI() {
+      const m = Math.max(0, Math.floor(state.seconds / 60));
+      const s = Math.max(0, state.seconds % 60);
+      $("timer").textContent = `${String(m).padStart(2,"0")}:${String(s).padStart(2,"0")}`;
+      const isFinal = state.phase === "final";
+      $("timerLabel").textContent = isFinal ? "Final Touches" : "Work Period";
+      $("timerBox").classList.toggle("final", isFinal);
+      $("finalTouchesNotice").classList.toggle("hidden", !isFinal);
+    }
+
+    function finishDeliverable() {
+      clearInterval(interval);
+      state.deliverableCompletedAt[state.current] = new Date().toISOString();
+      saveState();
+
+      if (state.current >= 3) {
+        state.phase = "complete";
+        saveState();
+        renderComplete();
+        return;
+      }
+
+      state.current += 1;
+      state.phase = "instructions";
+      state.seconds = WORK_SECONDS;
+      saveState();
+      renderInstruction();
+    }
+
+    function renderComplete() {
+      clearInterval(interval);
+      $("summaryParticipant").textContent = `Participant ${state.participantId}`;
+      $("summaryCondition").textContent =
+        state.condition === "trained" ? "Condition B — Trained AI" : "Condition A — Regular GPT";
+      showOnly("completeScreen");
+    }
+
+    function escapeHtml(value) {
+      return String(value)
+        .replaceAll("&","&amp;")
+        .replaceAll("<","&lt;")
+        .replaceAll(">","&gt;")
+        .replaceAll('"',"&quot;");
+    }
+
+    function openResource(n) {
+      alert(`Resource ${n} placeholder. The final research file/PDF/link will open here without leaving the study workflow.`);
+    }
+
+    function replayVideo() {
+      $("sideVideoPlaceholder").classList.remove("hidden");
+      alert(`Prototype: replay Instruction Video ${state.current + 1}. In the final version, the embedded video will restart here while the timer continues.`);
+    }
+
+    function toggleVideo() {
+      const p = $("sideVideoPlaceholder");
+      p.classList.toggle("hidden");
+      $("collapseVideoBtn").textContent = p.classList.contains("hidden") ? "Show Video" : "Hide Video";
+    }
+
+    function openAi() {
+      const label = state.condition === "trained"
+        ? "Collaborative / Trained AI"
+        : "Regular GPT";
+      const ok = confirm(`Open the ${label} workspace on the second monitor?\n\nPrototype note: the final condition-specific link will be supplied by the research team.`);
+      if (ok) window.open("https://chatgpt.com/", "_blank", "noopener,noreferrer");
+    }
+
+    function exportData() {
+      const payload = {
+        prototype: "BudsNiche Research Lab",
+        exportedAt: new Date().toISOString(),
+        ...state
+      };
+      const blob = new Blob([JSON.stringify(payload, null, 2)], {type:"application/json"});
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = `research-prototype-${state.participantId || "participant"}.json`;
+      a.click();
+      setTimeout(() => URL.revokeObjectURL(url), 1000);
+    }
+
+    function resetDemo() {
+      if (!confirm("Reset this prototype and erase its locally saved progress?")) return;
+      localStorage.removeItem("budsnicheResearchPrototype");
+      location.reload();
+    }
+
+    function resumeSaved() {
+      if (!loadState()) return false;
+      if (!state.participantId) return false;
+
+      if (state.phase === "complete") {
+        renderComplete();
+      } else if (state.phase === "instructions") {
+        renderInstruction();
+      } else if (state.phase === "work" || state.phase === "final") {
+        renderWorkspace();
+        startTimer();
+      } else {
+        return false;
+      }
+      return true;
+    }
+
+    if (DEMO_MODE) {
+      $("topStatus").textContent = "DEMO MODE // 45s + 15s";
+      $("startDeliverableBtn").textContent = "Start Demo Deliverable";
+      const demoNote = document.createElement("div");
+      demoNote.className = "notice";
+      demoNote.style.marginTop = "14px";
+      demoNote.innerHTML = "<strong>Demo mode:</strong> Timers are shortened to 45 seconds + 15 seconds so the research team can preview the automatic progression. Normal study mode remains 20 minutes + 2 minutes.";
+      $("startBodyMarker")?.appendChild(demoNote);
+    }
+
+    $("beginStudyBtn").addEventListener("click", beginStudy);
+    $("startDeliverableBtn").addEventListener("click", startDeliverable);
+    $("saveExitBtn").addEventListener("click", () => {
+      saveState();
+      alert("Prototype progress saved locally on this browser.");
+    });
+    $("manualSaveBtn").addEventListener("click", () => {
+      saveState();
+      alert("Progress saved.");
+    });
+    $("replayVideoBtn").addEventListener("click", replayVideo);
+    $("collapseVideoBtn").addEventListener("click", toggleVideo);
+    $("openAiBtn").addEventListener("click", openAi);
+    $("exportBtn").addEventListener("click", exportData);
+    $("resetBtn").addEventListener("click", resetDemo);
+
+    // Prototype convenience: if progress exists, ask whether to resume.
+    const savedRaw = localStorage.getItem("budsnicheResearchPrototype");
+    if (savedRaw) {
+      try {
+        const saved = JSON.parse(savedRaw);
+        if (saved && saved.participantId && saved.phase && saved.phase !== "start") {
+          setTimeout(() => {
+            if (confirm(`Resume saved prototype progress for ${saved.participantId}?`)) {
+              resumeSaved();
+            }
+          }, 200);
+        }
+      } catch {}
+    }
+
+    window.openResource = openResource;
+  </script>
+</body>
+</html>
