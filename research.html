@@ -672,19 +672,11 @@
           <p class="small-help" id="boardSetupHelp">Paste the participant’s own copy of the FigJam board once. All four deliverables use this same board. Navigate between its D1–D4 sections as the study progresses.</p>
           <div class="field" style="margin-top:12px"><label for="boardUrl">Assigned FigJam board link</label><input id="boardUrl" type="url" autocomplete="off" placeholder="https://www.figma.com/board/…" /></div>
         </details>
-        <details style="margin:18px 0"><summary>Researcher video sequence settings</summary><label for="videoSequence" style="margin-top:12px">Video order</label><select id="videoSequence"><option value="two">Start Here (01) → D1 (02) → D2 (03) → D3 (04) → D4 (05)</option><option value="six">Start Here (01) → Problem brief (06) → D1 (02) → D2 (03) → D3 (04) → D4 (05)</option></select><div class="small-help">Default follows the reported two-video opening. Video mapping follows the existing repository’s corrected file assignments. The six-video option includes the separate problem package.</div></details>
         <p class="small-help">Keep this tab open. Progress exists only in memory and is lost when this page is refreshed or closed. Deliverables and surveys stay in the assigned external systems.</p><button class="primary" id="beginStudyBtn">Begin Study</button>
       </div>
     </section>
 
-    <section id="researchControl" class="card hidden" style="margin:24px 0;padding:24px">
-      <div class="eyebrow">RESEARCHER / CONFIGURATION ONLY</div><h2>EXPERIMENT CONTROL.</h2>
-      <p>Adjust study settings in this tab before a session. This utility is not password-protected. Changes do not publish or persist; do not enter participant information, participant board copies, private tokens or responses.</p>
-      <div id="configFields" class="config-grid"></div>
-      <div class="config-actions"><button class="primary" id="applyConfig">Apply to this tab</button><button class="secondary" id="restoreConfig">Restore defaults</button><button class="secondary" id="checkConfig">Check link formats</button></div>
-      <p id="configStatus" role="status">No changes applied.</p>
-      <details><summary>Preview deliverables</summary><div class="config-actions" id="previewOptions"></div><div id="configPreview"></div></details>
-    </section>
+    <!-- OWNER_PANEL -->
     <!-- PRE-STUDY ORIENTATION / PROBLEM BRIEF -->
     <section id="preStudyScreen" class="prestudy-stage hidden">
       <div class="prestudy-card card">
@@ -858,7 +850,7 @@
 
   <script>
     const DEMO_MODE = new URLSearchParams(location.search).get("demo") === "1";
-    const RESEARCHER_MODE = new URLSearchParams(location.search).get("researcher") === "1";
+    const RESEARCHER_MODE = false;
     let WORK_SECONDS = DEMO_MODE ? 45 : 20 * 60;
     let FINAL_SECONDS = DEMO_MODE ? 15 : 2 * 60;
     // Delete legacy participant-session records from this browser; do not write new ones.
@@ -872,7 +864,6 @@
         // IMPORTANT: the files in Supabase were renamed in list order, so their filenames do not match their actual video content.
         // This mapping intentionally points each study step to the file that contains the correct video.
         start: `${STORAGE_BASE}/Videos/01-start-here.mp4`,
-        problem: `${STORAGE_BASE}/Videos/06-deliverable-4.mp4`, // Strengthening Third Places / Problem Package
         deliverables: [
           `${STORAGE_BASE}/Videos/02-problem-brief.mp4`,       // actual Deliverable 1 — Team Charter
           `${STORAGE_BASE}/Videos/03-deliverable-1.mp4`,      // actual Deliverable 2 — Problem Representation
@@ -978,7 +969,7 @@
       for (const v of ["preStudyVideo","instructionVideo","sideVideo"]) $(v).pause();
       ["startScreen","preStudyScreen","instructionScreen","studyScreen","surveyScreen","completeScreen"].forEach(x => $(x).classList.add("hidden"));
       $(id).classList.remove("hidden");
-      $("researchControl").classList.toggle("hidden", !(RESEARCHER_MODE && id === "startScreen"));
+      $("researchControl")?.classList.toggle("hidden", !(RESEARCHER_MODE && id === "startScreen"));
       window.scrollTo({top:0,behavior:"smooth"});
     }
 
@@ -1062,7 +1053,7 @@
       normalizedBoard.search = "";
       normalizedBoard.hash = "";
       state.boardLinks = key === templateKey ? DELIVERABLES.map(d => d.figjam) : Array(4).fill(normalizedBoard.href);
-      state.videoSequence = $("videoSequence").value;
+      state.videoSequence = "two";
       state.participantId = participant.toUpperCase();
       state.condition = assignedCondition;
       state.current = 0;
@@ -1076,34 +1067,20 @@
 
     function renderPreStudy() {
       clearInterval(interval);
-      const orientation = state.phase === "orientation";
-      $("preStudyBadge").textContent = orientation ? "Study Orientation" : "Problem Package";
-      $("preStudyTitle").textContent = orientation ? "Start Here" : "Strengthening Third Places for Young Adults in Ames";
-      $("preStudyDescription").textContent = orientation
-        ? state.videoSequence === "six" ? "Watch the study orientation before moving to the problem package." : "Watch the study orientation before the Deliverable 1 instruction video."
-        : "Review the problem brief before Deliverable 1. The four study resources below remain available throughout every deliverable.";
-      $("preStudyMeta").innerHTML = orientation
-        ? `<div class="study-meta-box"><strong>Workspace</strong><span>Four timed deliverables with your AI teammate.</span></div><div class="study-meta-box"><strong>Timing</strong><span>${durationLabel(WORK_SECONDS)} of work + ${durationLabel(FINAL_SECONDS)} of final touches per deliverable.</span></div>`
-        : `<div class="study-meta-box"><strong>Problem</strong><span>How could Ames community spaces better support adults ages 18–35?</span></div><div class="study-meta-box"><strong>Output</strong><span>Propose three initiatives for a six-month pilot.</span></div>`;
-      setVideo($("preStudyVideo"), orientation ? STUDY.videos.start : STUDY.videos.problem);
-      $("preStudyResources").classList.toggle("hidden", orientation);
-      $("continuePreStudyBtn").textContent = orientation ? (state.videoSequence === "six" ? "Continue to Problem Brief" : "Continue to Deliverable 1 Instructions") : "Continue to Deliverable 1";
+      $("preStudyBadge").textContent = "Study Orientation";
+      $("preStudyTitle").textContent = "Start Here";
+      $("preStudyDescription").textContent = "Watch the study orientation before the Deliverable 1 instruction video.";
+      $("preStudyMeta").innerHTML = '<div class="study-meta-box"><strong>Workspace</strong><span>Four timed deliverables with your AI teammate.</span></div><div class="study-meta-box"><strong>Timing</strong><span>'+durationLabel(WORK_SECONDS)+' of work + '+durationLabel(FINAL_SECONDS)+' of final touches per deliverable.</span></div>';
+      setVideo($("preStudyVideo"), STUDY.videos.start);
+      $("preStudyResources").classList.add("hidden");
+      $("continuePreStudyBtn").textContent = "Continue to Deliverable 1 Instructions";
       showOnly("preStudyScreen");
       saveState();
     }
-
     function continuePreStudy() {
-      if (state.phase === "orientation") {
-        state.orientationCompleted = true;
-        state.phase = state.videoSequence === "six" ? "problem" : "instructions";
-        saveState();
-        if (state.phase === "problem") renderPreStudy(); else renderInstruction();
-      } else {
-        state.problemBriefCompleted = true;
-        state.phase = "instructions";
-        saveState();
-        renderInstruction();
-      }
+      state.orientationCompleted = true;
+      state.phase = "instructions";
+      renderInstruction();
     }
 
     function currentVideo() {
@@ -1118,7 +1095,7 @@
       $("instructionDescription").textContent = "Watch the instructions before starting the timed work period. This video remains available during the "+durationLabel(WORK_SECONDS)+" work period and "+durationLabel(FINAL_SECONDS)+" final-touches period.";
       $("instructionVideoLabel").textContent = `Instruction Video ${state.current + 1} — ${d.title}`;
       setVideo($("instructionVideo"), currentVideo());
-      $("inlineProblemBrief").classList.toggle("hidden", !(state.current === 0 && state.videoSequence === "two"));
+      $("inlineProblemBrief").classList.toggle("hidden", state.current !== 0);
       $("instructionResources").innerHTML = resourceListHtml();
       $("startDeliverableBtn").textContent = DEMO_MODE ? `Start Demo Deliverable ${state.current + 1}` : `Start ${durationLabel(WORK_SECONDS)} Deliverable ${state.current + 1}`;
       showOnly("instructionScreen");
@@ -1298,67 +1275,6 @@
       $("timingSummary").textContent=durationLabel(WORK_SECONDS)+" + "+durationLabel(FINAL_SECONDS);
       $("timingDescription").textContent=durationLabel(WORK_SECONDS)+" work period plus "+durationLabel(FINAL_SECONDS)+" for final touches.";
     }
-    function initResearcher(){
-      if(!RESEARCHER_MODE)return;
-      $("researchControl").classList.remove("hidden");
-      const specs=[];
-      function add(key,label,kind,value,set){specs.push({key,label,kind,value,set});}
-      add("work","Work duration (seconds)","number",WORK_SECONDS,v=>WORK_SECONDS=Number(v));
-      add("final","Final touches (seconds)","number",FINAL_SECONDS,v=>FINAL_SECONDS=Number(v));
-      add("sequence","Opening video sequence","select",$("videoSequence").value,v=>$("videoSequence").value=v);
-      add("start","Orientation video URL","url",STUDY.videos.start,v=>STUDY.videos.start=v);
-      add("problem","Separate problem video URL","url",STUDY.videos.problem,v=>STUDY.videos.problem=v);
-      add("regular","Regular AI workspace URL","url",STUDY.ai.regular,v=>STUDY.ai.regular=v);
-      add("trained","Trained AI workspace URL","url",STUDY.ai.trained,v=>STUDY.ai.trained=v);
-      add("post","Post-session survey URL","url",STUDY.postSession,v=>STUDY.postSession=v);
-      DELIVERABLES.forEach((d,i)=>{
-        const p="D"+(i+1)+" ";
-        add("v"+i,p+"instruction video URL","url",STUDY.videos.deliverables[i],v=>STUDY.videos.deliverables[i]=v);
-        add("s"+i,p+"survey URL","url",STUDY.surveys[i],v=>STUDY.surveys[i]=v);
-        add("b"+i,p+"TEMPLATE section URL (not participant copy)","url",d.figjam,v=>d.figjam=v);
-        add("d"+i,p+"task description","textarea",d.desc,v=>d.desc=v);
-        add("p"+i,p+"task prompt","textarea",d.prompt,v=>d.prompt=v);
-      });
-      for(const f of specs){
-        const wrap=document.createElement("div");wrap.className="config-field";
-        const label=document.createElement("label");label.htmlFor="cfg-"+f.key;label.textContent=f.label;
-        const e=document.createElement(f.kind==="textarea"?"textarea":f.kind==="select"?"select":"input");
-        e.id="cfg-"+f.key;e.autocomplete="off";
-        if(f.kind==="select"){for(const [v,t] of [["two","Orientation → D1 instructions"],["six","Orientation → problem brief → D1 instructions"]]){const o=document.createElement("option");o.value=v;o.textContent=t;e.append(o);}}
-        else if(f.kind!=="textarea")e.type=f.kind;
-        e.value=f.value;wrap.append(label,e);$("configFields").append(wrap);
-      }
-      const val=k=>$("cfg-"+k).value.trim(),status=m=>$("configStatus").textContent=m;
-      function safeUrl(v){let u;try{u=new URL(v);}catch{return false;}return u.protocol==="https:"&&!u.username&&!u.password;}
-      function validate(){
-        for(const f of specs){const v=val(f.key);
-          if(!v)throw Error(f.label+": required.");
-          if(f.kind==="url"&&!safeUrl(v))throw Error(f.label+": use an HTTPS URL without credentials.");
-          if(f.kind==="number"&&(!Number.isInteger(Number(v))||Number(v)<(f.key==="work"?1:0)||Number(v)>14400))throw Error(f.label+": use a valid whole number of seconds (max 14400).");
-        }
-        if(!validBoardLinks(DELIVERABLES.map((_,i)=>val("b"+i))))throw Error("All four template links must point to the same FigJam board.");
-      }
-      function apply(){validate();for(const f of specs)f.set(val(f.key));updateTimingLabels();if(DEMO_MODE)$("boardUrl").value=DELIVERABLES[0].figjam.split("?")[0];$("topStatus").textContent=(DEMO_MODE?"DEMO":"RESEARCH")+" / "+durationLabel(WORK_SECONDS)+" + "+durationLabel(FINAL_SECONDS);}
-      $("applyConfig").addEventListener("click",()=>{try{apply();status("Applied to this tab only. Website defaults unchanged.");}catch(e){status(e.message);}});
-      $("restoreConfig").addEventListener("click",()=>{for(const f of specs)$("cfg-"+f.key).value=f.value;apply();status("Study defaults restored.");});
-      $("checkConfig").addEventListener("click",()=>{try{validate();status("Link formats and timings pass. Open links manually to verify accessibility and content; live availability was not checked.");}catch(e){status(e.message);}});
-      function preview(i){
-        const p=$("configPreview");p.replaceChildren();
-        const h=document.createElement("h3");h.textContent=DELIVERABLES[i].title;
-        const desc=document.createElement("p");desc.textContent=val("d"+i);
-        const goal=document.createElement("p");goal.textContent=val("p"+i);
-        const image=document.createElement("div");image.className="example-panel";image.innerHTML=EXAMPLE_PICTURES[i];
-        const links=document.createElement("div");links.className="config-actions";
-        for(const [k,t] of [["v"+i,"Open video"],["b"+i,"Open template"],["s"+i,"Open survey"]]){
-          const b=document.createElement("button");b.type="button";b.className="secondary";b.textContent=t;
-          b.addEventListener("click",()=>{const u=val(k);if(!safeUrl(u)||(k.startsWith("b")&&!boardKey(u))){status("Invalid preview URL.");return;}window.open(u,"_blank","noopener,noreferrer");});links.append(b);
-        }
-        p.append(h,desc,goal,image,links);
-      }
-      DELIVERABLES.forEach((d,i)=>{const b=document.createElement("button");b.type="button";b.className="secondary";b.textContent="D"+(i+1)+" / "+d.title;b.addEventListener("click",()=>preview(i));$("previewOptions").append(b);});
-      preview(0);
-    }
-
     renderResourceLists();
 
     if (DEMO_MODE) {
@@ -1392,7 +1308,7 @@
     $("resetBtn").addEventListener("click", resetDemo);
 
     updateTimingLabels();
-    initResearcher();
+    /* OWNER_INIT */
   </script>
 </body>
 </html>
