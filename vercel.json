@@ -1,0 +1,7 @@
+{
+  "functions": {
+    "api/research-owner.mjs": {
+      "includeFiles": "research.html"
+    }
+  }
+}
