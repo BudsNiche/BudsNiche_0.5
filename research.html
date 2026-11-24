@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>BudsNiche Research Lab</title>
+  <title>BudsNiche / Human × AI Research</title>
   <style>
     :root{
       --bg:#f3f6f3;
@@ -33,12 +33,6 @@
     }
     button,input,textarea,select{font:inherit}
     button{cursor:pointer}
-
-    button:disabled{
-      cursor:not-allowed;
-      opacity:.48;
-      filter:grayscale(.2);
-    }
     .hidden{display:none!important}
 
     .topbar{
@@ -540,485 +534,88 @@
       .status-pill{display:none}
     }
 
-    /* =========================================================
-       V6 RESEARCH WORKSPACE DESIGN
-       Evidence-informed: reduce extraneous cognitive load, use
-       strong visual grouping, visible progress, immediate feedback,
-       and controlled novelty across deliverables.
-       ========================================================= */
-    :root{
-      --bg:#edf1f6;
-      --panel:#ffffff;
-      --panel-2:#f6f8fb;
-      --ink:#111827;
-      --muted:#667085;
-      --line:#d8dee8;
-      --navy:#101b32;
-      --navy-2:#162644;
-      --research-blue:#2e5fa8;
-      --shadow:0 18px 46px rgba(15,23,42,.09);
-      --radius:18px;
-    }
-
-    body{
-      font-family:"Aptos","Segoe UI",-apple-system,BlinkMacSystemFont,Arial,sans-serif;
-      background:
-        radial-gradient(circle at 12% 0%, rgba(74,114,176,.10), transparent 28rem),
-        linear-gradient(180deg,#eef2f7 0%,#f7f9fc 58%,#eef2f7 100%);
-      color:var(--ink);
-    }
-    body:before{
-      content:"";position:fixed;inset:0;pointer-events:none;z-index:-1;
-      background-image:linear-gradient(rgba(15,23,42,.022) 1px,transparent 1px),linear-gradient(90deg,rgba(15,23,42,.022) 1px,transparent 1px);
-      background-size:32px 32px;mask-image:linear-gradient(to bottom,black,transparent 75%);
-    }
-    .topbar{
-      background:rgba(14,25,47,.97);border-bottom:1px solid rgba(255,255,255,.08);
-      color:white;box-shadow:0 10px 30px rgba(15,23,42,.12);
-    }
-    .topbar-inner{max-width:1600px;min-height:72px;padding:12px 24px}
-    .brand-mark{
-      width:42px;height:42px;border:0;border-radius:12px;background:linear-gradient(135deg,#f8fafc,#dbe7f7);
-      color:var(--navy);font-size:18px;box-shadow:inset 0 0 0 1px rgba(255,255,255,.8);
-    }
-    .brand-copy strong{font-size:15px;letter-spacing:.01em}
-    .brand-copy span{color:#aebad0;font-size:11px;letter-spacing:.04em;text-transform:uppercase}
-    .status-pill{background:rgba(255,255,255,.08);border-color:rgba(255,255,255,.12);color:#d8e4f5;font-size:10px;letter-spacing:.08em;text-transform:uppercase}
-    .page{max-width:1600px;padding:26px 24px 72px}
-    .card{border:1px solid rgba(152,162,179,.28);box-shadow:var(--shadow);border-radius:20px}
-
-    .eyebrow{color:#416ba8;letter-spacing:.16em;font-size:10px}
-    h1,h2{letter-spacing:-.035em}
-    .start-shell{max-width:1040px;margin-top:34px}
-    .start-hero{
-      padding:48px;background:
-        radial-gradient(circle at 82% 12%,rgba(109,151,214,.25),transparent 16rem),
-        linear-gradient(135deg,#111d35 0%,#1a3154 58%,#294b77 100%);
-      border-bottom:0;color:white;
-    }
-    .start-hero .eyebrow{color:#9fc0ed}
-    .start-hero h1{font-size:48px;max-width:700px}
-    .start-hero .lead{color:#d5deeb;max-width:760px}
-    .start-body{padding:34px 48px 42px;background:#fff}
-    .info-strip{gap:12px;margin:26px 0}
-    .mini-info{background:#f7f9fc;border-color:#e2e7ef;padding:16px;border-radius:14px}
-    .mini-info strong{color:#1b2c49}
-    input,select,textarea{border-color:#cfd7e3;border-radius:12px;background:#fff;padding:12px 13px}
-    input:focus,select:focus,textarea:focus{border-color:#416ba8;box-shadow:0 0 0 4px rgba(65,107,168,.12)}
-    .primary{background:#18345c;border-radius:11px;box-shadow:0 8px 20px rgba(24,52,92,.18)}
-    .primary:hover{background:#102847}
-    .secondary{border-color:#ccd5e2;border-radius:11px;background:#fff;color:#24344d}
-    .secondary:hover{background:#f5f7fa}
-    .notice{border-color:#d9e2ef;background:#f4f7fb;color:#40506a}
-
-    .prestudy-stage,.instruction-stage,.survey-stage{max-width:1120px}
-    .prestudy-card,.instruction-card,.survey-card{background:#fff;border-radius:22px}
-    .prestudy-copy,.instruction-copy,.survey-copy{padding:30px 34px}
-    .prestudy-copy h2,.instruction-copy h2,.survey-copy h2{font-size:34px;color:#14233b}
-    .orientation-badge,.condition-tag{background:#eaf0f8;border-color:#d5dfed;color:#315784}
-    .video-head{background:#f6f8fb;border-color:#e1e6ee;padding:14px 16px}
-    .study-video{background:#0a0f18}
-    .prestudy-actions,.instruction-actions,.survey-actions{padding:20px 34px 28px}
-    .resource-library{padding:0 34px 30px}
-
-    /* Research workspace shell */
-    #studyScreen{--accent:#356bb3;--accent-2:#6b9bd3;--accent-soft:#edf4fd;--accent-deep:#1e497e}
-    #studyScreen[data-deliverable="2"]{--accent:#b66528;--accent-2:#d89a5f;--accent-soft:#fff4e9;--accent-deep:#804016}
-    #studyScreen[data-deliverable="3"]{--accent:#21756c;--accent-2:#56a39a;--accent-soft:#eaf7f5;--accent-deep:#15544e}
-    #studyScreen[data-deliverable="4"]{--accent:#6955a7;--accent-2:#9986cc;--accent-soft:#f2effb;--accent-deep:#463379}
-    .study-shell{gap:14px}
-    .progress-card{
-      top:84px;padding:14px 16px;background:linear-gradient(135deg,#101b32,#172843);color:#fff;border:0;border-radius:18px;
-      box-shadow:0 16px 38px rgba(15,23,42,.18)
-    }
-    .progress-top{margin-bottom:12px}
-    .progress-title strong{font-size:16px;letter-spacing:-.01em}
-    .progress-title span{color:#aebbd0;font-size:11px}
-    .timer-box{background:rgba(255,255,255,.08);border-color:rgba(255,255,255,.15);min-width:128px;padding:8px 11px}
-    .timer-label{color:#aebbd0}
-    .timer{font-size:24px}
-    #skipTimerBtn{background:rgba(255,255,255,.08);border-color:rgba(255,255,255,.16);color:#e8eef7;font-size:11px;padding:9px 12px}
-    #skipTimerBtn:hover{background:rgba(255,255,255,.14)}
-    .steps{grid-template-columns:repeat(4,1fr);gap:8px}
-    .step{
-      display:flex;align-items:center;gap:9px;text-align:left;padding:9px 10px;border-radius:12px;
-      background:rgba(255,255,255,.055);border-color:rgba(255,255,255,.08);color:#aebbd0
-    }
-    .step.active{background:var(--accent);border-color:transparent;color:white;box-shadow:0 8px 22px color-mix(in srgb,var(--accent) 30%,transparent)}
-    .step.done{background:rgba(255,255,255,.10);border-color:rgba(255,255,255,.09);color:#dfe8f4}
-    .step-index{font-size:10px;font-weight:900;letter-spacing:.08em;opacity:.72}
-    .step-copy{display:flex;flex-direction:column;min-width:0}
-    .step-copy strong{font-size:11px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-    .step-copy small{font-size:9px;font-weight:600;opacity:.68;margin-top:2px}
-
-    .workspace{grid-template-columns:minmax(0,1fr) 330px;gap:16px;align-items:start}
-    .main-column{gap:10px}
-    .section-card{border:0!important;background:transparent!important;box-shadow:none!important;overflow:visible}
-    .section-head{
-      position:relative;padding:28px 30px;background:linear-gradient(135deg,var(--accent-deep),var(--accent) 62%,var(--accent-2));
-      border:0;color:#fff;border-radius:22px 22px 0 0;overflow:hidden
-    }
-    .section-head:before{
-      content:"";position:absolute;width:220px;height:220px;border-radius:50%;right:-55px;top:-110px;
-      border:42px solid rgba(255,255,255,.07)
-    }
-    .section-head:after{
-      content:"DELIVERABLE " attr(data-step);position:absolute;right:28px;bottom:22px;font-size:10px;font-weight:900;
-      letter-spacing:.18em;color:rgba(255,255,255,.63)
-    }
-    .section-head strong{font-size:27px;letter-spacing:-.035em;display:block}
-    .section-head p{font-size:12px;max-width:720px;color:rgba(255,255,255,.80);margin-top:7px}
-    .section-body{
-      padding:24px 26px 30px;border:1px solid #dfe5ed;border-top:0;border-radius:0 0 22px 22px;
-      background-color:#f6f8fb;
-      background-image:radial-gradient(circle at 1px 1px,rgba(45,65,92,.075) 1px,transparent 0);
-      background-size:22px 22px;box-shadow:0 20px 46px rgba(15,23,42,.08)
-    }
-    .prompt-block{
-      position:relative;margin:0 0 18px;padding:16px 18px 16px 20px;background:rgba(255,255,255,.93);border:1px solid #dfe5ed;
-      border-left:5px solid var(--accent);border-radius:13px;box-shadow:0 8px 20px rgba(15,23,42,.045)
-    }
-    .prompt-block strong{font-size:10px;text-transform:uppercase;letter-spacing:.13em;color:var(--accent-deep)}
-    .prompt-block p{font-size:13px;color:#45556c;max-width:1000px}
-
-    .deliverable-board{display:grid;gap:14px}
-    .workspace-zone{
-      position:relative;background:rgba(255,255,255,.97);border:1px solid #dfe5ed;border-radius:16px;padding:18px;
-      box-shadow:0 10px 26px rgba(15,23,42,.055);overflow:hidden
-    }
-    .workspace-zone:before{content:"";position:absolute;left:0;top:0;right:0;height:4px;background:linear-gradient(90deg,var(--accent),var(--accent-2))}
-    .zone-heading{display:flex;align-items:flex-start;gap:12px;margin-bottom:8px}
-    .zone-number{flex:none;min-width:34px;height:27px;border-radius:8px;background:var(--accent-soft);color:var(--accent-deep);display:grid;place-items:center;font-size:9px;font-weight:900;letter-spacing:.07em}
-    .zone-eyebrow{display:block;color:#7a8799;font-size:9px;font-weight:900;text-transform:uppercase;letter-spacing:.13em;margin-bottom:3px}
-    .zone-heading h3{font-size:17px;line-height:1.15;margin:0;color:#18253a;letter-spacing:-.02em}
-    .zone-help{font-size:11px;line-height:1.5;color:#68778c;margin:0 0 12px;max-width:900px}
-    .zone-input{min-height:118px;border:1px solid #d9e0e9;background:#fbfcfe;border-radius:12px;padding:13px 14px;font-size:13px;line-height:1.55}
-    .zone-input-tall{min-height:145px}
-    .zone-input:focus{background:#fff;border-color:var(--accent);box-shadow:0 0 0 4px color-mix(in srgb,var(--accent) 13%,transparent)}
-
-    .charter-board{grid-template-columns:1fr}
-    .charter-pair{display:grid;grid-template-columns:1fr 1fr;gap:14px}
-    .zone-human{background:linear-gradient(180deg,#fff,#fbfdff)}
-    .zone-ai{background:linear-gradient(180deg,#fff,#f9fbff)}
-    .zone-collaboration,.zone-roles{padding:20px}
-
-    .problem-board{grid-template-columns:minmax(0,1fr)}
-    .map-core{padding:20px;background:rgba(255,253,249,.98)}
-    .map-canvas{
-      min-height:330px;border:1px solid #e2d6ca;border-radius:14px;padding:14px;background-color:#fffdf9;
-      background-image:radial-gradient(circle at 1px 1px,rgba(128,64,22,.13) 1px,transparent 0);background-size:20px 20px
-    }
-    .map-guide{display:flex;justify-content:space-between;gap:12px;align-items:center;margin-bottom:10px;padding:8px 10px;border-radius:10px;background:rgba(255,255,255,.83);border:1px solid #eadfd4;color:#744521}
-    .map-guide span{font-size:11px;font-weight:800}.map-guide small{font-size:9px;color:#8f7158}
-    .map-input{min-height:250px;background:rgba(255,255,255,.78);border-style:dashed;border-color:#d8c8b9;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:12px}
-
-    .board-kicker{padding:16px 18px;border-radius:15px;background:linear-gradient(135deg,var(--accent-deep),var(--accent));color:white;box-shadow:0 10px 24px color-mix(in srgb,var(--accent) 18%,transparent)}
-    .board-kicker span{display:block;font-size:9px;text-transform:uppercase;letter-spacing:.15em;opacity:.75;font-weight:900}
-    .board-kicker strong{display:block;font-size:18px;margin-top:4px;letter-spacing:-.02em}
-    .execution-board>.field,.review-board>.field{background:#fff;border:1px solid #dfe5ed;border-radius:14px;padding:16px;box-shadow:0 8px 20px rgba(15,23,42,.04)}
-    .execution-board>.field label,.review-board>.field label{font-size:12px;color:#26364e}
-    .study-table-wrap{border-color:#dce3eb;border-radius:14px;background:white;box-shadow:0 9px 24px rgba(15,23,42,.045);margin:0}
-    .study-table th{background:var(--accent-soft);color:var(--accent-deep);font-size:10px;text-transform:uppercase;letter-spacing:.05em;padding:11px}
-    .study-table td{padding:7px;border-color:#e8edf3}
-    .study-table textarea,.study-table input{background:#fbfcfe;border:1px solid #e2e7ed!important;border-radius:9px!important}
-    .study-table textarea:focus,.study-table input:focus{border-color:var(--accent)!important;box-shadow:0 0 0 3px color-mix(in srgb,var(--accent) 10%,transparent)}
-    .roles-panel textarea,.review-lead textarea,.review-revisions textarea{min-height:145px}
-
-    /* V7: instruction hierarchy + creative D2 map + expanding table cells */
-    .prompt-block{
-      padding:20px 22px 21px 24px;
-      border-left-width:7px;
-      box-shadow:0 12px 28px rgba(15,23,42,.07);
-    }
-    .prompt-block strong{
-      display:block;
-      font-size:11px;
-      letter-spacing:.16em;
-      margin-bottom:7px;
-    }
-    .prompt-block p{
-      margin:0;
-      max-width:1050px;
-      font-size:18px;
-      line-height:1.5;
-      font-weight:750;
-      color:#1d2b40;
-      letter-spacing:-.01em;
-    }
-    .zone-heading h3{font-size:20px}
-    .zone-help{
-      font-size:14px;
-      line-height:1.55;
-      color:#4e5f76;
-      margin-bottom:15px;
-    }
-    .execution-board>.field,.review-board>.field{
-      padding:20px 22px;
-      border-left:5px solid var(--accent);
-    }
-    .execution-board>.field label,.review-board>.field label{
-      display:block;
-      font-size:20px;
-      line-height:1.2;
-      color:#17253a;
-      letter-spacing:-.025em;
-      margin-bottom:7px;
-    }
-    .execution-board>.field .small-help,.review-board>.field .small-help{
-      margin-top:0;
-      font-size:14px;
-      line-height:1.5;
-      color:#52627a;
-      max-width:1000px;
-    }
-    .study-table th{
-      font-size:11px;
-      line-height:1.35;
-      padding:13px 12px;
-    }
-    .study-table textarea{
-      width:100%;
-      min-height:76px;
-      height:auto;
-      resize:none;
-      overflow:hidden;
-      line-height:1.45;
-      font-size:13px;
-    }
-    .month-grid td{min-width:165px}
-    .month-grid textarea.month-cell{
-      width:100%;
-      min-width:145px;
-      min-height:64px;
-      height:auto;
-      resize:none;
-      overflow:hidden;
-      padding:12px 13px!important;
-      font-size:14px;
-      line-height:1.45;
-      background:#fff!important;
-    }
-
-    .map-toolbank{
-      position:sticky;
-      top:0;
-      z-index:8;
-      display:flex;
-      flex-wrap:wrap;
-      gap:8px;
-      align-items:center;
-      margin:0 0 12px;
-      padding:10px;
-      background:rgba(255,255,255,.96);
-      border:1px solid #e5d8ca;
-      border-radius:12px;
-      box-shadow:0 8px 20px rgba(83,52,29,.07);
-      backdrop-filter:blur(8px);
-    }
-    .map-toolbank .tool-label{
-      font-size:10px;
-      font-weight:900;
-      letter-spacing:.12em;
-      text-transform:uppercase;
-      color:#795838;
-      margin:0 4px 0 2px;
-    }
-    .map-tool{
-      display:inline-flex;
-      align-items:center;
-      gap:6px;
-      border:1px solid #ddcfbf;
-      border-radius:9px;
-      background:#fffdf9;
-      color:#4d3420;
-      padding:8px 10px;
-      font-size:11px;
-      font-weight:850;
-      cursor:pointer;
-    }
-    .map-tool:hover{background:#f9efe5;border-color:#c9ad91}
-    .map-tool.danger-tool{margin-left:auto;color:#7b3131;border-color:#ebcece;background:#fffafa}
-    .map-tool.danger-tool:hover{background:#fff0f0}
-    .map-canvas{
-      position:relative;
-      min-height:520px;
-      overflow:hidden;
-    }
-    .map-empty-hint{
-      position:absolute;
-      inset:50% auto auto 50%;
-      transform:translate(-50%,-50%);
-      max-width:430px;
-      text-align:center;
-      color:#9b7a5d;
-      pointer-events:none;
-    }
-    .map-empty-hint strong{display:block;font-size:16px;color:#6f4b2d;margin-bottom:5px}
-    .map-empty-hint span{font-size:12px;line-height:1.5}
-    .map-object{
-      position:absolute;
-      min-width:120px;
-      max-width:310px;
-      border:1px solid #d8c7b7;
-      border-radius:12px;
-      background:#fff;
-      box-shadow:0 8px 22px rgba(70,45,25,.10);
-      color:#2a2119;
-      user-select:none;
-    }
-    .map-object.selected{
-      outline:3px solid rgba(217,133,50,.28);
-      border-color:#d98532;
-      box-shadow:0 10px 26px rgba(148,82,27,.16);
-    }
-    .map-grip{
-      height:24px;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      cursor:grab;
-      border-bottom:1px solid rgba(80,53,29,.08);
-      color:#9b8068;
-      font-size:13px;
-      letter-spacing:2px;
-      background:rgba(250,245,239,.8);
-      border-radius:12px 12px 0 0;
-    }
-    .map-grip:active{cursor:grabbing}
-    .map-object-content{
-      min-width:120px;
-      min-height:48px;
-      padding:11px 12px;
-      outline:none;
-      white-space:pre-wrap;
-      line-height:1.45;
-      font-size:13px;
-      user-select:text;
-    }
-    .map-object.map-note{background:#fff4b8;border-color:#eadb8f}
-    .map-object.map-bullets{background:#edf7ff;border-color:#c9dfef}
-    .map-object.map-label{
-      min-width:90px;
-      max-width:220px;
-      border-radius:999px;
-      background:#efe7ff;
-      border-color:#d8c7f2;
-    }
-    .map-object.map-label .map-grip{border-radius:999px 999px 0 0}
-    .map-object.map-label .map-object-content{min-height:34px;padding:8px 12px;font-weight:800}
-    .map-object.map-arrow{
-      min-width:76px;
-      width:92px;
-      border:0;
-      background:transparent;
-      box-shadow:none;
-    }
-    .map-object.map-arrow .map-grip{
-      background:rgba(255,255,255,.72);
-      border:1px solid #e1d4c8;
-      border-radius:8px;
-      height:20px;
-      width:42px;
-      margin:auto;
-    }
-    .map-arrow-glyph{
-      text-align:center;
-      font-size:58px;
-      line-height:1;
-      color:#6d4a2e;
-      filter:drop-shadow(0 3px 2px rgba(80,50,28,.08));
-      cursor:grab;
-    }
-
-    .side-column{top:170px;gap:12px}
-    .side-column .card{border:1px solid #dce3ec;box-shadow:0 12px 30px rgba(15,23,42,.07);border-radius:16px;overflow:hidden}
-    .side-column .video-head{background:#f6f8fb;padding:12px 13px}
-    .side-column .video-head strong{font-size:11px;color:#24344d}.side-column .video-head span{font-size:9px}
-    .side-column .study-video{aspect-ratio:16/9}
-    .video-actions{padding:9px;gap:6px}.video-actions button{font-size:10px;padding:8px}
-    .resource-list{padding:8px}
-    .resource{padding:9px;border-color:#e1e6ee;background:#fff;border-radius:10px;margin-bottom:6px}
-    .resource-icon{background:var(--accent-soft);color:var(--accent-deep);border-radius:8px}
-    .resource-copy strong{font-size:10px}.resource-copy span{font-size:9px}
-    .resource button{color:var(--accent-deep);font-size:9px}
-    .ai-card{padding:14px;background:linear-gradient(180deg,#fff,#f8fafc)}
-    .ai-card h3{color:#1d2c44}.ai-card p{font-size:10px}
-    .skill-box{background:var(--accent-soft);border-color:color-mix(in srgb,var(--accent) 20%,#dbe3ec);color:#435168}
-    .ai-open{background:var(--accent-deep);box-shadow:none}
-    .work-status{font-size:10px;color:#65758a;padding:3px 4px}.save-dot{background:#3f9a74;box-shadow:0 0 0 4px rgba(63,154,116,.10)}
-
-    .survey-card{max-width:780px;margin:30px auto}
-
-
-    /* V8 study-design additions */
-    .baseline-stage{max-width:1120px;margin:0 auto}
-    .baseline-card{overflow:hidden;background:#fff;border-radius:22px}
-    .baseline-copy{padding:30px 34px 18px}
-    .baseline-copy h2{margin:0;font-size:34px;color:#14233b;letter-spacing:-.04em}
-    .baseline-copy p{margin:10px 0 0;color:#56657a;line-height:1.55;font-size:15px;max-width:850px}
-    .baseline-warning{margin:0 34px 20px;border:1px solid #f0c78d;background:#fff8e8;color:#704c1d;border-radius:13px;padding:14px 16px;font-size:13px;font-weight:750}
-    .baseline-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;padding:0 34px 18px}
-    .baseline-field{border:1px solid #d9e2ef;border-radius:16px;padding:16px;background:#fbfdff}
-    .baseline-field.full{grid-column:1/-1}
-    .baseline-field label{font-size:16px;color:#1b2b44;margin-bottom:8px}
-    .baseline-field textarea{min-height:150px;font-size:14px;line-height:1.55}
-    .baseline-confidence{display:grid;grid-template-columns:1fr auto;gap:14px;align-items:center}
-    .baseline-confidence input[type="range"]{padding:0;border:0;box-shadow:none}
-    .confidence-value{min-width:58px;text-align:center;border-radius:10px;background:#14233b;color:#fff;font-weight:900;padding:10px}
-    .baseline-timer-row{display:flex;align-items:center;gap:12px;padding:0 34px 24px;flex-wrap:wrap}
-    .baseline-timer{margin-left:auto;border:1px solid #ccd8e7;border-radius:12px;padding:9px 14px;background:#f7faff;font-weight:900;font-variant-numeric:tabular-nums;color:#14233b}
-
-    .event-backdrop{position:fixed;inset:0;z-index:200;background:rgba(10,18,32,.64);backdrop-filter:blur(6px);display:grid;place-items:center;padding:20px}
-    .event-modal{width:min(720px,100%);background:#fff;border-radius:22px;box-shadow:0 24px 80px rgba(0,0,0,.3);overflow:hidden;border:1px solid #dbe3ed}
-    .event-stripe{height:8px;background:linear-gradient(90deg,#1f5f8f,#6a4bb6,#d98532)}
-    .event-body{padding:28px 30px}
-    .event-kicker{font-size:11px;font-weight:950;letter-spacing:.14em;text-transform:uppercase;color:#6d4ea2}
-    .event-body h2{margin:7px 0 10px;font-size:30px;letter-spacing:-.04em;color:#14233b}
-    .event-category{display:inline-flex;margin-bottom:14px;border-radius:999px;background:#eef3fb;color:#294a75;padding:7px 10px;font-size:11px;font-weight:900}
-    .event-text{font-size:17px;line-height:1.55;color:#29384d;margin:0 0 18px}
-    .event-note{font-size:12px;color:#6a7789;margin:0 0 16px}
-    .event-body textarea{min-height:115px;font-size:14px;line-height:1.5}
-    .event-actions{display:flex;justify-content:flex-end;gap:10px;padding:0 30px 28px}
-
-    .manip-check{margin-top:20px;border:1px solid #dce5ef;border-radius:16px;background:#fbfdff;padding:18px}
-    .manip-check h3{margin:0;font-size:18px;color:#17253a}
-    .manip-check>p{margin:6px 0 14px;color:#647185;font-size:12px;line-height:1.45}
-    .likert-head,.likert-row{display:grid;grid-template-columns:minmax(260px,1fr) repeat(5,56px);gap:6px;align-items:center}
-    .likert-head{font-size:10px;color:#778396;font-weight:900;text-align:center;padding:0 4px 7px}
-    .likert-head div:first-child{text-align:left}
-    .likert-row{padding:11px 4px;border-top:1px solid #e5ebf2}
-    .likert-label{font-size:12px;line-height:1.4;color:#27364b;font-weight:700}
-    .likert-choice{text-align:center}
-    .likert-choice input{width:auto;accent-color:#2f5f91}
-    .survey-lock-note{margin-top:12px;font-size:11px;color:#6a7688}
-
-    @media(max-width:760px){
-      .baseline-grid{grid-template-columns:1fr;padding-inline:18px}.baseline-field.full{grid-column:auto}
-      .baseline-copy{padding:24px 18px 16px}.baseline-warning{margin-inline:18px}.baseline-timer-row{padding-inline:18px}
-      .likert-head,.likert-row{grid-template-columns:1fr repeat(5,42px)}
-      .likert-label{grid-column:1/-1;margin-bottom:4px}
-    }
-    .complete-card{background:#fff;max-width:900px}
-    .complete-icon{background:#eaf1fb;color:#315f9e}
-
-    @media(max-width:1120px){
-      .workspace{grid-template-columns:1fr}.side-column{position:static;grid-template-columns:1fr 1fr}.side-column .ai-card{grid-column:1/-1}
-    }
-    @media(max-width:760px){
-      .page{padding:16px 12px 42px}.topbar-inner{padding:10px 12px}.start-hero{padding:32px 24px}.start-hero h1{font-size:38px}.start-body{padding:26px 24px}
-      .progress-card{position:static}.steps{grid-template-columns:1fr 1fr}.charter-pair{grid-template-columns:1fr}.section-head{padding:22px 20px}.section-head strong{font-size:24px}.section-body{padding:18px 14px 22px}
-      .side-column{grid-template-columns:1fr}.side-column .ai-card{grid-column:auto}.map-guide{align-items:flex-start;flex-direction:column}.workspace-zone{padding:15px}
-    }
-
+    /* 06 — neo-brutalist study interface */
+    :root{--bg:#FFF1A8;--panel:#fff;--panel-2:#FFF6CF;--ink:#171717;--muted:#444139;--line:#171717;--green:#FF825F;--green-dark:#F0633E;--green-soft:#E4F4D2;--orange:#FF825F;--orange-soft:#FFE4D9;--red:#A52B25;--blue:#395AC1;--shadow:5px 5px 0 #171717;--radius:0px;--mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;--display:'Arial Black','Helvetica Neue',Arial,sans-serif}
+    body{background:var(--bg);font-family:'Helvetica Neue',Arial,sans-serif;line-height:1.45}
+    .topbar{background:#171717;color:white;border-bottom:3px solid #171717;backdrop-filter:none}
+    .topbar-inner{min-height:76px;max-width:1480px;padding:12px 28px;gap:14px}
+    .brand-mark{width:46px;height:46px;border-radius:0;background:var(--green);border:2px solid white;color:#171717;font-family:var(--display);font-size:21px}
+    .brand-copy strong{font-family:var(--display);font-size:17px;letter-spacing:-.5px;text-transform:uppercase;font-weight:900}
+    .brand-copy span{color:#e4e4e4;font-family:var(--mono);font-size:10px;letter-spacing:.02em}
+    .status-pill{background:var(--green);color:#171717;border:2px solid white;border-radius:0;font-family:var(--mono);font-size:11px}
+    .page{max-width:1480px;padding:28px 28px 64px}
+    .card{border:2px solid #171717;box-shadow:var(--shadow);border-radius:0}
+    .start-shell{max-width:970px;margin:22px auto 0}
+    .start-hero{background:var(--green);border-bottom:2px solid #171717;padding:42px}
+    h1,h2,.progress-title strong,.section-head strong{font-family:var(--display);font-weight:900;letter-spacing:-.045em;line-height:1.02}
+    h1{font-size:clamp(38px,6vw,68px);max-width:780px;text-transform:uppercase}
+    .eyebrow,.orientation-badge,.condition-tag,.timer-label,label{font-family:var(--mono);letter-spacing:.045em;font-size:11px;font-weight:800;text-transform:uppercase;color:#171717}
+    .eyebrow{display:table;border:2px solid #171717;background:#171717;color:#fff;padding:5px 9px;margin-bottom:16px}
+    .lead{color:#27221E;font-size:17px;max-width:730px}
+    .start-body{padding:34px 42px 40px}
+    input,select,textarea{border:2px solid #171717;border-radius:0;padding:12px;background:#fff}
+    input:focus,select:focus,textarea:focus{border-color:#171717;box-shadow:3px 3px 0 #FF825F;outline:2px solid #171717;outline-offset:2px}
+    .mini-info,.study-meta-box,.summary-box{border:2px solid #171717;background:#FFF6CF;border-radius:0;padding:16px}
+    .mini-info strong,.summary-box strong{font-family:var(--display);font-size:16px;letter-spacing:-.035em}
+    .mini-info span,.summary-box span,.small-help{font-size:12px;color:var(--muted)}
+    .primary,.secondary,.danger{border:2px solid #171717;border-radius:0;background:var(--green);color:#171717;box-shadow:3px 3px 0 #171717;font-weight:900;padding:12px 16px;transition:transform .1s,box-shadow .1s}
+    .secondary{background:#fff}.danger{background:#FFE4D9;color:#72241D}
+    .primary:hover,.secondary:hover,.danger:hover{background:#171717;color:#fff}
+    button:active{transform:translate(2px,2px);box-shadow:1px 1px 0 #171717}
+    button:focus-visible,a:focus-visible,summary:focus-visible{outline:3px solid #395AC1;outline-offset:4px}
+    .notice{border:2px solid #171717;border-radius:0;background:#FFF6CF;color:#171717;font-size:13px;line-height:1.5}
+    #boardSetup{border:2px solid #171717!important;border-radius:0!important;background:#fff}
+    .progress-card{padding:18px 20px;background:#fff;top:88px}
+    .progress-top{gap:18px;margin-bottom:15px}
+    .progress-title strong{font-size:clamp(22px,3vw,34px)}
+    .progress-title span{font-size:13px}
+    .timer-box{border:2px solid #171717;border-radius:0;background:var(--green);box-shadow:3px 3px 0 #171717;padding:10px 16px}
+    .timer-box.final{background:#FFDD74;border-color:#171717}
+    .timer{font-family:var(--mono);font-weight:900;font-size:30px;line-height:1.2}
+    .step{border:2px solid #171717;border-radius:0;background:#fff;color:#454545;font-family:var(--mono);font-size:11px;padding:9px 5px}
+    .step.active{background:#171717;border-color:#171717;color:white}.step.done{background:#E4F4D2;border-color:#171717;color:#171717}
+    .workspace{grid-template-columns:minmax(0,1fr) 340px;gap:22px}
+    .main-column,.side-column{gap:20px}.side-column{top:257px}
+    .section-head{background:var(--green);border-bottom:2px solid #171717;padding:22px 24px}
+    .section-head strong{font-size:clamp(24px,3vw,37px);text-transform:uppercase;display:block}
+    .section-head p{font-size:14px;color:#29231F;margin-top:8px}
+    .section-body{padding:22px 24px}
+    .prompt-block{border:2px solid #171717;border-left:7px solid #171717;border-radius:0;background:#FFF6CF;padding:12px 15px}
+    .prompt-block strong{font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:.06em}
+    .prompt-block p{font-size:14px;color:#171717}
+    .video-head{border-bottom:2px solid #171717;background:#FFF6CF;padding:14px 15px}.video-head strong{font-size:14px;display:block}.video-head span{font-size:11px;display:block;margin-top:3px}
+    .video-actions{gap:10px;padding:12px}.video-actions button{box-shadow:2px 2px 0 #171717}
+    .resource{border:1.5px solid #171717;border-radius:0;background:#fff;padding:10px;gap:8px}
+    .resource-icon{background:#FF825F;color:#171717;border:1.5px solid #171717;border-radius:0;font-family:var(--mono)}
+    .resource button{color:#171717;font-family:var(--mono)}.resource-link:hover .resource{background:#FFF6CF;border-color:#171717}
+    .condition-tag,.orientation-badge{background:#FFF1A8;border:2px solid #171717;border-radius:0;color:#171717}
+    .ai-card{padding:17px}.ai-card h3{font-family:var(--display);font-size:20px;font-weight:900;letter-spacing:-.035em}.ai-card p{font-size:12px}
+    .skill-box,.survey-link-note{background:#FFF6CF;border:2px solid #171717;border-radius:0;color:#171717}.ai-open{margin-top:14px}
+    .work-status{font-family:var(--mono);font-size:10px;color:#171717}.save-dot{border:1px solid #171717;background:#E4F4D2;border-radius:0}
+    .instruction-copy,.prestudy-copy,.survey-copy{background:var(--green);border-bottom:2px solid #171717;padding:30px}
+    .instruction-copy h2,.prestudy-copy h2,.survey-copy h2{font-size:clamp(32px,4vw,48px);text-transform:uppercase}
+    .instruction-copy p,.prestudy-copy p,.survey-copy p{color:#27221E;font-size:15px}
+    .study-video{background:#171717}.instruction-actions,.prestudy-actions,.survey-actions{padding:23px 30px 29px}
+    .complete-icon{border:2px solid #171717;border-radius:0;background:#E4F4D2;color:#171717;box-shadow:3px 3px 0 #171717}
+    .complete-card h2{font-size:42px}.complete-card .eyebrow{margin:0 auto 16px}
+    .example-panel{margin:22px 0 16px;border:2px solid #171717;background:#fff;box-shadow:3px 3px 0 #171717;overflow:hidden}
+    .example-bar{display:flex;align-items:center;justify-content:space-between;gap:10px;background:#171717;color:#fff;padding:9px 12px;font-family:var(--mono);font-size:11px;font-weight:800;letter-spacing:.025em;text-transform:uppercase}
+    .example-bar span:last-child{color:#FFF1A8;font-size:10px;white-space:nowrap}
+    .example-picture{display:block;width:100%;height:auto;background:#F6F6F3}
+    .example-caption{margin:0;padding:10px 13px;border-top:2px solid #171717;color:#444139;font-size:12px;line-height:1.45}
+    .figjam-guidance{font-size:13px;margin:13px 0;line-height:1.5;color:#171717}
+    #openBoardBtn{font-family:var(--display);font-size:17px;letter-spacing:-.02em;text-align:left;display:flex;justify-content:space-between;align-items:center;gap:10px;padding:16px 18px}
+    @media(max-width:1000px){.workspace{grid-template-columns:1fr}.side-column{position:static;grid-template-columns:1fr 1fr}.page{padding:20px 18px 50px}}
+    @media(max-width:700px){.page{padding:14px 12px 40px}.topbar-inner{padding:10px 12px;min-height:62px}.brand-copy strong{font-size:13px}.brand-copy span{font-size:9px}.start-hero,.start-body,.section-body,.section-head,.instruction-copy,.prestudy-copy,.survey-copy{padding:20px}.side-column{grid-template-columns:1fr}.progress-card{position:static}.instruction-actions,.prestudy-actions,.survey-actions{padding:18px 20px;flex-wrap:wrap}.instruction-actions .secondary{margin-left:0}.example-bar{font-size:10px}.example-bar span:last-child{font-size:9px}.complete-card{padding:25px}}
   </style>
 </head>
 <body>
   <header class="topbar">
     <div class="topbar-inner">
-      <div class="brand-mark">R</div>
+      <div class="brand-mark">BN</div>
       <div class="brand-copy">
-        <strong>Human–AI Collaboration Study</strong>
-        <span>Research Workspace · Iowa State University</span>
+        <strong>BudsNiche / Research Lab</strong>
+        <span>HUMAN × AI / STUDY WORKSPACE</span>
       </div>
       <div class="top-spacer"></div>
       <div class="status-pill" id="topStatus">Prototype // Local Save</div>
@@ -1029,11 +626,11 @@
     <!-- START SCREEN -->
     <section id="startScreen" class="start-shell card">
       <div class="start-hero">
-        <div class="eyebrow">Research Participant Portal</div>
+        <div class="eyebrow">Study Workspace</div>
         <h1>Human–AI Collaboration Study</h1>
         <p class="lead">
           A guided workspace for completing four timed deliverables while collaborating with an AI partner.
-          Instructions, resources, progress, and study work stay organized in one place.
+          BudsNiche organizes the instructions, resources, timer, and surveys. Deliverable work stays in the assigned FigJam board.
         </p>
       </div>
       <div class="start-body" id="startBodyMarker">
@@ -1049,8 +646,8 @@
             <span>Each section builds toward the final proposed solution.</span>
           </div>
           <div class="mini-info">
-            <strong>2-Minute Test Timer</strong>
-            <span>Each deliverable is temporarily set to 2:00 so the research team can test the full flow quickly.</span>
+            <strong>20 + 2 Minutes</strong>
+            <span>20-minute work period plus 2 minutes for final touches.</span>
           </div>
           <div class="mini-info">
             <strong>Resources Stay Open</strong>
@@ -1059,9 +656,15 @@
         </div>
 
         <div class="notice" style="margin-bottom:18px">
-          This workspace uses the current PilotTest1 study materials. After you begin, you will watch the Start Here video and the problem brief before Deliverable 1.
+          This workspace uses the current PilotTest1 study materials. After you begin, you will watch Video 1 and then Video 2 before starting Deliverable 1.
         </div>
 
+        <details id="boardSetup" style="margin:18px 0;padding:16px;border:1px solid var(--line);border-radius:12px">
+          <summary style="cursor:pointer;font-weight:700">Researcher setup — assigned FigJam board</summary>
+          <p class="small-help" id="boardSetupHelp">Paste the participant’s own copy of the FigJam board once. All four deliverables use this same board. Navigate between its D1–D4 sections as the study progresses.</p>
+          <div class="field" style="margin-top:12px"><label for="boardUrl">Assigned FigJam board link</label><input id="boardUrl" type="url" autocomplete="off" placeholder="https://www.figma.com/board/…" /></div>
+        </details>
+        <details style="margin:18px 0"><summary>Researcher video sequence settings</summary><label for="videoSequence" style="margin-top:12px">Video order</label><select id="videoSequence"><option value="two">Start Here (01) → D1 (02) → D2 (03) → D3 (04) → D4 (05)</option><option value="six">Start Here (01) → Problem brief (06) → D1 (02) → D2 (03) → D3 (04) → D4 (05)</option></select><div class="small-help">Default follows the reported two-video opening. Video mapping follows the existing repository’s corrected file assignments. The six-video option includes the separate problem package.</div></details>
         <button class="primary" id="beginStudyBtn">Begin Study</button>
       </div>
     </section>
@@ -1084,45 +687,6 @@
       </div>
     </section>
 
-    <!-- HUMAN-ONLY BASELINE -->
-    <section id="baselineScreen" class="baseline-stage hidden">
-      <div class="baseline-card card">
-        <div class="baseline-copy">
-          <div class="orientation-badge">Human Baseline</div>
-          <h2>Your initial take — before AI</h2>
-          <p>Work independently for this short baseline. We want your own first interpretation before you open the AI collaborator.</p>
-        </div>
-        <div class="baseline-warning"><strong>Do not use AI yet.</strong> This gives the research team a human-only starting point to compare with the final team solution.</div>
-        <div class="baseline-grid">
-          <div class="baseline-field full">
-            <label for="baselineProblem">How do you currently understand the problem?</label>
-            <textarea id="baselineProblem" placeholder="Write your initial interpretation of the Ames community-space problem."></textarea>
-          </div>
-          <div class="baseline-field">
-            <label for="baselineIdeas">What are your first ideas?</label>
-            <textarea id="baselineIdeas" placeholder="List your initial ideas or possible initiatives before talking with AI."></textarea>
-          </div>
-          <div class="baseline-field">
-            <label for="baselinePriorities">What matters most in a good solution?</label>
-            <textarea id="baselinePriorities" placeholder="Note the criteria, priorities, or tradeoffs you think matter most."></textarea>
-          </div>
-          <div class="baseline-field full">
-            <label for="baselineConfidence">How confident are you in your initial direction?</label>
-            <div class="baseline-confidence">
-              <input id="baselineConfidence" type="range" min="0" max="100" step="1" value="50" />
-              <div class="confidence-value"><span id="baselineConfidenceValue">50</span>%</div>
-            </div>
-          </div>
-        </div>
-        <div class="baseline-timer-row">
-          <button class="primary" id="startBaselineBtn">Start 2-Minute Baseline</button>
-          <button class="secondary hidden" id="finishBaselineBtn">Finish Baseline → Deliverable 1</button>
-          <button class="secondary" id="skipBaselineBtn" type="button" title="Temporary testing control">Skip Baseline (Testing)</button>
-          <div class="baseline-timer" id="baselineTimer">02:00</div>
-        </div>
-      </div>
-    </section>
-
     <!-- INSTRUCTION SCREEN -->
     <section id="instructionScreen" class="instruction-stage hidden">
       <div class="instruction-card card">
@@ -1140,9 +704,10 @@
           </div>
         </div>
         <video id="instructionVideo" class="study-video" controls playsinline preload="metadata"></video>
+        <div id="inlineProblemBrief" class="notice hidden" style="margin:16px"><strong>Problem package · Strengthening Third Places for Young Adults in Ames</strong><p>How could Ames community spaces better support adults ages 18–35? Propose three initiatives for a six-month pilot. The study resources remain available during every deliverable.</p><div id="instructionResources"></div></div>
         <div class="instruction-actions">
-          <button class="primary" id="startDeliverableBtn" disabled>Finish Video to Unlock</button>
-          <button class="secondary" id="saveExitBtn">Save Prototype Progress</button>
+          <button class="primary" id="startDeliverableBtn">Start 20-Minute Deliverable</button>
+          <button class="secondary" id="saveExitBtn">Save Session Progress</button>
         </div>
       </div>
     </section>
@@ -1153,19 +718,18 @@
         <div class="progress-top">
           <div class="progress-title">
             <strong id="progressHeading">Deliverable 1 — Roles & Initial Approach</strong>
-            <span id="progressSubheading">Work period in progress. Your responses save automatically.</span>
+            <span id="progressSubheading">Work period in progress. Edit the assigned FigJam section.</span>
           </div>
-          <button class="secondary" id="skipTimerBtn" type="button" title="Temporary testing control">Skip Timer →</button>
           <div class="timer-box" id="timerBox">
             <div class="timer-label" id="timerLabel">Work Period</div>
-            <div class="timer" id="timer">02:00</div>
+            <div class="timer" id="timer">20:00</div>
           </div>
         </div>
         <div class="steps" id="steps"></div>
       </div>
 
       <div id="finalTouchesNotice" class="notice hidden">
-        Test timer complete. Your work has been saved and the post-deliverable survey will open next.
+        Main work period complete. You now have <strong>2 minutes for final touches</strong>. Finish your edits in FigJam. When time expires, return here for the post-deliverable survey.
       </div>
 
       <div class="workspace">
@@ -1189,7 +753,7 @@
 
           <div class="work-status">
             <span class="save-dot"></span>
-            <span id="saveStatus">Changes save automatically on this device.</span>
+            <span id="saveStatus">Session progress saves locally. Deliverable responses stay in FigJam.</span>
           </div>
         </div>
 
@@ -1231,7 +795,7 @@
             <button class="primary ai-open" id="openAiBtn">Open AI Workspace ↗</button>
           </div>
 
-          <button class="secondary" id="manualSaveBtn">Save Progress Now</button>
+          <button class="secondary" id="manualSaveBtn">Save Session Progress</button>
         </aside>
       </div>
     </section>
@@ -1243,9 +807,7 @@
           <div class="eyebrow" id="surveyEyebrow">Deliverable Complete</div>
           <h2 id="surveyTitle">Post-deliverable survey</h2>
           <p id="surveyDescription">Complete the short Qualtrics survey before moving to the next deliverable.</p>
-          <div class="survey-link-note">The survey opens in a new tab so your BudsNiche study workspace and saved responses stay open here.</div>
-          <div id="manipulationCheckContainer" class="manip-check"></div>
-          <div class="survey-lock-note">Complete the quick AI behavior check before opening the external survey.</div>
+          <div class="survey-link-note">The survey opens in a new tab so your BudsNiche study workspace and session progress stays open here.</div>
         </div>
         <div class="survey-actions">
           <button class="primary" id="openSurveyBtn">Open Survey ↗</button>
@@ -1254,30 +816,11 @@
       </div>
     </section>
 
-    <!-- MID-DELIVERABLE STUDY UPDATE -->
-    <div id="eventBackdrop" class="event-backdrop hidden" role="dialog" aria-modal="true" aria-labelledby="eventTitle">
-      <div class="event-modal">
-        <div class="event-stripe"></div>
-        <div class="event-body">
-          <div class="event-kicker">New Study Information</div>
-          <h2 id="eventTitle">Scenario Update</h2>
-          <div class="event-category" id="eventCategory">Collaboration update</div>
-          <p class="event-text" id="eventText"></p>
-          <p class="event-note">The timer is paused while you read this update. Briefly state what your team should change, then continue working.</p>
-          <label for="eventResponse">What changes because of this update?</label>
-          <textarea id="eventResponse" placeholder="Describe the change your team should make."></textarea>
-        </div>
-        <div class="event-actions">
-          <button class="primary" id="ackEventBtn">Apply Update & Continue</button>
-        </div>
-      </div>
-    </div>
-
     <!-- COMPLETE -->
     <section id="completeScreen" class="complete-card card hidden">
       <div class="complete-icon">✓</div>
       <div class="eyebrow">Study Complete</div>
-      <h2>All four deliverables are saved.</h2>
+      <h2>All four timed deliverables are complete.</h2>
       <p>
         All four deliverables are complete. Finish the post-session survey, then follow the researcher's closing instructions.
       </p>
@@ -1292,24 +835,20 @@
         </div>
         <div class="summary-box">
           <strong>4 / 4 Complete</strong>
-          <span>Deliverables saved</span>
+          <span>Timed deliverables complete</span>
         </div>
       </div>
       <button class="primary" id="postSessionBtn">Open Post-Session Survey ↗</button>
-      <button class="secondary" id="exportBtn">Export Prototype Data</button>
+      <button class="secondary" id="exportBtn">Export Session Metadata</button>
       <button class="danger" id="resetBtn" style="margin-left:8px">Reset Demo</button>
     </section>
   </main>
 
   <script>
-    // TEST BUILD: each deliverable is intentionally 2 minutes so the team can move through the full study quickly.
-    const DEMO_MODE = true;
-    const WORK_SECONDS = 2 * 60;
-    const BASELINE_SECONDS = 2 * 60;
-    const EVENT_TRIGGER_SECONDS = Math.floor(WORK_SECONDS / 2);
-    const FINAL_SECONDS = 0;
-    const BUILD_ID = "research-workspace-v8-study-design";
-    const STORAGE_KEY = "budsnicheResearchWorkspaceV8";
+    const DEMO_MODE = new URLSearchParams(location.search).get("demo") === "1";
+    const STORAGE_KEY = DEMO_MODE ? "budsnicheFigJamDemoV2" : "budsnicheFigJamStudyV2";
+    const WORK_SECONDS = DEMO_MODE ? 45 : 20 * 60;
+    const FINAL_SECONDS = DEMO_MODE ? 15 : 2 * 60;
 
     // ===== STUDY CONFIG =====
     // Update links here when a study asset changes. The rest of the page reads from this object.
@@ -1343,29 +882,7 @@
         "https://iastate.qualtrics.com/jfe/form/SV_1KQaPlDm61LG8PI",
         "https://iastate.qualtrics.com/jfe/form/SV_0AFEkYgx0OJQ2d8"
       ],
-      postSession: "https://iastate.qualtrics.com/jfe/form/SV_3vBycJeNhVnxsd8",
-      events: [
-        {
-          title: "Role clarity update",
-          category: "Direction / delegation",
-          text: "Scenario update: the city team now requires you to clearly identify who verifies factual claims and who has final say when the human and AI disagree. Revisit the charter if this changes your role plan."
-        },
-        {
-          title: "New evidence arrives",
-          category: "Information / evidence",
-          text: "Scenario update: a new resident-feedback summary conflicts with one assumption in the current problem map. For this exercise, scheduling flexibility is now a stronger barrier than physical location. Update the representation if needed."
-        },
-        {
-          title: "Pilot constraint changes",
-          category: "Integration / adaptation",
-          text: "Scenario update: the available pilot budget has been reduced by 30%. Keep three initiatives, but revise scope, timing, or responsibilities so the six-month plan still works."
-        },
-        {
-          title: "Stakeholder feedback",
-          category: "Evaluation / correction",
-          text: "Scenario update: the initiative receiving the strongest community interest also has the largest feasibility concerns. Re-evaluate the tradeoff and revise your final assessment if needed."
-        }
-      ]
+      postSession: "https://iastate.qualtrics.com/jfe/form/SV_3vBycJeNhVnxsd8"
     };
 
     const DELIVERABLES = [
@@ -1375,7 +892,7 @@
         desc: "Create a shared team charter that defines the problem objective, teammate profiles, collaboration style, and responsibilities.",
         prompt: "Work with your AI teammate to establish how your team will approach the Ames community-space problem before moving into problem representation.",
         skill: "@CPS Exploring and Understanding",
-        figjam: "https://www.figma.com/board/FDPvzXqrjx7IbSi2MYtVgW/PilotTest1_11_12_2026?node-id=2-2&t=GRfCPeNGz810Rmex-4",
+        figjam: "https://www.figma.com/board/1MLVs4TzuKo6BVbcxUgeh3/Study?node-id=5-175",
         fields: [
           {key:"purpose", label:"Project purpose and desired outcomes", help:"What is the team trying to accomplish, and what would a strong outcome look like?", full:true},
           {key:"humanProfile", label:"Human teammate profile", help:"Relevant strengths, knowledge, limits, preferences, or responsibilities of the human teammate."},
@@ -1390,7 +907,7 @@
         desc: "Document the problem's scope, components, resources, information, and task ownership in a shared representation.",
         prompt: "Break down how Ames community spaces could better support adults ages 18–35. Show the important pieces, relationships, information needs, and who should own each part of the work.",
         skill: "@CPS Represent and Formulate",
-        figjam: "https://www.figma.com/board/FDPvzXqrjx7IbSi2MYtVgW/PilotTest1_11_12_2026?node-id=3-136&t=L5qRrFE3sEqrpFD9-4",
+        figjam: "https://www.figma.com/board/1MLVs4TzuKo6BVbcxUgeh3/Study?node-id=5-203",
         fields: [
           {key:"problemFormulation", label:"Problem formulation", help:"State the problem clearly, including the target population, setting, constraints, and desired result.", full:true},
           {key:"sharedRepresentation", label:"Shared representation", help:"Describe the major components and how they connect. You can use arrows, bullets, or a simple text map.", full:true},
@@ -1403,7 +920,7 @@
         desc: "Turn the proposed initiatives into a concrete six-month pilot plan with outcomes, milestones, deliverables, and responsibilities.",
         prompt: "Develop three initiatives for a six-month pilot. Make the plan specific enough that another team could understand what happens, when it happens, and who is responsible.",
         skill: "@CPS Plan and Execute",
-        figjam: "https://www.figma.com/board/FDPvzXqrjx7IbSi2MYtVgW/PilotTest1_11_12_2026?node-id=3-228&t=BmsHM2DWgD0TVY9g-4",
+        figjam: "https://www.figma.com/board/1MLVs4TzuKo6BVbcxUgeh3/Study?node-id=5-220",
         custom: "execution"
       },
       {
@@ -1412,74 +929,47 @@
         desc: "Review the team's understanding, assess progress and evidence, and identify feedback, revisions, and next steps.",
         prompt: "Evaluate the three proposed initiatives and the team's overall plan. Record what is supported, what needs revision, and what should happen next.",
         skill: "@CPS Monitor and Reflect",
-        figjam: "https://www.figma.com/board/FDPvzXqrjx7IbSi2MYtVgW/PilotTest1_11_12_2026?node-id=3-136&t=L5qRrFE3sEqrpFD9-4",
+        figjam: "https://www.figma.com/board/1MLVs4TzuKo6BVbcxUgeh3/Study?node-id=5-296",
         custom: "review"
       }
     ];
 
-    const MANIPULATION_ITEMS = [
-      {key:"asksReasoning", text:"The AI asked for my reasoning or context instead of immediately giving a final answer."},
-      {key:"challengesIdeas", text:"The AI challenged or questioned my ideas when it was useful."},
-      {key:"encouragesVerification", text:"The AI encouraged checking evidence, assumptions, or factual claims."},
-      {key:"adaptsToInput", text:"The AI adapted its approach after my input or new information."},
-      {key:"twoWayCollaboration", text:"The interaction felt like two-way collaboration rather than the AI simply giving me answers."}
-    ];
-
     const state = {
-      buildId: BUILD_ID,
       participantId: "",
       condition: "regular",
       current: 0,
-      phase: "start", // start, orientation, problem, instructions, work, survey, complete
+      phase: "start", // start, orientation, problem, instructions, work, final, survey, complete
       seconds: WORK_SECONDS,
-      answers: [{},{},{},{}],
+      boardLinks: [],
+      videoSequence: "two",
+      deadline: null,
+      boardOpenedAt: [null,null,null,null],
       startedAt: null,
       deliverableStartedAt: [null,null,null,null],
       deliverableCompletedAt: [null,null,null,null],
       orientationCompleted: false,
       problemBriefCompleted: false,
-      baseline: {
-        problem: "",
-        ideas: "",
-        priorities: "",
-        confidence: 50,
-        startedAt: null,
-        completedAt: null,
-        seconds: BASELINE_SECONDS,
-        active: false
-      },
-      events: [null,null,null,null],
-      manipulationChecks: [{},{},{},{}],
-      skipAfterEvent: false,
       surveysOpened: [false,false,false,false]
     };
 
     let interval = null;
-    let baselineInterval = null;
-    let saveTimeout = null;
     const $ = (id) => document.getElementById(id);
 
     function saveState() {
       localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
       if ($("saveStatus")) {
-        $("saveStatus").textContent = "Saved " + new Date().toLocaleTimeString([], {hour:"numeric",minute:"2-digit",second:"2-digit"});
+        $("saveStatus").textContent = "Session progress saved " + new Date().toLocaleTimeString([], {hour:"numeric",minute:"2-digit",second:"2-digit"});
       }
     }
 
     function loadState() {
       try {
         const saved = JSON.parse(localStorage.getItem(STORAGE_KEY));
-        if (!saved || saved.buildId !== BUILD_ID) return false;
+        if (!saved) return false;
         Object.assign(state, saved);
-        state.answers = Array.isArray(state.answers) ? state.answers : [{},{},{},{}];
-        while (state.answers.length < 4) state.answers.push({});
+        if (!validBoardLinks(state.boardLinks)) return false;
+        state.boardOpenedAt = state.boardOpenedAt || [null,null,null,null];
         state.surveysOpened = state.surveysOpened || [false,false,false,false];
-        state.events = Array.isArray(state.events) ? state.events : [null,null,null,null];
-        while (state.events.length < 4) state.events.push(null);
-        state.manipulationChecks = Array.isArray(state.manipulationChecks) ? state.manipulationChecks : [{},{},{},{}];
-        while (state.manipulationChecks.length < 4) state.manipulationChecks.push({});
-        state.baseline = state.baseline || {problem:"",ideas:"",priorities:"",confidence:50,startedAt:null,completedAt:null,seconds:BASELINE_SECONDS,active:false};
-        if (!Number.isFinite(state.baseline.seconds)) state.baseline.seconds = BASELINE_SECONDS;
         return true;
       } catch {
         return false;
@@ -1487,7 +977,8 @@
     }
 
     function showOnly(id) {
-      ["startScreen","preStudyScreen","baselineScreen","instructionScreen","studyScreen","surveyScreen","completeScreen"].forEach(x => $(x).classList.add("hidden"));
+      for (const v of ["preStudyVideo","instructionVideo","sideVideo"]) $(v).pause();
+      ["startScreen","preStudyScreen","instructionScreen","studyScreen","surveyScreen","completeScreen"].forEach(x => $(x).classList.add("hidden"));
       $(id).classList.remove("hidden");
       window.scrollTo({top:0,behavior:"smooth"});
     }
@@ -1499,28 +990,6 @@
       el.src = src;
       el.dataset.src = src;
       el.load();
-    }
-
-    function requireVideoCompletion(video, button, unlockedText) {
-      if (!video || !button) return;
-
-      button.disabled = true;
-      button.textContent = "Finish Video to Unlock";
-      button.setAttribute("aria-disabled", "true");
-      video.dataset.requiredComplete = "false";
-
-      // TEST/REVIEW BEHAVIOR:
-      // Participants/researchers may scrub freely forward and backward in every video.
-      // The next step still unlocks when the video reaches its end.
-      video.ontimeupdate = null;
-      video.onseeking = null;
-
-      video.onended = () => {
-        video.dataset.requiredComplete = "true";
-        button.disabled = false;
-        button.removeAttribute("aria-disabled");
-        button.textContent = unlockedText;
-      };
     }
 
     function resourceListHtml() {
@@ -1552,6 +1021,20 @@
       return participantNumber % 2 === 1 ? "trained" : "regular";
     }
 
+    function boardKey(link) {
+      try {
+        const u = new URL(link);
+        const m = u.pathname.match(/^\/board\/([a-zA-Z0-9]+)(?:\/|$)/);
+        if (u.protocol !== "https:" || !["www.figma.com", "figma.com"].includes(u.hostname) || !m) return null;
+        return m[1];
+      } catch { return null; }
+    }
+    function validBoardLinks(links) {
+      if (!Array.isArray(links) || links.length !== 4) return false;
+      const keys = links.map(boardKey);
+      return !!keys[0] && keys.every(k => k === keys[0]);
+    }
+
     function beginStudy() {
       const participant = $("participantId").value.trim();
       if (!participant) {
@@ -1563,6 +1046,24 @@
         alert("Enter a valid Participant ID ending in a number, such as P001.");
         return;
       }
+      const enteredBoard = $("boardUrl").value.trim();
+      const key = boardKey(enteredBoard);
+      if (!key) {
+        $("boardSetup").open = true;
+        alert("Researcher: provide the assigned FigJam board link.");
+        return;
+      }
+      const templateKey = "1MLVs4TzuKo6BVbcxUgeh3";
+      if (!DEMO_MODE && key === templateKey) {
+        alert("Use a separate participant copy of the template in study mode. The original template is for demo testing only.");
+        return;
+      }
+      // Known template section IDs work for demo only. Do not assume copied boards retain IDs.
+      const normalizedBoard = new URL(enteredBoard);
+      normalizedBoard.search = "";
+      normalizedBoard.hash = "";
+      state.boardLinks = key === templateKey ? DELIVERABLES.map(d => d.figjam) : Array(4).fill(normalizedBoard.href);
+      state.videoSequence = $("videoSequence").value;
       state.participantId = participant.toUpperCase();
       state.condition = assignedCondition;
       state.current = 0;
@@ -1579,132 +1080,55 @@
       $("preStudyBadge").textContent = orientation ? "Study Orientation" : "Problem Package";
       $("preStudyTitle").textContent = orientation ? "Start Here" : "Strengthening Third Places for Young Adults in Ames";
       $("preStudyDescription").textContent = orientation
-        ? "Watch the study orientation before moving to the problem package."
+        ? state.videoSequence === "six" ? "Watch the study orientation before moving to the problem package." : "Watch the study orientation before the Deliverable 1 instruction video."
         : "Review the problem brief before Deliverable 1. The four study resources below remain available throughout every deliverable.";
       $("preStudyMeta").innerHTML = orientation
-        ? `<div class="study-meta-box"><strong>Sequence</strong><span>1. Start Here → 2. Problem Brief → 3. Deliverable 1 instructions.</span></div><div class="study-meta-box"><strong>Test Timing</strong><span>Each deliverable workspace is temporarily 2:00, with a temporary Skip Timer button for testing.</span></div>`
+        ? `<div class="study-meta-box"><strong>Workspace</strong><span>Four timed deliverables with your AI teammate.</span></div><div class="study-meta-box"><strong>Timing</strong><span>20 minutes of work + 2 minutes of final touches per deliverable.</span></div>`
         : `<div class="study-meta-box"><strong>Problem</strong><span>How could Ames community spaces better support adults ages 18–35?</span></div><div class="study-meta-box"><strong>Output</strong><span>Propose three initiatives for a six-month pilot.</span></div>`;
-      const requiredSrc = orientation ? STUDY.videos.start : STUDY.videos.problem;
-      const unlockedText = orientation ? "Continue to Problem Brief" : "Continue to Deliverable 1 Instructions";
-      setVideo($("preStudyVideo"), requiredSrc);
-      requireVideoCompletion($("preStudyVideo"), $("continuePreStudyBtn"), unlockedText);
+      setVideo($("preStudyVideo"), orientation ? STUDY.videos.start : STUDY.videos.problem);
       $("preStudyResources").classList.toggle("hidden", orientation);
+      $("continuePreStudyBtn").textContent = orientation ? (state.videoSequence === "six" ? "Continue to Problem Brief" : "Continue to Deliverable 1 Instructions") : "Continue to Deliverable 1";
       showOnly("preStudyScreen");
       saveState();
     }
 
     function continuePreStudy() {
-      if ($("preStudyVideo").dataset.requiredComplete !== "true") return;
       if (state.phase === "orientation") {
         state.orientationCompleted = true;
-        state.phase = "problem";
+        state.phase = state.videoSequence === "six" ? "problem" : "instructions";
         saveState();
-        renderPreStudy();
+        if (state.phase === "problem") renderPreStudy(); else renderInstruction();
       } else {
         state.problemBriefCompleted = true;
-        state.phase = "baseline";
+        state.phase = "instructions";
         saveState();
-        renderBaseline();
+        renderInstruction();
       }
     }
 
-    function renderBaseline() {
-      clearInterval(interval);
-      clearInterval(baselineInterval);
-      const b = state.baseline;
-      $("baselineProblem").value = b.problem || "";
-      $("baselineIdeas").value = b.ideas || "";
-      $("baselinePriorities").value = b.priorities || "";
-      $("baselineConfidence").value = Number.isFinite(b.confidence) ? b.confidence : 50;
-      $("baselineConfidenceValue").textContent = $("baselineConfidence").value;
-      updateBaselineTimerUI();
-      setBaselineInputsEnabled(Boolean(b.active));
-      $("startBaselineBtn").classList.toggle("hidden", Boolean(b.active));
-      $("finishBaselineBtn").classList.toggle("hidden", !Boolean(b.active));
-      showOnly("baselineScreen");
-      if (b.active && !b.completedAt) startBaselineTimer();
-      saveState();
+    function currentVideo() {
+      return STUDY.videos.deliverables[state.current];
     }
-
-    function setBaselineInputsEnabled(enabled) {
-      ["baselineProblem","baselineIdeas","baselinePriorities","baselineConfidence"].forEach(id => { $(id).disabled = !enabled; });
-    }
-
-    function bindBaselineFields() {
-      $("baselineProblem").addEventListener("input", e => { state.baseline.problem = e.target.value; debounceSave(); });
-      $("baselineIdeas").addEventListener("input", e => { state.baseline.ideas = e.target.value; debounceSave(); });
-      $("baselinePriorities").addEventListener("input", e => { state.baseline.priorities = e.target.value; debounceSave(); });
-      $("baselineConfidence").addEventListener("input", e => {
-        state.baseline.confidence = Number(e.target.value);
-        $("baselineConfidenceValue").textContent = e.target.value;
-        debounceSave();
-      });
-    }
-
-    function startBaseline() {
-      if (state.baseline.completedAt) return;
-      state.baseline.active = true;
-      state.baseline.startedAt = state.baseline.startedAt || new Date().toISOString();
-      if (!Number.isFinite(state.baseline.seconds) || state.baseline.seconds <= 0) state.baseline.seconds = BASELINE_SECONDS;
-      setBaselineInputsEnabled(true);
-      $("startBaselineBtn").classList.add("hidden");
-      $("finishBaselineBtn").classList.remove("hidden");
-      startBaselineTimer();
-      saveState();
-    }
-
-    function startBaselineTimer() {
-      clearInterval(baselineInterval);
-      updateBaselineTimerUI();
-      baselineInterval = setInterval(() => {
-        state.baseline.seconds -= 1;
-        if (state.baseline.seconds <= 0) {
-          state.baseline.seconds = 0;
-          updateBaselineTimerUI();
-          finishBaseline();
-          return;
-        }
-        updateBaselineTimerUI();
-        if (state.baseline.seconds % 10 === 0) saveState();
-      }, 1000);
-    }
-
-    function updateBaselineTimerUI() {
-      const seconds = Math.max(0, Number(state.baseline.seconds ?? BASELINE_SECONDS));
-      const m = Math.floor(seconds / 60);
-      const s = seconds % 60;
-      $("baselineTimer").textContent = `${String(m).padStart(2,"0")}:${String(s).padStart(2,"0")}`;
-    }
-
-    function finishBaseline() {
-      clearInterval(baselineInterval);
-      state.baseline.active = false;
-      state.baseline.completedAt = state.baseline.completedAt || new Date().toISOString();
-      state.phase = "instructions";
-      state.seconds = WORK_SECONDS;
-      saveState();
-      renderInstruction();
-    }
-
     function renderInstruction() {
       clearInterval(interval);
       state.phase = "instructions";
       const d = DELIVERABLES[state.current];
       $("instructionEyebrow").textContent = `Deliverable ${state.current + 1} of 4`;
       $("instructionTitle").textContent = d.title;
-      $("instructionDescription").textContent = "Watch the full instruction video. The 2-minute test workspace will unlock only after the video finishes.";
+      $("instructionDescription").textContent = "Watch the instructions before starting the timed work period. This video remains available during the entire 20-minute work period and 2-minute final-touches period.";
       $("instructionVideoLabel").textContent = `Instruction Video ${state.current + 1} — ${d.title}`;
-      setVideo($("instructionVideo"), STUDY.videos.deliverables[state.current]);
-      requireVideoCompletion($("instructionVideo"), $("startDeliverableBtn"), `Start Deliverable ${state.current + 1} — 2:00`);
+      setVideo($("instructionVideo"), currentVideo());
+      $("inlineProblemBrief").classList.toggle("hidden", !(state.current === 0 && state.videoSequence === "two"));
+      $("instructionResources").innerHTML = resourceListHtml();
+      $("startDeliverableBtn").textContent = DEMO_MODE ? `Start Demo Deliverable ${state.current + 1}` : `Start 20-Minute Deliverable ${state.current + 1}`;
       showOnly("instructionScreen");
       saveState();
     }
 
     function startDeliverable() {
-      if ($("instructionVideo").dataset.requiredComplete !== "true") return;
       state.phase = "work";
       state.seconds = WORK_SECONDS;
-      state.skipAfterEvent = false;
+      state.deadline = Date.now() + WORK_SECONDS * 1000;
       state.deliverableStartedAt[state.current] = state.deliverableStartedAt[state.current] || new Date().toISOString();
       renderWorkspace();
       startTimer();
@@ -1713,19 +1137,13 @@
 
     function renderWorkspace() {
       const d = DELIVERABLES[state.current];
-      const studyScreen = $("studyScreen");
-      studyScreen.dataset.deliverable = String(state.current + 1);
-      studyScreen.style.setProperty("--deliverable-name", `"${d.short}"`);
-
       $("progressHeading").textContent = `Deliverable ${state.current + 1} — ${d.title}`;
-      $("progressSubheading").textContent = "2-minute test work period in progress. Your responses save automatically. Once you leave this deliverable, it becomes locked.";
+      $("progressSubheading").textContent = state.phase === "final" ? "Final touches: finish editing in FigJam." : "Work in FigJam. The session timer continues here.";
       $("taskTitle").textContent = d.title;
       $("taskDescription").textContent = d.desc;
-      document.querySelector(".section-head")?.setAttribute("data-step", String(state.current + 1));
       $("taskPrompt").textContent = d.prompt;
-      $("taskPromptTitle").textContent = "Working brief";
       $("sideVideoTitle").textContent = `Instruction Video ${state.current + 1} — ${d.title}`;
-      setVideo($("sideVideo"), STUDY.videos.deliverables[state.current]);
+      setVideo($("sideVideo"), currentVideo());
       $("conditionTag").textContent = "Assigned AI Workspace";
       $("skillBox").innerHTML = state.condition === "trained"
         ? `<strong>Study skill for this deliverable</strong>${d.skill}<br><span style="color:var(--muted)">Use the study-assigned AI workspace on the second monitor.</span>`
@@ -1733,432 +1151,70 @@
 
       $("steps").innerHTML = DELIVERABLES.map((item, idx) => {
         const cls = idx < state.current ? "step done" : idx === state.current ? "step active" : "step";
-        const status = idx < state.current ? "Complete" : idx === state.current ? "Current" : "Upcoming";
-        return `<div class="${cls}"><span class="step-index">0${idx + 1}</span><span class="step-copy"><strong>${item.short}</strong><small>${status}</small></span></div>`;
+        return `<div class="${cls}">${idx + 1}. ${item.short}</div>`;
       }).join("");
 
       renderDeliverableFields(d);
-      bindAnswerInputs();
-      initAutoGrowTextareas();
-      if (state.current === 1) initProblemMap();
       updateTimerUI();
       showOnly("studyScreen");
     }
 
+    const EXAMPLE_PICTURES = ["<svg class=\"example-picture\" viewBox=\"0 0 900 502\" role=\"img\" aria-label=\"Fictional completed charter with five response boxes about a workshop inventory.\" xmlns=\"http://www.w3.org/2000/svg\"><defs><pattern id=\"dots\" width=\"18\" height=\"18\" patternUnits=\"userSpaceOnUse\"><circle cx=\"3\" cy=\"3\" r=\".9\" fill=\"#D7DADD\"/></pattern><marker id=\"arr\" markerWidth=\"8\" markerHeight=\"8\" refX=\"7\" refY=\"4\" orient=\"auto\"><path d=\"M0 0 L8 4 L0 8\" fill=\"#596778\"/></marker></defs><rect width=\"900\" height=\"502\" fill=\"#F7F8FA\"/><rect width=\"900\" height=\"502\" fill=\"url(#dots)\"/><text x=\"26\" y=\"35\" font-family=\"Arial, Helvetica, sans-serif\" font-size=\"22\" font-weight=\"700\" text-anchor=\"start\" fill=\"#272727\">01 / Team Charter</text><text x=\"26\" y=\"58\" font-family=\"Arial, Helvetica, sans-serif\" font-size=\"11\" font-weight=\"700\" text-anchor=\"start\" fill=\"#657181\">FICTIONAL EXAMPLE  /  WORKSHOP TOOL INVENTORY</text><text x=\"26\" y=\"90\" font-family=\"Arial, Helvetica, sans-serif\" font-size=\"15\" font-weight=\"700\" text-anchor=\"start\" fill=\"#272727\">Project purpose and desired outcomes</text><rect x=\"26\" y=\"102\" width=\"848\" height=\"65\" rx=\"7\" fill=\"#FFFFFF\" stroke=\"#8792A0\" stroke-width=\"1.6\"/><text x=\"42\" y=\"129\" font-family=\"Arial, Helvetica, sans-serif\" font-size=\"15\" font-weight=\"400\" text-anchor=\"start\" fill=\"#272727\">Improve the accuracy of a shared workshop’s tool inventory.</text><text x=\"26\" y=\"198\" font-family=\"Arial, Helvetica, sans-serif\" font-size=\"15\" font-weight=\"700\" text-anchor=\"start\" fill=\"#272727\">Human teammate profile</text><rect x=\"26\" y=\"210\" width=\"412\" height=\"70\" rx=\"7\" fill=\"#FFFFFF\" stroke=\"#8792A0\" stroke-width=\"1.6\"/><text x=\"42\" y=\"237\" font-family=\"Arial, Helvetica, sans-serif\" font-size=\"15\" font-weight=\"400\" text-anchor=\"start\" fill=\"#272727\">Knows the inventory process;</text><text x=\"42\" y=\"259\" font-family=\"Arial, Helvetica, sans-serif\" font-size=\"15\" font-weight=\"400\" text-anchor=\"start\" fill=\"#272727\">checks whether the plan is practical.</text><text x=\"462\" y=\"198\" font-family=\"Arial, Helvetica, sans-serif\" font-size=\"15\" font-weight=\"700\" text-anchor=\"start\" fill=\"#272727\">AI teammate profile</text><rect x=\"462\" y=\"210\" width=\"412\" height=\"70\" rx=\"7\" fill=\"#FFFFFF\" stroke=\"#8792A0\" stroke-width=\"1.6\"/><text x=\"478\" y=\"237\" font-family=\"Arial, Helvetica, sans-serif\" font-size=\"15\" font-weight=\"400\" text-anchor=\"start\" fill=\"#272727\">Organizes records and suggests checks;</text><text x=\"478\" y=\"259\" font-family=\"Arial, Helvetica, sans-serif\" font-size=\"15\" font-weight=\"400\" text-anchor=\"start\" fill=\"#272727\">human verifies important assumptions.</text><text x=\"26\" y=\"315\" font-family=\"Arial, Helvetica, sans-serif\" font-size=\"15\" font-weight=\"700\" text-anchor=\"start\" fill=\"#272727\">Collaboration style</text><rect x=\"26\" y=\"327\" width=\"848\" height=\"50\" rx=\"7\" fill=\"#FFFFFF\" stroke=\"#8792A0\" stroke-width=\"1.6\"/><text x=\"42\" y=\"354\" font-family=\"Arial, Helvetica, sans-serif\" font-size=\"15\" font-weight=\"400\" text-anchor=\"start\" fill=\"#272727\">Compare ideas and verify the inventory data together.</text><text x=\"26\" y=\"410\" font-family=\"Arial, Helvetica, sans-serif\" font-size=\"15\" font-weight=\"700\" text-anchor=\"start\" fill=\"#272727\">Roles and responsibilities</text><rect x=\"26\" y=\"422\" width=\"848\" height=\"58\" rx=\"7\" fill=\"#FFFFFF\" stroke=\"#8792A0\" stroke-width=\"1.6\"/><text x=\"42\" y=\"449\" font-family=\"Arial, Helvetica, sans-serif\" font-size=\"15\" font-weight=\"400\" text-anchor=\"start\" fill=\"#272727\">Human: observe process. AI: organize information. Shared: evaluate proposals.</text></svg>", "<svg class=\"example-picture\" viewBox=\"0 0 900 406\" role=\"img\" aria-label=\"Example diagram of an unrelated inventory problem using only boxed text, circled text, and arrows.\" xmlns=\"http://www.w3.org/2000/svg\"><defs><pattern id=\"dots\" width=\"18\" height=\"18\" patternUnits=\"userSpaceOnUse\"><circle cx=\"3\" cy=\"3\" r=\".9\" fill=\"#D7DADD\"/></pattern><marker id=\"arr\" markerWidth=\"8\" markerHeight=\"8\" refX=\"7\" refY=\"4\" orient=\"auto\"><path d=\"M0 0 L8 4 L0 8\" fill=\"#596778\"/></marker></defs><rect width=\"900\" height=\"406\" fill=\"#F7F8FA\"/><rect width=\"900\" height=\"406\" fill=\"url(#dots)\"/><text x=\"26\" y=\"35\" font-family=\"Arial, Helvetica, sans-serif\" font-size=\"22\" font-weight=\"700\" text-anchor=\"start\" fill=\"#272727\">02 / Problem Representation</text><text x=\"26\" y=\"58\" font-family=\"Arial, Helvetica, sans-serif\" font-size=\"11\" font-weight=\"700\" text-anchor=\"start\" fill=\"#657181\">FICTIONAL EXAMPLE  /  WORKSHOP TOOL INVENTORY</text><path d=\"M230 232 L298 144\" fill=\"none\" stroke=\"#596778\" stroke-width=\"2\" marker-end=\"url(#arr)\"/><path d=\"M230 232 L298 315\" fill=\"none\" stroke=\"#596778\" stroke-width=\"2\" marker-end=\"url(#arr)\"/><path d=\"M419 144 L500 144\" fill=\"none\" stroke=\"#596778\" stroke-width=\"2\" marker-end=\"url(#arr)\"/><path d=\"M419 315 L500 315\" fill=\"none\" stroke=\"#596778\" stroke-width=\"2\" marker-end=\"url(#arr)\"/><path d=\"M670 144 L735 226\" fill=\"none\" stroke=\"#596778\" stroke-width=\"2\" marker-end=\"url(#arr)\"/><path d=\"M670 315 L735 248\" fill=\"none\" stroke=\"#596778\" stroke-width=\"2\" marker-end=\"url(#arr)\"/><rect x=\"30\" y=\"196\" width=\"200\" height=\"72\" rx=\"0\" fill=\"#FFFFFF\" stroke=\"#596778\" stroke-width=\"1.6\"/><text x=\"130.0\" y=\"227.5\" font-family=\"Arial, Helvetica, sans-serif\" font-size=\"15\" font-weight=\"400\" text-anchor=\"middle\" fill=\"#272727\">Inventory records</text><text x=\"130.0\" y=\"246.5\" font-family=\"Arial, Helvetica, sans-serif\" font-size=\"15\" font-weight=\"400\" text-anchor=\"middle\" fill=\"#272727\">do not match tools</text><circle cx=\"360\" cy=\"144\" r=\"60\" fill=\"#FFFFFF\" stroke=\"#596778\" stroke-width=\"1.6\"/><text x=\"360\" y=\"140.0\" font-family=\"Arial, Helvetica, sans-serif\" font-size=\"14\" font-weight=\"400\" text-anchor=\"middle\" fill=\"#272727\">Check-out</text><text x=\"360\" y=\"158.0\" font-family=\"Arial, Helvetica, sans-serif\" font-size=\"14\" font-weight=\"400\" text-anchor=\"middle\" fill=\"#272727\">process</text><circle cx=\"360\" cy=\"315\" r=\"60\" fill=\"#FFFFFF\" stroke=\"#596778\" stroke-width=\"1.6\"/><text x=\"360\" y=\"311.0\" font-family=\"Arial, Helvetica, sans-serif\" font-size=\"14\" font-weight=\"400\" text-anchor=\"middle\" fill=\"#272727\">Stock</text><text x=\"360\" y=\"329.0\" font-family=\"Arial, Helvetica, sans-serif\" font-size=\"14\" font-weight=\"400\" text-anchor=\"middle\" fill=\"#272727\">records</text><rect x=\"500\" y=\"108\" width=\"170\" height=\"72\" rx=\"0\" fill=\"#FFFFFF\" stroke=\"#596778\" stroke-width=\"1.6\"/><text x=\"585.0\" y=\"139.5\" font-family=\"Arial, Helvetica, sans-serif\" font-size=\"15\" font-weight=\"400\" text-anchor=\"middle\" fill=\"#272727\">Observe returns</text><text x=\"585.0\" y=\"158.5\" font-family=\"Arial, Helvetica, sans-serif\" font-size=\"15\" font-weight=\"400\" text-anchor=\"middle\" fill=\"#272727\">Human</text><rect x=\"500\" y=\"279\" width=\"170\" height=\"72\" rx=\"0\" fill=\"#FFFFFF\" stroke=\"#596778\" stroke-width=\"1.6\"/><text x=\"585.0\" y=\"310.5\" font-family=\"Arial, Helvetica, sans-serif\" font-size=\"15\" font-weight=\"400\" text-anchor=\"middle\" fill=\"#272727\">Compare logs</text><text x=\"585.0\" y=\"329.5\" font-family=\"Arial, Helvetica, sans-serif\" font-size=\"15\" font-weight=\"400\" text-anchor=\"middle\" fill=\"#272727\">AI</text><rect x=\"735\" y=\"196\" width=\"135\" height=\"80\" rx=\"0\" fill=\"#FFFFFF\" stroke=\"#596778\" stroke-width=\"1.6\"/><text x=\"802.5\" y=\"231.5\" font-family=\"Arial, Helvetica, sans-serif\" font-size=\"15\" font-weight=\"400\" text-anchor=\"middle\" fill=\"#272727\">Verify gaps</text><text x=\"802.5\" y=\"250.5\" font-family=\"Arial, Helvetica, sans-serif\" font-size=\"15\" font-weight=\"400\" text-anchor=\"middle\" fill=\"#272727\">Shared</text></svg>", "<svg class=\"example-picture\" viewBox=\"0 0 900 550\" role=\"img\" aria-label=\"Three fictional initiatives with outcomes, activities, deliverables, timeline and responsibilities.\" xmlns=\"http://www.w3.org/2000/svg\"><defs><pattern id=\"dots\" width=\"18\" height=\"18\" patternUnits=\"userSpaceOnUse\"><circle cx=\"3\" cy=\"3\" r=\".9\" fill=\"#D7DADD\"/></pattern><marker id=\"arr\" markerWidth=\"8\" markerHeight=\"8\" refX=\"7\" refY=\"4\" orient=\"auto\"><path d=\"M0 0 L8 4 L0 8\" fill=\"#596778\"/></marker></defs><rect width=\"900\" height=\"550\" fill=\"#F7F8FA\"/><rect width=\"900\" height=\"550\" fill=\"url(#dots)\"/><text x=\"26\" y=\"35\" font-family=\"Arial, Helvetica, sans-serif\" font-size=\"22\" font-weight=\"700\" text-anchor=\"start\" fill=\"#272727\">03 / Execution Plan</text><text x=\"26\" y=\"58\" font-family=\"Arial, Helvetica, sans-serif\" font-size=\"11\" font-weight=\"700\" text-anchor=\"start\" fill=\"#657181\">FICTIONAL EXAMPLE  /  WORKSHOP TOOL INVENTORY</text><text x=\"26\" y=\"88\" font-family=\"Arial, Helvetica, sans-serif\" font-size=\"15\" font-weight=\"700\" text-anchor=\"start\" fill=\"#272727\">INITIATIVE 1</text><text x=\"26\" y=\"117\" font-family=\"Arial, Helvetica, sans-serif\" font-size=\"15\" font-weight=\"700\" text-anchor=\"start\" fill=\"#272727\">Initiative</text><rect x=\"26\" y=\"129\" width=\"272\" height=\"45\" rx=\"7\" fill=\"#FFFFFF\" stroke=\"#8792A0\" stroke-width=\"1.6\"/><text x=\"42\" y=\"156\" font-family=\"Arial, Helvetica, sans-serif\" font-size=\"15\" font-weight=\"400\" text-anchor=\"start\" fill=\"#272727\">Label tools</text><text x=\"26\" y=\"198\" font-family=\"Arial, Helvetica, sans-serif\" font-size=\"15\" font-weight=\"700\" text-anchor=\"start\" fill=\"#272727\">Intended outcome</text><rect x=\"26\" y=\"210\" width=\"272\" height=\"45\" rx=\"7\" fill=\"#FFFFFF\" stroke=\"#8792A0\" stroke-width=\"1.6\"/><text x=\"42\" y=\"237\" font-family=\"Arial, Helvetica, sans-serif\" font-size=\"15\" font-weight=\"400\" text-anchor=\"start\" fill=\"#272727\">Consistent IDs</text><text x=\"26\" y=\"279\" font-family=\"Arial, Helvetica, sans-serif\" font-size=\"15\" font-weight=\"700\" text-anchor=\"start\" fill=\"#272727\">Activities &amp; milestones</text><rect x=\"26\" y=\"291\" width=\"272\" height=\"45\" rx=\"7\" fill=\"#FFFFFF\" stroke=\"#8792A0\" stroke-width=\"1.6\"/><text x=\"42\" y=\"318\" font-family=\"Arial, Helvetica, sans-serif\" font-size=\"15\" font-weight=\"400\" text-anchor=\"start\" fill=\"#272727\">Audit and tag tools</text><text x=\"26\" y=\"360\" font-family=\"Arial, Helvetica, sans-serif\" font-size=\"15\" font-weight=\"700\" text-anchor=\"start\" fill=\"#272727\">Deliverable</text><rect x=\"26\" y=\"372\" width=\"272\" height=\"45\" rx=\"7\" fill=\"#FFFFFF\" stroke=\"#8792A0\" stroke-width=\"1.6\"/><text x=\"42\" y=\"399\" font-family=\"Arial, Helvetica, sans-serif\" font-size=\"15\" font-weight=\"400\" text-anchor=\"start\" fill=\"#272727\">Tool register</text><text x=\"314\" y=\"88\" font-family=\"Arial, Helvetica, sans-serif\" font-size=\"15\" font-weight=\"700\" text-anchor=\"start\" fill=\"#272727\">INITIATIVE 2</text><text x=\"314\" y=\"117\" font-family=\"Arial, Helvetica, sans-serif\" font-size=\"15\" font-weight=\"700\" text-anchor=\"start\" fill=\"#272727\">Initiative</text><rect x=\"314\" y=\"129\" width=\"272\" height=\"45\" rx=\"7\" fill=\"#FFFFFF\" stroke=\"#8792A0\" stroke-width=\"1.6\"/><text x=\"330\" y=\"156\" font-family=\"Arial, Helvetica, sans-serif\" font-size=\"15\" font-weight=\"400\" text-anchor=\"start\" fill=\"#272727\">Record check-outs</text><text x=\"314\" y=\"198\" font-family=\"Arial, Helvetica, sans-serif\" font-size=\"15\" font-weight=\"700\" text-anchor=\"start\" fill=\"#272727\">Intended outcome</text><rect x=\"314\" y=\"210\" width=\"272\" height=\"45\" rx=\"7\" fill=\"#FFFFFF\" stroke=\"#8792A0\" stroke-width=\"1.6\"/><text x=\"330\" y=\"237\" font-family=\"Arial, Helvetica, sans-serif\" font-size=\"15\" font-weight=\"400\" text-anchor=\"start\" fill=\"#272727\">Traceable use</text><text x=\"314\" y=\"279\" font-family=\"Arial, Helvetica, sans-serif\" font-size=\"15\" font-weight=\"700\" text-anchor=\"start\" fill=\"#272727\">Activities &amp; milestones</text><rect x=\"314\" y=\"291\" width=\"272\" height=\"45\" rx=\"7\" fill=\"#FFFFFF\" stroke=\"#8792A0\" stroke-width=\"1.6\"/><text x=\"330\" y=\"318\" font-family=\"Arial, Helvetica, sans-serif\" font-size=\"15\" font-weight=\"400\" text-anchor=\"start\" fill=\"#272727\">Test sign-out process</text><text x=\"314\" y=\"360\" font-family=\"Arial, Helvetica, sans-serif\" font-size=\"15\" font-weight=\"700\" text-anchor=\"start\" fill=\"#272727\">Deliverable</text><rect x=\"314\" y=\"372\" width=\"272\" height=\"45\" rx=\"7\" fill=\"#FFFFFF\" stroke=\"#8792A0\" stroke-width=\"1.6\"/><text x=\"330\" y=\"399\" font-family=\"Arial, Helvetica, sans-serif\" font-size=\"15\" font-weight=\"400\" text-anchor=\"start\" fill=\"#272727\">Check-out log</text><text x=\"602\" y=\"88\" font-family=\"Arial, Helvetica, sans-serif\" font-size=\"15\" font-weight=\"700\" text-anchor=\"start\" fill=\"#272727\">INITIATIVE 3</text><text x=\"602\" y=\"117\" font-family=\"Arial, Helvetica, sans-serif\" font-size=\"15\" font-weight=\"700\" text-anchor=\"start\" fill=\"#272727\">Initiative</text><rect x=\"602\" y=\"129\" width=\"272\" height=\"45\" rx=\"7\" fill=\"#FFFFFF\" stroke=\"#8792A0\" stroke-width=\"1.6\"/><text x=\"618\" y=\"156\" font-family=\"Arial, Helvetica, sans-serif\" font-size=\"15\" font-weight=\"400\" text-anchor=\"start\" fill=\"#272727\">Review records</text><text x=\"602\" y=\"198\" font-family=\"Arial, Helvetica, sans-serif\" font-size=\"15\" font-weight=\"700\" text-anchor=\"start\" fill=\"#272727\">Intended outcome</text><rect x=\"602\" y=\"210\" width=\"272\" height=\"45\" rx=\"7\" fill=\"#FFFFFF\" stroke=\"#8792A0\" stroke-width=\"1.6\"/><text x=\"618\" y=\"237\" font-family=\"Arial, Helvetica, sans-serif\" font-size=\"15\" font-weight=\"400\" text-anchor=\"start\" fill=\"#272727\">Fewer mismatches</text><text x=\"602\" y=\"279\" font-family=\"Arial, Helvetica, sans-serif\" font-size=\"15\" font-weight=\"700\" text-anchor=\"start\" fill=\"#272727\">Activities &amp; milestones</text><rect x=\"602\" y=\"291\" width=\"272\" height=\"45\" rx=\"7\" fill=\"#FFFFFF\" stroke=\"#8792A0\" stroke-width=\"1.6\"/><text x=\"618\" y=\"318\" font-family=\"Arial, Helvetica, sans-serif\" font-size=\"15\" font-weight=\"400\" text-anchor=\"start\" fill=\"#272727\">Compare records monthly</text><text x=\"602\" y=\"360\" font-family=\"Arial, Helvetica, sans-serif\" font-size=\"15\" font-weight=\"700\" text-anchor=\"start\" fill=\"#272727\">Deliverable</text><rect x=\"602\" y=\"372\" width=\"272\" height=\"45\" rx=\"7\" fill=\"#FFFFFF\" stroke=\"#8792A0\" stroke-width=\"1.6\"/><text x=\"618\" y=\"399\" font-family=\"Arial, Helvetica, sans-serif\" font-size=\"15\" font-weight=\"400\" text-anchor=\"start\" fill=\"#272727\">Audit report</text><text x=\"26\" y=\"454\" font-family=\"Arial, Helvetica, sans-serif\" font-size=\"15\" font-weight=\"700\" text-anchor=\"start\" fill=\"#272727\">Six-month timeline</text><rect x=\"26\" y=\"466\" width=\"412\" height=\"62\" rx=\"7\" fill=\"#FFFFFF\" stroke=\"#8792A0\" stroke-width=\"1.6\"/><text x=\"42\" y=\"493\" font-family=\"Arial, Helvetica, sans-serif\" font-size=\"15\" font-weight=\"400\" text-anchor=\"start\" fill=\"#272727\">Months 1–2: label; 3–4: test logs;</text><text x=\"42\" y=\"515\" font-family=\"Arial, Helvetica, sans-serif\" font-size=\"15\" font-weight=\"400\" text-anchor=\"start\" fill=\"#272727\">5–6: review and improve.</text><text x=\"462\" y=\"454\" font-family=\"Arial, Helvetica, sans-serif\" font-size=\"15\" font-weight=\"700\" text-anchor=\"start\" fill=\"#272727\">Roles and responsibilities</text><rect x=\"462\" y=\"466\" width=\"412\" height=\"62\" rx=\"7\" fill=\"#FFFFFF\" stroke=\"#8792A0\" stroke-width=\"1.6\"/><text x=\"478\" y=\"493\" font-family=\"Arial, Helvetica, sans-serif\" font-size=\"15\" font-weight=\"400\" text-anchor=\"start\" fill=\"#272727\">Human: check tags. AI: compare logs.</text><text x=\"478\" y=\"515\" font-family=\"Arial, Helvetica, sans-serif\" font-size=\"15\" font-weight=\"400\" text-anchor=\"start\" fill=\"#272727\">Shared: review results.</text></svg>", "<svg class=\"example-picture\" viewBox=\"0 0 900 476\" role=\"img\" aria-label=\"Example review with three initiative rows, evidence, next steps and feedback.\" xmlns=\"http://www.w3.org/2000/svg\"><defs><pattern id=\"dots\" width=\"18\" height=\"18\" patternUnits=\"userSpaceOnUse\"><circle cx=\"3\" cy=\"3\" r=\".9\" fill=\"#D7DADD\"/></pattern><marker id=\"arr\" markerWidth=\"8\" markerHeight=\"8\" refX=\"7\" refY=\"4\" orient=\"auto\"><path d=\"M0 0 L8 4 L0 8\" fill=\"#596778\"/></marker></defs><rect width=\"900\" height=\"476\" fill=\"#F7F8FA\"/><rect width=\"900\" height=\"476\" fill=\"url(#dots)\"/><text x=\"26\" y=\"35\" font-family=\"Arial, Helvetica, sans-serif\" font-size=\"22\" font-weight=\"700\" text-anchor=\"start\" fill=\"#272727\">04 / Review &amp; Evaluation</text><text x=\"26\" y=\"58\" font-family=\"Arial, Helvetica, sans-serif\" font-size=\"11\" font-weight=\"700\" text-anchor=\"start\" fill=\"#657181\">FICTIONAL EXAMPLE  /  WORKSHOP TOOL INVENTORY</text><text x=\"26\" y=\"90\" font-family=\"Arial, Helvetica, sans-serif\" font-size=\"15\" font-weight=\"700\" text-anchor=\"start\" fill=\"#272727\">Review of shared understanding</text><rect x=\"26\" y=\"102\" width=\"848\" height=\"48\" rx=\"7\" fill=\"#FFFFFF\" stroke=\"#8792A0\" stroke-width=\"1.6\"/><text x=\"42\" y=\"129\" font-family=\"Arial, Helvetica, sans-serif\" font-size=\"15\" font-weight=\"400\" text-anchor=\"start\" fill=\"#272727\">The goal is to make inventory records more reliable, not simply add more records.</text><text x=\"26\" y=\"191\" font-family=\"Arial, Helvetica, sans-serif\" font-size=\"15\" font-weight=\"700\" text-anchor=\"start\" fill=\"#272727\">Initiative</text><rect x=\"26\" y=\"204\" width=\"272\" height=\"45\" rx=\"7\" fill=\"#FFFFFF\" stroke=\"#8792A0\" stroke-width=\"1.6\"/><text x=\"38\" y=\"232\" font-family=\"Arial, Helvetica, sans-serif\" font-size=\"14\" font-weight=\"400\" text-anchor=\"start\" fill=\"#272727\">Label tools</text><rect x=\"26\" y=\"259\" width=\"272\" height=\"45\" rx=\"7\" fill=\"#FFFFFF\" stroke=\"#8792A0\" stroke-width=\"1.6\"/><text x=\"38\" y=\"287\" font-family=\"Arial, Helvetica, sans-serif\" font-size=\"14\" font-weight=\"400\" text-anchor=\"start\" fill=\"#272727\">Record check-outs</text><rect x=\"26\" y=\"314\" width=\"272\" height=\"45\" rx=\"7\" fill=\"#FFFFFF\" stroke=\"#8792A0\" stroke-width=\"1.6\"/><text x=\"38\" y=\"342\" font-family=\"Arial, Helvetica, sans-serif\" font-size=\"14\" font-weight=\"400\" text-anchor=\"start\" fill=\"#272727\">Review records</text><text x=\"314\" y=\"191\" font-family=\"Arial, Helvetica, sans-serif\" font-size=\"15\" font-weight=\"700\" text-anchor=\"start\" fill=\"#272727\">Evidence / evaluation</text><rect x=\"314\" y=\"204\" width=\"272\" height=\"45\" rx=\"7\" fill=\"#FFFFFF\" stroke=\"#8792A0\" stroke-width=\"1.6\"/><text x=\"326\" y=\"232\" font-family=\"Arial, Helvetica, sans-serif\" font-size=\"14\" font-weight=\"400\" text-anchor=\"start\" fill=\"#272727\">Sample tags match register</text><rect x=\"314\" y=\"259\" width=\"272\" height=\"45\" rx=\"7\" fill=\"#FFFFFF\" stroke=\"#8792A0\" stroke-width=\"1.6\"/><text x=\"326\" y=\"287\" font-family=\"Arial, Helvetica, sans-serif\" font-size=\"14\" font-weight=\"400\" text-anchor=\"start\" fill=\"#272727\">Missing entries in log</text><rect x=\"314\" y=\"314\" width=\"272\" height=\"45\" rx=\"7\" fill=\"#FFFFFF\" stroke=\"#8792A0\" stroke-width=\"1.6\"/><text x=\"326\" y=\"342\" font-family=\"Arial, Helvetica, sans-serif\" font-size=\"14\" font-weight=\"400\" text-anchor=\"start\" fill=\"#272727\">Monthly checks show gaps</text><text x=\"602\" y=\"191\" font-family=\"Arial, Helvetica, sans-serif\" font-size=\"15\" font-weight=\"700\" text-anchor=\"start\" fill=\"#272727\">Next steps</text><rect x=\"602\" y=\"204\" width=\"272\" height=\"45\" rx=\"7\" fill=\"#FFFFFF\" stroke=\"#8792A0\" stroke-width=\"1.6\"/><text x=\"614\" y=\"232\" font-family=\"Arial, Helvetica, sans-serif\" font-size=\"14\" font-weight=\"400\" text-anchor=\"start\" fill=\"#272727\">Finish remaining tags</text><rect x=\"602\" y=\"259\" width=\"272\" height=\"45\" rx=\"7\" fill=\"#FFFFFF\" stroke=\"#8792A0\" stroke-width=\"1.6\"/><text x=\"614\" y=\"287\" font-family=\"Arial, Helvetica, sans-serif\" font-size=\"14\" font-weight=\"400\" text-anchor=\"start\" fill=\"#272727\">Simplify entry process</text><rect x=\"602\" y=\"314\" width=\"272\" height=\"45\" rx=\"7\" fill=\"#FFFFFF\" stroke=\"#8792A0\" stroke-width=\"1.6\"/><text x=\"614\" y=\"342\" font-family=\"Arial, Helvetica, sans-serif\" font-size=\"14\" font-weight=\"400\" text-anchor=\"start\" fill=\"#272727\">Repeat audit after changes</text><text x=\"26\" y=\"396\" font-family=\"Arial, Helvetica, sans-serif\" font-size=\"15\" font-weight=\"700\" text-anchor=\"start\" fill=\"#272727\">Feedback and revisions</text><rect x=\"26\" y=\"408\" width=\"848\" height=\"48\" rx=\"7\" fill=\"#FFFFFF\" stroke=\"#8792A0\" stroke-width=\"1.6\"/><text x=\"42\" y=\"435\" font-family=\"Arial, Helvetica, sans-serif\" font-size=\"15\" font-weight=\"400\" text-anchor=\"start\" fill=\"#272727\">Revise the check-out process and compare results at the next audit.</text></svg>"];
     function renderDeliverableFields(d) {
-      const values = state.answers[state.current] || {};
-      if (state.current === 0) {
-        $("deliverableFields").innerHTML = teamCharterHtml(values);
-        return;
-      }
-      if (state.current === 1) {
-        $("deliverableFields").innerHTML = problemRepresentationHtml(values);
-        return;
-      }
-      if (d.custom === "execution") {
-        $("deliverableFields").innerHTML = executionHtml(values);
-        return;
-      }
-      if (d.custom === "review") {
-        $("deliverableFields").innerHTML = reviewHtml(values);
-        return;
-      }
-      $("deliverableFields").innerHTML = `<div class="structured-grid">${d.fields.map(f => `
-        <div class="field ${f.full ? "full" : ""}">
-          <label for="${f.key}">${f.label}</label>
-          <textarea id="${f.key}" data-answer-key="${f.key}" placeholder="${f.help}">${escapeHtml(values[f.key] || "")}</textarea>
-          <div class="small-help">${f.help}</div>
-        </div>
-      `).join("")}</div>`;
+      const guidance = state.current === 1
+        ? "Use the boxed textbox, circled textbox, and arrow templates in the D2 section. Duplicate and connect them in the open workspace."
+        : "Type directly into the prepared response fields for this deliverable in FigJam.";
+      $("deliverableFields").innerHTML = `<div class="example-panel"><div class="example-bar"><span>Example / Finished deliverable</span><span>D0${state.current+1}</span></div>${EXAMPLE_PICTURES[state.current]}<p class="example-caption">Illustrative example about an unrelated problem. Use it as a format reference, not as an answer to your study task.</p></div><button type="button" class="primary" id="openBoardBtn" style="width:100%"><span>Open ${escapeHtml(d.title)} in FigJam</span><span aria-hidden="true">↗</span></button><p class="figjam-guidance">${guidance} All four deliverables use the same assigned board. Navigate to D${state.current+1} if needed.</p><div class="small-help">Keep this study page open for the timer. Return here when the work period ends to complete the survey.</div>`;
+      $("openBoardBtn").addEventListener("click", openBoard);
     }
 
-    function zoneField({key, number, eyebrow, title, help, value, cls="", tall=false}) {
-      return `<section class="workspace-zone ${cls}">
-        <div class="zone-heading">
-          <span class="zone-number">${number}</span>
-          <div><span class="zone-eyebrow">${eyebrow}</span><h3>${title}</h3></div>
-        </div>
-        <p class="zone-help">${help}</p>
-        <textarea class="zone-input ${tall ? "zone-input-tall" : ""}" id="${key}" data-answer-key="${key}" placeholder="Start working here…">${escapeHtml(value || "")}</textarea>
-      </section>`;
-    }
-
-    function teamCharterHtml(v) {
-      return `<div class="deliverable-board charter-board">
-        ${zoneField({key:"purpose",number:"01",eyebrow:"Shared north star",title:"Project purpose and desired outcomes",help:"What is the team trying to accomplish, and what would a strong outcome look like?",value:v.purpose,cls:"zone-purpose"})}
-        <div class="charter-pair">
-          ${zoneField({key:"humanProfile",number:"02A",eyebrow:"Teammate profile",title:"Human teammate",help:"Relevant strengths, knowledge, limits, preferences, or responsibilities of the human teammate.",value:v.humanProfile,cls:"zone-human"})}
-          ${zoneField({key:"aiProfile",number:"02B",eyebrow:"Teammate profile",title:"AI teammate",help:"What the AI can contribute, where it should be checked, and what role it should play.",value:v.aiProfile,cls:"zone-ai"})}
-        </div>
-        ${zoneField({key:"collaborationStyle",number:"03",eyebrow:"How the team works",title:"Collaboration style",help:"How should the human and AI communicate, challenge ideas, verify work, and make decisions?",value:v.collaborationStyle,cls:"zone-collaboration",tall:true})}
-        ${zoneField({key:"rolesResponsibilities",number:"04",eyebrow:"Operating agreement",title:"Roles and responsibilities",help:"Record the main responsibilities owned by the human, the AI, or shared by both.",value:v.rolesResponsibilities,cls:"zone-roles",tall:true})}
-      </div>`;
-    }
-
-    function problemRepresentationHtml(v) {
-      return `<div class="deliverable-board problem-board">
-        ${zoneField({key:"problemFormulation",number:"01",eyebrow:"Frame the challenge",title:"Problem formulation",help:"State the problem clearly, including the target population, setting, constraints, and desired result.",value:v.problemFormulation,cls:"map-zone map-frame"})}
-        <section class="workspace-zone map-zone map-core">
-          <div class="zone-heading">
-            <span class="zone-number">02</span>
-            <div><span class="zone-eyebrow">Build the shared picture</span><h3>Shared representation</h3></div>
-          </div>
-          <p class="zone-help">Describe the major components and how they connect. Build the map using the tools below; move items around freely while you work.</p>
-          <div class="map-toolbank" id="mapToolBank" role="toolbar" aria-label="Problem map tools">
-            <span class="tool-label">Add to map</span>
-            <button type="button" class="map-tool" data-map-tool="text">▤ Text box</button>
-            <button type="button" class="map-tool" data-map-tool="bullets">• Bullets</button>
-            <button type="button" class="map-tool" data-map-tool="note">□ Note</button>
-            <button type="button" class="map-tool" data-map-tool="label">TAG Label</button>
-            <button type="button" class="map-tool" data-map-tool="arrow">→ Arrow</button>
-            <button type="button" class="map-tool danger-tool" id="deleteMapObjectBtn">Delete selected</button>
-          </div>
-          <div class="map-canvas" id="problemMapCanvas">
-            <div class="map-empty-hint" id="mapEmptyHint">
-              <strong>Build the problem map here</strong>
-              <span>Add cards, bullets, labels, notes, and arrows from the tool bank, then drag them into place.</span>
-            </div>
-          </div>
-        </section>
-        ${zoneField({key:"tasksOwnership",number:"03",eyebrow:"Move from map to action",title:"Tasks and ownership",help:"What work needs to be done next, and which teammate should own or share each task?",value:v.tasksOwnership,cls:"map-zone map-ownership",tall:true})}
-      </div>`;
-    }
-
-    function executionHtml(v) {
-      const cells = (row,key) => escapeHtml(v[`exec_${row}_${key}`] || "");
-      const month = (row,m) => escapeHtml(v[`month_${row}_${m}`] || "");
-      return `<div class="deliverable-board execution-board">
-        <div class="board-kicker"><span>Execution canvas</span><strong>Turn the concept into a six-month pilot</strong></div>
-        <div class="field"><label>Plan</label><div class="small-help">Three initiatives, their intended outcomes, key activities or milestones, and concrete deliverables.</div></div>
-        <div class="study-table-wrap"><table class="study-table">
-          <thead><tr><th>Initiative</th><th>Intended outcome</th><th>Key activities / milestones</th><th>Deliverable</th></tr></thead>
-          <tbody>${[1,2,3].map(r=>`<tr>
-            <td><textarea data-answer-key="exec_${r}_initiative" placeholder="Initiative ${r}">${cells(r,'initiative')}</textarea></td>
-            <td><textarea data-answer-key="exec_${r}_outcome" placeholder="Intended outcome">${cells(r,'outcome')}</textarea></td>
-            <td><textarea data-answer-key="exec_${r}_milestones" placeholder="Key activities / milestones">${cells(r,'milestones')}</textarea></td>
-            <td><textarea data-answer-key="exec_${r}_deliverable" placeholder="Deliverable">${cells(r,'deliverable')}</textarea></td>
-          </tr>`).join('')}</tbody>
-        </table></div>
-        <div class="field"><label>Six-month timeline</label><div class="small-help">Use each cell to note the main work planned for that initiative during that month.</div></div>
-        <div class="study-table-wrap month-grid"><table class="study-table">
-          <thead><tr><th>Work item</th>${[1,2,3,4,5,6].map(m=>`<th>Month ${m}</th>`).join('')}</tr></thead>
-          <tbody>${[1,2,3].map(r=>`<tr><th>Initiative ${r}</th>${[1,2,3,4,5,6].map(m=>`<td><textarea class="month-cell" rows="1" data-answer-key="month_${r}_${m}" placeholder="Add work for this month">${month(r,m)}</textarea></td>`).join('')}</tr>`).join('')}</tbody>
-        </table></div>
-        <div class="field roles-panel"><label for="executionRoles">Roles and responsibilities</label><textarea id="executionRoles" data-answer-key="executionRoles" placeholder="Who owns what during execution, and what work is shared?">${escapeHtml(v.executionRoles||'')}</textarea></div>
-      </div>`;
-    }
-
-    function reviewHtml(v) {
-      const cell = (row,key) => escapeHtml(v[`review_${row}_${key}`] || "");
-      return `<div class="deliverable-board review-board">
-        <div class="board-kicker"><span>Evaluation workspace</span><strong>Review the evidence, pressure-test the plan, decide what changes</strong></div>
-        <div class="field review-lead"><label for="reviewUnderstanding">Review problem understanding</label><textarea id="reviewUnderstanding" data-answer-key="reviewUnderstanding" placeholder="What has the team learned or changed about its understanding of the problem?">${escapeHtml(v.reviewUnderstanding||'')}</textarea></div>
-        <div class="field"><label>Progress and evidence</label><div class="small-help">Review each initiative's intended outcome, current evidence or status, and next step.</div></div>
-        <div class="study-table-wrap"><table class="study-table">
-          <thead><tr><th>Initiative</th><th>Intended outcome</th><th>Current evidence or status</th><th>Next step</th></tr></thead>
-          <tbody>${[1,2,3].map(r=>`<tr>
-            <td><textarea data-answer-key="review_${r}_initiative" placeholder="Initiative ${r}">${cell(r,'initiative')}</textarea></td>
-            <td><textarea data-answer-key="review_${r}_outcome" placeholder="Intended outcome">${cell(r,'outcome')}</textarea></td>
-            <td><textarea data-answer-key="review_${r}_evidence" placeholder="Current evidence or status">${cell(r,'evidence')}</textarea></td>
-            <td><textarea data-answer-key="review_${r}_next" placeholder="Next step">${cell(r,'next')}</textarea></td>
-          </tr>`).join('')}</tbody>
-        </table></div>
-        <div class="field review-revisions"><label for="feedbackRevisions">Feedback and revisions</label><textarea id="feedbackRevisions" data-answer-key="feedbackRevisions" placeholder="What feedback, weaknesses, revisions, or open questions should be addressed?">${escapeHtml(v.feedbackRevisions||'')}</textarea></div>
-      </div>`;
-    }
-
-    function bindAnswerInputs() {
-      document.querySelectorAll("[data-answer-key]").forEach(el => {
-        el.addEventListener("input", () => {
-          state.answers[state.current][el.dataset.answerKey] = el.value;
-          debounceSave();
-        });
-      });
-    }
-
-    function autoGrowTextarea(el) {
-      if (!el || el.tagName !== "TEXTAREA") return;
-      const minHeight = parseFloat(getComputedStyle(el).minHeight) || 0;
-      el.style.height = "auto";
-      el.style.height = Math.max(minHeight, el.scrollHeight + 2) + "px";
-    }
-
-    function initAutoGrowTextareas() {
-      document.querySelectorAll(".study-table textarea, .zone-input, .roles-panel textarea, .review-lead textarea, .review-revisions textarea").forEach(el => {
-        autoGrowTextarea(el);
-        el.addEventListener("input", () => autoGrowTextarea(el));
-      });
-    }
-
-    function initProblemMap() {
-      const canvas = $("problemMapCanvas");
-      const toolBank = $("mapToolBank");
-      const emptyHint = $("mapEmptyHint");
-      if (!canvas || !toolBank) return;
-
-      const answer = state.answers[1] || (state.answers[1] = {});
-      if (!Array.isArray(answer.problemMapObjects)) answer.problemMapObjects = [];
-      const objects = answer.problemMapObjects;
-      let selectedId = null;
-
-      const defaults = {
-        text: {text:"Type a thought, relationship, or key detail", cls:"map-text"},
-        bullets: {text:"• Main point\n• Supporting point", cls:"map-bullets"},
-        note: {text:"Working note", cls:"map-note"},
-        label: {text:"Label", cls:"map-label"},
-        arrow: {text:"→", cls:"map-arrow"}
-      };
-
-      function refreshEmptyHint() {
-        if (emptyHint) emptyHint.style.display = objects.length ? "none" : "block";
-      }
-
-      function setSelected(id) {
-        selectedId = id;
-        canvas.querySelectorAll(".map-object").forEach(el => el.classList.toggle("selected", el.dataset.mapId === id));
-      }
-
-      function saveObjects() {
-        answer.problemMapObjects = objects;
-        debounceSave();
-        refreshEmptyHint();
-      }
-
-      function objectById(id) {
-        return objects.find(o => o.id === id);
-      }
-
-      function createObjectElement(obj) {
-        const el = document.createElement("div");
-        el.className = `map-object ${obj.cls || ("map-" + obj.type)}`;
-        el.dataset.mapId = obj.id;
-        el.style.left = `${obj.x}%`;
-        el.style.top = `${obj.y}%`;
-
-        const grip = document.createElement("div");
-        grip.className = "map-grip";
-        grip.textContent = "•••";
-        grip.title = "Drag to move";
-        el.appendChild(grip);
-
-        if (obj.type === "arrow") {
-          const arrow = document.createElement("div");
-          arrow.className = "map-arrow-glyph";
-          arrow.textContent = "→";
-          el.appendChild(arrow);
-        } else {
-          const content = document.createElement("div");
-          content.className = "map-object-content";
-          content.contentEditable = "true";
-          content.spellcheck = true;
-          content.textContent = obj.text || "";
-          content.addEventListener("input", () => {
-            const current = objectById(obj.id);
-            if (current) current.text = content.innerText;
-            saveObjects();
-          });
-          content.addEventListener("focus", () => setSelected(obj.id));
-          el.appendChild(content);
-        }
-
-        el.addEventListener("pointerdown", () => setSelected(obj.id));
-
-        grip.addEventListener("pointerdown", (e) => {
-          e.preventDefault();
-          e.stopPropagation();
-          setSelected(obj.id);
-
-          const rect = canvas.getBoundingClientRect();
-          const elRect = el.getBoundingClientRect();
-          const startX = e.clientX;
-          const startY = e.clientY;
-          const startLeft = elRect.left - rect.left;
-          const startTop = elRect.top - rect.top;
-          grip.setPointerCapture(e.pointerId);
-
-          const move = (ev) => {
-            const maxLeft = Math.max(0, rect.width - el.offsetWidth);
-            const maxTop = Math.max(0, rect.height - el.offsetHeight);
-            const pxLeft = Math.min(maxLeft, Math.max(0, startLeft + ev.clientX - startX));
-            const pxTop = Math.min(maxTop, Math.max(0, startTop + ev.clientY - startY));
-            const x = rect.width ? (pxLeft / rect.width) * 100 : 0;
-            const y = rect.height ? (pxTop / rect.height) * 100 : 0;
-            el.style.left = `${x}%`;
-            el.style.top = `${y}%`;
-            const current = objectById(obj.id);
-            if (current) {
-              current.x = Number(x.toFixed(2));
-              current.y = Number(y.toFixed(2));
-            }
-          };
-
-          const end = () => {
-            grip.removeEventListener("pointermove", move);
-            grip.removeEventListener("pointerup", end);
-            grip.removeEventListener("pointercancel", end);
-            saveObjects();
-          };
-
-          grip.addEventListener("pointermove", move);
-          grip.addEventListener("pointerup", end);
-          grip.addEventListener("pointercancel", end);
-        });
-
-        canvas.appendChild(el);
-      }
-
-      function renderAll() {
-        canvas.querySelectorAll(".map-object").forEach(el => el.remove());
-        objects.forEach(createObjectElement);
-        refreshEmptyHint();
-      }
-
-      function addObject(type) {
-        const base = defaults[type];
-        if (!base) return;
-        const i = objects.length;
-        const obj = {
-          id: `map_${Date.now()}_${Math.random().toString(36).slice(2,7)}`,
-          type,
-          cls: base.cls,
-          text: base.text,
-          x: 4 + ((i * 7) % 48),
-          y: 8 + ((i * 11) % 62)
-        };
-        objects.push(obj);
-        createObjectElement(obj);
-        setSelected(obj.id);
-        saveObjects();
-        const content = canvas.querySelector(`[data-map-id="${obj.id}"] .map-object-content`);
-        if (content) {
-          content.focus();
-          const range = document.createRange();
-          range.selectNodeContents(content);
-          const sel = window.getSelection();
-          sel.removeAllRanges();
-          sel.addRange(range);
-        }
-      }
-
-      toolBank.querySelectorAll("[data-map-tool]").forEach(btn => {
-        btn.addEventListener("click", () => addObject(btn.dataset.mapTool));
-      });
-
-      $("deleteMapObjectBtn")?.addEventListener("click", () => {
-        if (!selectedId) return;
-        const idx = objects.findIndex(o => o.id === selectedId);
-        if (idx >= 0) objects.splice(idx, 1);
-        canvas.querySelector(`[data-map-id="${selectedId}"]`)?.remove();
-        selectedId = null;
-        saveObjects();
-      });
-
-      canvas.addEventListener("pointerdown", (e) => {
-        if (e.target === canvas) setSelected(null);
-      });
-
-      renderAll();
-    }
-
-    function debounceSave() {
-      clearTimeout(saveTimeout);
-      saveTimeout = setTimeout(saveState, 350);
+    function openBoard() {
+      const link = state.boardLinks[state.current];
+      if (!validBoardLinks(state.boardLinks)) { alert("Ask the researcher to check the assigned FigJam links."); return; }
+      state.boardOpenedAt[state.current] = state.boardOpenedAt[state.current] || new Date().toISOString();
+      saveState();
+      // A real edit-capable FigJam tab, not a view-only iframe.
+      window.open(link, "_blank", "noopener,noreferrer");
     }
 
     function startTimer() {
       clearInterval(interval);
-      updateTimerUI();
-      interval = setInterval(() => {
-        state.seconds -= 1;
-        if (!eventAcknowledged(state.current) && state.seconds <= EVENT_TRIGGER_SECONDS) {
-          state.seconds = Math.max(0, state.seconds);
-          updateTimerUI();
-          showStudyEvent();
-          return;
+      if (!state.deadline) state.deadline = Date.now() + state.seconds * 1000;
+      function tick() {
+        if (!["work", "final"].includes(state.phase)) return;
+        const now = Date.now();
+        if (state.phase === "work" && now >= state.deadline) {
+          state.phase = "final";
+          state.deadline += FINAL_SECONDS * 1000;
+          $("progressSubheading").textContent = "Final touches: finish editing in FigJam.";
+          saveState();
         }
-        if (state.seconds <= 0) {
-          state.seconds = 0;
-          updateTimerUI();
-          if (!eventAcknowledged(state.current)) {
-            state.skipAfterEvent = true;
-            showStudyEvent();
-          } else {
-            finishDeliverable();
-          }
-          return;
-        }
+        state.seconds = Math.max(0, Math.ceil((state.deadline - now) / 1000));
+        if (state.phase === "final" && state.seconds === 0) { finishDeliverable(); return; }
         updateTimerUI();
-        if (state.seconds % 10 === 0) saveState();
-      }, 1000);
-    }
-
-    function eventAcknowledged(index) {
-      return Boolean(state.events[index] && state.events[index].acknowledgedAt);
-    }
-
-    function showStudyEvent() {
-      clearInterval(interval);
-      const idx = state.current;
-      const cfg = STUDY.events[idx];
-      const existing = state.events[idx] || {};
-      state.events[idx] = {
-        title: cfg.title,
-        category: cfg.category,
-        text: cfg.text,
-        shownAt: existing.shownAt || new Date().toISOString(),
-        acknowledgedAt: existing.acknowledgedAt || null,
-        response: existing.response || ""
-      };
-      $("eventTitle").textContent = cfg.title;
-      $("eventCategory").textContent = cfg.category;
-      $("eventText").textContent = cfg.text;
-      $("eventResponse").value = state.events[idx].response || "";
-      $("eventBackdrop").classList.remove("hidden");
-      saveState();
-    }
-
-    function acknowledgeStudyEvent() {
-      const response = $("eventResponse").value.trim();
-      if (!response) {
-        alert("Briefly state what your team should change before continuing.");
-        return;
       }
-      const idx = state.current;
-      state.events[idx].response = response;
-      state.events[idx].acknowledgedAt = new Date().toISOString();
-      $("eventBackdrop").classList.add("hidden");
-      saveState();
-      if (state.skipAfterEvent) {
-        state.skipAfterEvent = false;
-        finishDeliverable();
-      } else {
-        startTimer();
-      }
+      tick();
+      if (["work", "final"].includes(state.phase)) interval = setInterval(tick, 250);
     }
+
+    document.addEventListener("visibilitychange", () => {
+      if (!document.hidden && ["work", "final"].includes(state.phase)) startTimer();
+    });
 
     function updateTimerUI() {
       const m = Math.max(0, Math.floor(state.seconds / 60));
       const s = Math.max(0, state.seconds % 60);
       $("timer").textContent = `${String(m).padStart(2,"0")}:${String(s).padStart(2,"0")}`;
-      $("timerLabel").textContent = "Test Work Period";
-      $("timerBox").classList.remove("final");
-      $("finalTouchesNotice").classList.add("hidden");
-    }
-
-    function skipTimerForTesting() {
-      if (state.phase !== "work") return;
-      saveState();
-      if (!eventAcknowledged(state.current)) {
-        state.skipAfterEvent = true;
-        showStudyEvent();
-      } else {
-        finishDeliverable();
-      }
+      const isFinal = state.phase === "final";
+      $("timerLabel").textContent = isFinal ? "Final Touches" : "Work Period";
+      $("timerBox").classList.toggle("final", isFinal);
+      $("finalTouchesNotice").classList.toggle("hidden", !isFinal);
     }
 
     function finishDeliverable() {
       clearInterval(interval);
       state.deliverableCompletedAt[state.current] = new Date().toISOString();
+      state.deadline = null;
       state.phase = "survey";
       saveState();
       renderSurvey();
@@ -2170,42 +1226,18 @@
       $("surveyEyebrow").textContent = `Deliverable ${state.current + 1} complete`;
       $("surveyTitle").textContent = `${d.title} — Post-deliverable Survey`;
       $("surveyDescription").textContent = state.current === 3
-        ? "Complete the quick AI behavior check and Deliverable 4 survey before finishing the study."
-        : "Complete the quick AI behavior check, then the short Qualtrics survey before moving to the next instruction video.";
-      renderManipulationCheck();
+        ? "Complete the Deliverable 4 survey before finishing the study."
+        : "Complete the short Qualtrics survey before moving to the next instruction video.";
       showOnly("surveyScreen");
     }
 
-    function renderManipulationCheck() {
-      const saved = state.manipulationChecks[state.current] || {};
-      const head = `<div class="likert-head"><div>AI behavior</div><div>1</div><div>2</div><div>3</div><div>4</div><div>5</div></div>`;
-      const rows = MANIPULATION_ITEMS.map(item => {
-        const choices = [1,2,3,4,5].map(n => `<label class="likert-choice"><input type="radio" name="mc_${item.key}" data-mc-key="${item.key}" value="${n}" ${Number(saved[item.key])===n?'checked':''}></label>`).join('');
-        return `<div class="likert-row"><div class="likert-label">${item.text}</div>${choices}</div>`;
-      }).join('');
-      $("manipulationCheckContainer").innerHTML = `<h3>Quick AI behavior check</h3><p>Rate what actually happened in the interaction. 1 = strongly disagree, 5 = strongly agree.</p>${head}${rows}`;
-      $("manipulationCheckContainer").querySelectorAll("[data-mc-key]").forEach(el => {
-        el.addEventListener("change", () => {
-          state.manipulationChecks[state.current][el.dataset.mcKey] = Number(el.value);
-          saveState();
-        });
-      });
-    }
-
-    function manipulationCheckComplete() {
-      const saved = state.manipulationChecks[state.current] || {};
-      return MANIPULATION_ITEMS.every(item => Number.isFinite(Number(saved[item.key])) && Number(saved[item.key]) >= 1);
-    }
-
     function openCurrentSurvey() {
-      if (!manipulationCheckComplete()) { alert("Complete the quick AI behavior check first."); return; }
       state.surveysOpened[state.current] = true;
       saveState();
       window.open(STUDY.surveys[state.current], "_blank", "noopener,noreferrer");
     }
 
     function continueAfterSurvey() {
-      if (!manipulationCheckComplete()) { alert("Complete the quick AI behavior check first."); return; }
       if (!state.surveysOpened[state.current]) {
         const ok = confirm("The survey has not been opened from this page yet. Continue anyway?");
         if (!ok) return;
@@ -2258,18 +1290,18 @@
     }
 
     function exportData() {
-      const payload = {prototype:"BudsNiche Research Lab", measurementVersion:"v8-baseline-events-manipulation-checks", exportedAt:new Date().toISOString(), ...state};
+      const payload = {prototype:"BudsNiche Research Lab — FigJam", responseStorage:"FigJam only; this export contains session metadata, not board contents", exportedAt:new Date().toISOString(), ...state};
       const blob = new Blob([JSON.stringify(payload, null, 2)], {type:"application/json"});
       const url = URL.createObjectURL(blob);
       const a = document.createElement("a");
       a.href = url;
-      a.download = `research-prototype-${state.participantId || "participant"}.json`;
+      a.download = `research-session-${state.participantId || "participant"}.json`;
       a.click();
       setTimeout(() => URL.revokeObjectURL(url), 1000);
     }
 
     function resetDemo() {
-      if (!confirm("Reset this study workspace and erase its locally saved progress?")) return;
+      if (!confirm("Reset this study workspace and erase its locally saved session progress? This does not erase the FigJam board.")) return;
       localStorage.removeItem(STORAGE_KEY);
       location.reload();
     }
@@ -2278,13 +1310,8 @@
       if (!loadState() || !state.participantId) return false;
       if (state.phase === "complete") renderComplete();
       else if (state.phase === "orientation" || state.phase === "problem") renderPreStudy();
-      else if (state.phase === "baseline") renderBaseline();
       else if (state.phase === "instructions") renderInstruction();
-      else if (state.phase === "work") {
-        renderWorkspace();
-        if (state.events[state.current] && state.events[state.current].shownAt && !state.events[state.current].acknowledgedAt) showStudyEvent();
-        else startTimer();
-      }
+      else if (state.phase === "work" || state.phase === "final") { renderWorkspace(); startTimer(); }
       else if (state.phase === "survey") renderSurvey();
       else return false;
       return true;
@@ -2292,25 +1319,31 @@
 
     renderResourceLists();
 
-    $("topStatus").textContent = "STUDY DESIGN TEST // BASELINE + EVENTS + CHECKS";
-    const demoNote = document.createElement("div");
-    demoNote.className = "notice";
-    demoNote.style.marginTop = "14px";
-    demoNote.innerHTML = "<strong>Testing build:</strong> Videos can be scrubbed freely. This version adds a 2-minute human-only baseline, one scenario update during each deliverable, project-designed AI behavior checks, and temporary skip controls for testing.";
-    $("startBodyMarker")?.appendChild(demoNote);
+    if (DEMO_MODE) {
+      $("boardUrl").value = DELIVERABLES[0].figjam.split("?")[0];
+      $("boardSetupHelp").textContent = "Demo uses the original Study board. Do not enter participant data here.";
+      $("topStatus").textContent = "DEMO MODE // 45s + 15s";
+      const demoNote = document.createElement("div");
+      demoNote.className = "notice";
+      demoNote.style.marginTop = "14px";
+      demoNote.innerHTML = "<strong>Demo mode:</strong> Timers are shortened to 45 seconds + 15 seconds. This demo uses the template board; use only fictional test responses. Normal study mode remains 20 minutes + 2 minutes.";
+      $("startBodyMarker")?.appendChild(demoNote);
+    } else {
+      $("boardSetup").open = true;
+      $("topStatus").textContent = "FigJam Pilot // Session Progress";
+    }
 
+    if (DEMO_MODE) {
+      const skip = document.createElement("button"); skip.type="button"; skip.className="secondary"; skip.textContent="Demo: finish deliverable";
+      skip.addEventListener("click",()=>{if(["work","final"].includes(state.phase))finishDeliverable();});
+      $("manualSaveBtn").after(skip);
+    }
     $("beginStudyBtn").addEventListener("click", beginStudy);
     $("continuePreStudyBtn").addEventListener("click", continuePreStudy);
-    bindBaselineFields();
-    $("startBaselineBtn").addEventListener("click", startBaseline);
-    $("finishBaselineBtn").addEventListener("click", finishBaseline);
-    $("skipBaselineBtn").addEventListener("click", finishBaseline);
     $("preStudySaveBtn").addEventListener("click", () => { saveState(); alert("Progress saved locally on this browser."); });
     $("startDeliverableBtn").addEventListener("click", startDeliverable);
     $("saveExitBtn").addEventListener("click", () => { saveState(); alert("Progress saved locally on this browser."); });
-    $("manualSaveBtn").addEventListener("click", () => { saveState(); alert("Progress saved."); });
-    $("skipTimerBtn").addEventListener("click", skipTimerForTesting);
-    $("ackEventBtn").addEventListener("click", acknowledgeStudyEvent);
+    $("manualSaveBtn").addEventListener("click", () => { saveState(); alert("Session progress saved locally. FigJam manages board content."); });
     $("replayVideoBtn").addEventListener("click", replayVideo);
     $("collapseVideoBtn").addEventListener("click", toggleVideo);
     $("openAiBtn").addEventListener("click", openAi);
